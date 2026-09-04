@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Deathbed Memories</title>
+<meta name="description" content="Get in touch with Deathbed Memories for travel planning and consulting.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="nav-logo" href="index.html">deathbed memories</a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Get in touch</h1>
+    <p>Questions, custom requests, or just want to say hi before booking a consult.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="grid" style="grid-template-columns: 1.3fr 1fr;">
+      <div>
+        <!-- ============================================================
+             INQUIRY FORM
+             This uses Formspree's free plan to send submissions straight
+             to your email — no backend or server needed. See README.md
+             "Setting up the contact & signup forms" to get your own form
+             ID, then replace YOUR_FORM_ID below.
+             ============================================================ -->
+        <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div>
+            <label for="trip-type">What are you looking for?</label>
+            <select id="trip-type" name="trip_type">
+              <option>Weekend itinerary</option>
+              <option>5–10 day itinerary</option>
+              <option>Up to 30 day itinerary</option>
+              <option>Full booking service</option>
+              <option>Travel companion</option>
+              <option>Free consultation</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="Tell me a bit about the trip you're imagining."></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Send inquiry</button>
+          <p class="form-note">I read every message myself and usually reply within a few days — sooner if I have signal.</p>
+        </form>
+      </div>
+      <div>
+        <h3>Direct contact</h3>
+        <p class="mt-2">
+          <strong>Email:</strong><br>
+          <a href="mailto:dbmems@proton.me">dbmems@proton.me</a>
+        </p>
+        <p class="mt-2">
+          <strong>Social:</strong><br>
+          <a href="https://www.tiktok.com/@deathbed.memories" target="_blank" rel="noopener">TikTok</a><br>
+          <a href="https://www.instagram.com/deathbed.memories/" target="_blank" rel="noopener">Instagram</a><br>
+          <a href="https://www.youtube.com/@deathbed.memoriess" target="_blank" rel="noopener">YouTube</a>
+        </p>
+        <p class="mt-2">
+          <a class="btn btn-outline" style="border-color: var(--color-dark); color: var(--color-dark);" href="services.html">Or book a free consultation</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>deathbed memories</h4>
+        <p>Nomadic travel consulting &amp; planning.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-links">
+          <li><a href="services.html">Services</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:dbmems@proton.me">dbmems@proton.me</a></li>
+          <li><a href="https://www.tiktok.com/@deathbed.memories" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://www.instagram.com/deathbed.memories/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.youtube.com/@deathbed.memoriess" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Deathbed Memories. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

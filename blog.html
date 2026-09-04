@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Deathbed Memories</title>
+<meta name="description" content="Travel diary and trip stories from Deathbed Memories.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="nav-logo" href="index.html">deathbed memories</a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>From the road</h1>
+    <p>
+      The real diary version of how these trips actually go — written as I
+      travel, not polished after the fact. Tap a post to read it.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     EMAIL ALERT SIGNUP — new-post notifications.
+     This form uses Formspree's free plan. See README.md "Setting
+     up the contact & signup forms" to get your own form ID, then
+     replace YOUR_FORM_ID below.
+     ============================================================ -->
+<section class="section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Get new posts by email</h2>
+      <p>One email whenever a new post from the road goes live. No spam, unsubscribe anytime.</p>
+    </div>
+    <form class="inline-form center" style="justify-content:center;" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <label class="sr-only" for="alert-email">Email address</label>
+      <input type="email" id="alert-email" name="email" placeholder="you@email.com" required>
+      <input type="hidden" name="_subject" value="New blog alert signup — Deathbed Memories">
+      <button class="btn btn-primary" type="submit">Notify me</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============================================================
+     BLOG LIST — filled in by js/blog.js from data/posts.json.
+     To publish a new post, add an entry to data/posts.json.
+     You do not need to edit this HTML file.
+     ============================================================ -->
+<section>
+  <div class="wrap">
+    <div class="blog-list" id="blog-list"><!-- filled in by js/blog.js --></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>deathbed memories</h4>
+        <p>Nomadic travel consulting &amp; planning.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-links">
+          <li><a href="services.html">Services</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:dbmems@proton.me">dbmems@proton.me</a></li>
+          <li><a href="https://www.tiktok.com/@deathbed.memories" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://www.instagram.com/deathbed.memories/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.youtube.com/@deathbed.memoriess" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Deathbed Memories. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/blog.js"></script>
+</body>
+</html>

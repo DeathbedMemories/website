@@ -1,0 +1,36 @@
+{
+  "profiles": [
+    { "platform": "TikTok",    "handle": "@deathbed.memories",   "url": "https://www.tiktok.com/@deathbed.memories" },
+    { "platform": "Instagram", "handle": "@deathbed.memories",   "url": "https://www.instagram.com/deathbed.memories/" },
+    { "platform": "YouTube",   "handle": "@deathbed.memoriess",  "url": "https://www.youtube.com/@deathbed.memoriess" },
+    { "platform": "Lemon8",    "handle": "@deathbed.memories",   "url": "https://www.lemon8-app.com/@deathbed.memories" },
+    { "platform": "OnlyFans",  "handle": "Deathbed Memories",    "url": "https://onlyfans.com/" }
+  ],
+  "recent_posts": [
+    {
+      "platform": "youtube",
+      "url": "https://www.youtube.com/@deathbed.memoriess",
+      "caption": "Replace this url with a real YouTube video link, e.g. https://www.youtube.com/watch?v=VIDEOID"
+    },
+    {
+      "platform": "tiktok",
+      "url": "https://www.tiktok.com/@deathbed.memories",
+      "caption": "Replace this url with a real TikTok video link, e.g. https://www.tiktok.com/@deathbed.memories/video/1234567890"
+    },
+    {
+      "platform": "instagram",
+      "url": "https://www.instagram.com/deathbed.memories/",
+      "caption": "Replace this url with a real Instagram post/reel link, e.g. https://www.instagram.com/p/POSTCODE/"
+    },
+    {
+      "platform": "lemon8",
+      "url": "https://www.lemon8-app.com/@deathbed.memories",
+      "caption": "Latest packing notes and travel diary entries"
+    },
+    {
+      "platform": "onlyfans",
+      "url": "https://onlyfans.com/",
+      "caption": "Behind-the-scenes and subscriber-only content"
+    }
+  ]
+}
