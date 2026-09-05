@@ -193,56 +193,35 @@ on some browsers (including iPad Safari), so create it with the same
 8. Tap **Commit changes**.
 
 After that, the folder already exists — adding more photos later is
-just steps 5–8. Reference an uploaded photo in a blog post like:
-`"image": "images/blog/your-photo-name.jpg"` in `data/posts.json`.
+just steps 5–8.
 
-### Adding a new blog post, step by step
-1. Upload your photo into `images/blog/` (see folder setup above if
-   it doesn't exist yet).
-2. Open `data/posts.json`, copy one post's `{ ... }` block, paste it
-   at the top of the list, and edit: `slug` (short, unique, no
-   spaces — used internally), `title`, `date` (YYYY-MM-DD), `location`,
-   `excerpt` (one sentence teaser), `image` (the path to your photo),
-   and `content` (your full post, each paragraph wrapped in
-   `<p>...</p>`).
-3. Commit. Done — no HTML page to create.
+### Building the image path for a blog post
+Once a photo is uploaded into `images/blog/`, you need to tell
+`data/posts.json` exactly where to find it — this is the "path." It's
+just three pieces stuck together: the folder, a slash, and the exact
+filename (including the file extension like `.jpg`, `.jpeg`, `.png`,
+or `.heic`).
 
-### Updating "recent posts" (Section 6)
-**Does this update automatically? No — you paste in new links by hand.**
-None of the five platforms let a free static site pull new posts on its
-own without either a paid developer account or a fragile third-party
-workaround, so the reliable free approach is: whenever you post
-something you want featured, open `data/social.json` and swap in that
-post's link. It takes under a minute per platform. Open `data/social.json` and replace the placeholder `url` for each
-platform with a link to one specific video/post/reel:
-- **YouTube:** a link like `https://www.youtube.com/watch?v=XXXXXXX`
-- **TikTok:** a link like `https://www.tiktok.com/@deathbed.memories/video/XXXXXXXXXXXXX`
-- **Instagram:** a link like `https://www.instagram.com/p/XXXXXXXXX/` or `/reel/XXXXXXXXX/`
-- **Lemon8 / OnlyFans:** these platforms don't allow public embeds, so
-  they'll always show as a simple "View on [platform]" card — just
-  keep the `url` pointed at your profile or the specific post.
+**Worked example:** say you upload a photo from your iPad's library and
+it's named `Personal Item.jpg`.
 
----
-
-## 4. Changing colors, fonts, and design
-
-Open `css/style.css`. The very top of the file (`:root { ... }`) has
-every brand color and font size defined once, with comments. Change a
-value there and it updates across all five pages automatically. Each
-section of the CSS file below that is labeled (COLORS, BUTTONS, FORMS,
-etc.) if you want to adjust something more specific.
-
-## 5. Site structure, for reference
-
-index.html        → Home (tagline, name concept, values, recent posts)
-services.html      → Services, pricing, free consultation booking
-shop.html          → Shop — the "No Gracias" cap + purchase request form
-blog.html          → Blog list + email signup
-contact.html        → Contact form + direct email
-editor.html         → Private helper tool — generates paste-ready code (see section 3)
-css/style.css        → All colors, fonts, and layout
-js/                → Site behavior (menu, scroll reveal, blog, social feed)
-data/posts.json      → Blog posts — edit this to publish
-data/social.json      → Recent social posts — edit this to update
-images/blog/          → Blog photos go here
-
+1. **Check the exact filename first.** On GitHub, tap into
+   `images/blog/` and look at the filename exactly as it's listed —
+   spelling, capitalization, and spacing all matter (`Personal
+   Item.jpg` is not the same file as `personal item.jpg` or
+   `personal-item.jpg` as far as the website is concerned).
+2. **Two options for that filename:**
+   - **Use it exactly as uploaded**, spaces and capitals included:
+     `"image": "images/blog/Personal Item.jpg"`
+     This works fine — browsers handle spaces in file paths okay.
+   - **Or rename it first** (tap the file on GitHub → pencil icon →
+     there's a rename option, or delete and re-upload with a new
+     name) to something with no spaces or capitals, which is the
+     more common convention and slightly tidier:
+     `"image": "images/blog/personal-item.jpg"`
+     Either approach works — pick whichever feels easier. Consistency
+     matters more than which style you choose.
+3. **Paste that exact string into the post's `image` field** in
+   `data/posts.json`:
+   ```json
+   "image": "images/blog/Personal Item.jpg",
