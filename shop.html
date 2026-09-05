@@ -4,16 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shop — Deathbed Memories</title>
-<meta name="description" content="Slogan apparel from Deathbed Memories.">
+<meta name="description" content="The 'no gracias' hat from Deathbed Memories.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header class="site-header">
   <nav class="nav">
-    <a class="nav-logo" href="index.html">deathbed memories</a>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2.5 5.5L9 17l2.5-5.5L15 9z"/></svg>
+      deathbed memories
+    </a>
     <button class="nav-toggle" aria-label="Toggle menu">☰</button>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -25,27 +28,101 @@
   </nav>
 </header>
 
-<section class="hero">
+<section class="hero hero-simple">
   <div class="wrap">
+    <p class="hero-tag">one design, for now</p>
     <h1>Shop</h1>
-    <p>Wearable versions of the lines that started this whole thing.</p>
+    <p>One item right now — the line that ends every conversation about a place you didn't love.</p>
   </div>
 </section>
 
 <!-- ============================================================
-     PRODUCT GRID — filled in by js/shop.js from data/products.json.
-     To add, remove, or edit a product, edit data/products.json.
-     Product photos go in /images/shop/.
+     PRODUCT — currently a single item. To add a second product
+     later, copy the whole <div class="grid"> block below (both
+     the .card and the form) and edit the copy's text, price, and
+     form fields.
+
+     HAT MOCKUP: this is a placeholder graphic built from CSS/SVG so
+     the page looks finished before you have real product photos.
+     Once you have a real photo, replace the whole <div class="hat-mockup">
+     block with: <img class="product-image" src="images/shop/hat.jpg" alt="Beige hat that says no gracias">
+     (put the photo in images/shop/ — create that folder if needed).
      ============================================================ -->
 <section>
   <div class="wrap">
-    <p class="form-note mb-2">
-      Note: this page displays products only. Checkout happens on an
-      external store platform — see README.md "Setting up the shop" for a
-      free option to connect. Update each product's "Shop this design"
-      link in data/products.json once your store is live.
-    </p>
-    <div class="grid" id="shop-grid"><!-- filled in by js/shop.js --></div>
+    <div class="shop-layout">
+
+      <div class="card reveal">
+        <div class="hat-mockup" role="img" aria-label="Beige cap with 'no gracias' embroidered in white cursive, the O styled as a smiley face">
+          <svg viewBox="0 0 320 220" width="100%" height="auto">
+            <path d="M20 150 Q160 40 300 150 L300 165 Q160 60 20 165 Z" fill="#D8C39C"/>
+            <path d="M15 150 Q160 30 305 150 Q305 170 160 178 Q15 170 15 150 Z" fill="#E4D2AC"/>
+            <ellipse cx="160" cy="176" rx="150" ry="16" fill="#C9B187"/>
+            <text x="160" y="118" text-anchor="middle" font-family="'Dancing Script', cursive" font-weight="700" font-size="40" fill="#FFFFFF">n</text>
+            <circle cx="176" cy="108" r="12" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+            <path d="M170 111 Q176 116 182 111" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="172" cy="104" r="1.6" fill="#FFFFFF"/>
+            <circle cx="180" cy="104" r="1.6" fill="#FFFFFF"/>
+            <text x="245" y="118" text-anchor="middle" font-family="'Dancing Script', cursive" font-weight="700" font-size="40" fill="#FFFFFF">gracias</text>
+          </svg>
+        </div>
+        <h3>"No Gracias" Cap</h3>
+        <p>Beige twill cap, "no gracias" embroidered across the front in white
+          cursive — the o styled as a little smiley. One size, adjustable strap.</p>
+        <p class="price">$40 CAD</p>
+      </div>
+
+      <div>
+        <h3>Request one</h3>
+        <p class="form-note mb-2">
+          This isn't an instant checkout — fill this out and I'll follow up
+          personally with a payment link (Wise, PayPal, or e-transfer) and
+          confirm shipping before anything's charged.
+        </p>
+        <!-- ============================================================
+             PURCHASE REQUEST FORM — uses Formspree, same free setup as
+             the contact form. Replace YOUR_SHOP_FORM_ID with your real
+             Formspree form ID (you can reuse the same form ID as
+             contact.html if you'd rather all requests land in one
+             inbox thread, or create a second free Formspree form just
+             for shop requests to keep them separate).
+             ============================================================ -->
+        <form action="https://formspree.io/f/mgaezpkg" method="POST">
+          <input type="hidden" name="_subject" value="Hat request — No Gracias Cap ($40 CAD)">
+          <input type="hidden" name="item" value="No Gracias Cap — $40 CAD">
+          <div>
+            <label for="shop-name">Name</label>
+            <input type="text" id="shop-name" name="name" required>
+          </div>
+          <div>
+            <label for="shop-email">Email</label>
+            <input type="email" id="shop-email" name="email" required>
+          </div>
+          <div>
+            <label for="shop-qty">Quantity</label>
+            <select id="shop-qty" name="quantity">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4+</option>
+            </select>
+          </div>
+          <div>
+            <label for="shop-address">Shipping address</label>
+            <textarea id="shop-address" name="shipping_address" required placeholder="Street, city, province/state, postal code, country"></textarea>
+          </div>
+          <div>
+            <label for="shop-notes">Anything else? (optional)</label>
+            <textarea id="shop-notes" name="notes" placeholder="Preferred payment method, questions, etc."></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">
+            Send request
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </form>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -80,6 +157,6 @@
 </footer>
 
 <script src="js/main.js"></script>
-<script src="js/shop.js"></script>
+<script src="js/reveal.js"></script>
 </body>
 </html>
