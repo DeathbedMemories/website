@@ -131,9 +131,74 @@ needed):**
 5. Scroll down, click **Commit changes**. Your live site updates
    within a minute or two.
 
+### Editing content that isn't the blog
+Homepage headlines, service pricing, the shop description, and the
+contact form's dropdown all live directly inside their page's HTML —
+there's no data file for these. Here's where each thing lives:
+
+| Content | File |
+|---|---|
+| Hero headline/tagline, "why the name" cards, values list | `index.html` |
+| Service pricing & descriptions, consultation heading | `services.html` |
+| Hat name/price/description | `shop.html` |
+| Contact page text, dropdown options | `contact.html` |
+| Email, social links, tagline in the footer | **Repeated in all 5 HTML files** — see note below |
+
+**Footer note:** the footer (email, social links, copyright line) is
+pasted separately into the bottom of `index.html`, `services.html`,
+`shop.html`, `blog.html`, and `contact.html` — there's no shared
+template file, so changing your email or a social handle means editing
+it in all five files, not just one.
+
+### The Content Editor tool (editor.html)
+To make hand-editing these safer, there's a small helper page —
+`editor.html` — that isn't part of the public site (it's not linked
+from your navigation) but lives in your repo and opens right from your
+browser. It's a set of simple fill-in forms; nothing you type in it
+gets sent anywhere, it just turns your answers into ready-to-paste
+HTML.
+
+**To use it:**
+1. Visit `https://your-username.github.io/deathbed-memories-website/editor.html`
+   (same URL as your live site, with `/editor.html` added on the end).
+2. Tap open the section you want (Hero, Values, Services pricing, Shop,
+   Contact dropdown, or Footer).
+3. Edit the fields — they're pre-filled with your current site copy.
+4. Tap **Generate code**, then **Copy**.
+5. Go to the actual page file on GitHub (noted at the top of each
+   section, e.g. "Goes in: index.html"), tap edit, find the matching
+   block of code, select just that chunk, delete it, and paste in the
+   new version. Commit changes.
+
+It won't ever break your file's overall structure as long as you paste
+over the *same block* it tells you to — it's not a live preview or an
+auto-publish tool, just a safer way to produce the HTML snippet.
+
+### Setting up the blog images folder
+The `images/blog/` folder doesn't exist until you create it — GitHub's
+plain "Upload files" button can't create a new nested folder by itself
+on some browsers (including iPad Safari), so create it with the same
+"type a path" trick used for `css/`, `js/`, and `data/`:
+
+1. In your repo, tap **Add file → Create new file**.
+2. In the filename box, type: `images/blog/README.txt`
+3. In the content box, type anything, e.g. `Blog photos go here.`
+4. Tap **Commit changes** — this creates the `images` folder and the
+   `blog` folder inside it, together, in one step.
+5. Go back to your file list, tap into `images`, then into `blog` —
+   you're now inside that folder.
+6. Tap **Add file → Upload files** (not "Create new file" this time —
+   photos are binary, not text).
+7. Choose your photo(s) from your iPad's photo library and upload.
+8. Tap **Commit changes**.
+
+After that, the folder already exists — adding more photos later is
+just steps 5–8. Reference an uploaded photo in a blog post like:
+`"image": "images/blog/your-photo-name.jpg"` in `data/posts.json`.
+
 ### Adding a new blog post, step by step
-1. Add your photo to the `images/blog/` folder in GitHub (there's an
-   "Add file" → "Upload files" button in any folder).
+1. Upload your photo into `images/blog/` (see folder setup above if
+   it doesn't exist yet).
 2. Open `data/posts.json`, copy one post's `{ ... }` block, paste it
    at the top of the list, and edit: `slug` (short, unique, no
    spaces — used internally), `title`, `date` (YYYY-MM-DD), `location`,
@@ -168,4 +233,16 @@ section of the CSS file below that is labeled (COLORS, BUTTONS, FORMS,
 etc.) if you want to adjust something more specific.
 
 ## 5. Site structure, for reference
+
+index.html        → Home (tagline, name concept, values, recent posts)
+services.html      → Services, pricing, free consultation booking
+shop.html          → Shop — the "No Gracias" cap + purchase request form
+blog.html          → Blog list + email signup
+contact.html        → Contact form + direct email
+editor.html         → Private helper tool — generates paste-ready code (see section 3)
+css/style.css        → All colors, fonts, and layout
+js/                → Site behavior (menu, scroll reveal, blog, social feed)
+data/posts.json      → Blog posts — edit this to publish
+data/social.json      → Recent social posts — edit this to update
+images/blog/          → Blog photos go here
 
