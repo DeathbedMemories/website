@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Editor — Deathbed Memories (internal tool)</title>
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    --dark:#1C1C1A; --cream:#F5EDD6; --terracotta:#C85C38; --forest:#4A7C59; --white:#fff; --line:#ddd2ac;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--cream); color: var(--dark); margin: 0; padding: 1.25rem; line-height: 1.5; }
+  h1 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+  .intro { color: #555; margin-bottom: 1.5rem; font-size: 0.92rem; }
+  .intro strong { color: var(--dark); }
+  details { background: var(--white); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 1rem; }
+  summary { padding: 1rem 1.1rem; cursor: pointer; font-weight: 600; font-size: 1.02rem; }
+  .panel { padding: 0 1.1rem 1.1rem; }
+  .field { margin-bottom: 0.85rem; }
+  label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 0.3rem; color: #444; }
+  input[type=text], textarea { width: 100%; padding: 0.6rem 0.7rem; border: 1px solid var(--line); border-radius: 6px; font-size: 0.95rem; font-family: inherit; background: #fffdf7; }
+  textarea { min-height: 70px; resize: vertical; }
+  .note { font-size: 0.78rem; color: #777; margin-top: 0.2rem; }
+  .btn { display: inline-block; background: var(--terracotta); color: #fff; border: none; padding: 0.65rem 1.2rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem; cursor: pointer; margin-top: 0.25rem; }
+  .btn.secondary { background: var(--forest); }
+  .btn:active { opacity: 0.85; }
+  .output-wrap { margin-top: 1rem; }
+  .output-wrap.hidden { display: none; }
+  .output-label { font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; }
+  textarea.output { min-height: 140px; background: #fff; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.82rem; color: #222; }
+  .where { background: #fdf6e3; border: 1px solid #eadfb8; border-radius: 6px; padding: 0.6rem 0.75rem; font-size: 0.82rem; margin-bottom: 0.9rem; }
+  .where b { display:block; margin-bottom:0.15rem; }
+  .copied { color: var(--forest); font-size: 0.82rem; font-weight: 600; margin-left: 0.6rem; }
+</style>
+</head>
+<body>
+
+<h1>Content Editor</h1>
+<p class="intro">
+  This page isn't part of your public site — it's just a helper. Fill in a
+  section below, tap <strong>Generate code</strong>, then copy the result
+  and paste it over the matching block in that file on GitHub (select just
+  that chunk of code in GitHub's editor, delete it, paste this in, then
+  Commit changes — same as always, just a smaller paste each time).
+</p>
+
+<details open>
+  <summary>Homepage — Hero (top banner)</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> index.html — replaces the block starting at &lt;section class="hero"&gt; content, specifically the text inside .hero-inner</div>
+    <div class="field"><label>Small italic tagline above the headline</label>
+      <input type="text" id="hero-tag" value="create the memories you want to have before you die"></div>
+    <div class="field"><label>Big headline</label>
+      <input type="text" id="hero-h1" value="Don't die without deathbed memories."></div>
+    <div class="field"><label>Paragraph below the headline</label>
+      <textarea id="hero-p">Every trip I plan is built around one question: when you look back from the very end, will this be one of the moments you're glad you had? I'm Manz — a nomadic travel consultant who plans trips around local experience, slower pace, and the kind of days that stay with you.</textarea></div>
+    <div class="field"><label>Primary button text</label>
+      <input type="text" id="hero-btn1" value="See services & book a free consult"></div>
+    <div class="field"><label>Secondary button text</label>
+      <input type="text" id="hero-btn2" value="Read the philosophy"></div>
+    <button class="btn" onclick="genHero()">Generate code</button>
+    <div class="output-wrap hidden" id="out-hero-wrap">
+      <div class="output-label">Paste this over the &lt;div class="wrap hero-inner"&gt;...&lt;/div&gt; block:</div>
+      <textarea class="output" id="out-hero" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-hero')">Copy</button><span class="copied" id="copied-hero"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Homepage — "Why the name" (3 cards)</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="concept"&gt;, replaces the &lt;div class="grid reveal-stagger"&gt;...&lt;/div&gt; block</div>
+    <div class="field"><label>Card 1 title</label><input type="text" id="c1t" value="The idea"></div>
+    <div class="field"><label>Card 1 text</label><textarea id="c1p">Most people plan travel around what's convenient, popular, or safe to post. I plan around what you'll actually remember when it counts — near the end of your life, looking back. Deathbed Memories is what's left after you strip away the itinerary filler: the moments worth having been there for.</textarea></div>
+    <div class="field"><label>Card 2 title</label><input type="text" id="c2t" value="The practice"></div>
+    <div class="field"><label>Card 2 text</label><textarea id="c2p">I built this approach on the road — four months of daily travel across seven countries, documented in real time. Not a highlight reel shot after the fact, but the actual decision-making: why I booked what I booked, what a local told me that changed my plans, what I'd do differently.</textarea></div>
+    <div class="field"><label>Card 3 title</label><input type="text" id="c3t" value="The promise"></div>
+    <div class="field"><label>Card 3 text</label><textarea id="c3p">When it's time to feel ready — whenever that comes — I want you to be able to say you packed light, stayed a while, lived like a local, and walked the paths most people skip. That's the trip I plan for you.</textarea></div>
+    <button class="btn" onclick="genConcept()">Generate code</button>
+    <div class="output-wrap hidden" id="out-concept-wrap">
+      <div class="output-label">Paste this over the whole "grid reveal-stagger" block:</div>
+      <textarea class="output" id="out-concept" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-concept')">Copy</button><span class="copied" id="copied-concept"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Homepage — Values list (5 items)</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="values"&gt;, replaces the &lt;ul class="values-list reveal-stagger"&gt;...&lt;/ul&gt; block</div>
+    <div class="field"><label>Value 1 title</label><input type="text" id="v1t" value="Local over tourist"></div>
+    <div class="field"><label>Value 1 text</label><textarea id="v1p">Fewer landmarks, more of what the people who actually live there do on a normal Tuesday.</textarea></div>
+    <div class="field"><label>Value 2 title</label><input type="text" id="v2t" value="Slower travel"></div>
+    <div class="field"><label>Value 2 text</label><textarea id="v2p">Stay at least a week before moving on. Depth over a checklist of cities.</textarea></div>
+    <div class="field"><label>Value 3 title</label><input type="text" id="v3t" value="Sustainable approach"></div>
+    <div class="field"><label>Value 3 text</label><textarea id="v3p">Travel that doesn't burn you — or the places you're visiting — out.</textarea></div>
+    <div class="field"><label>Value 4 title</label><input type="text" id="v4t" value="Safety, seriously"></div>
+    <div class="field"><label>Value 4 text</label><textarea id="v4p">Especially as a solo traveler myself, safety isn't an afterthought in any plan I build.</textarea></div>
+    <div class="field"><label>Value 5 title</label><input type="text" id="v5t" value="Affordability"></div>
+    <div class="field"><label>Value 5 text</label><textarea id="v5p">A great trip and a realistic budget aren't opposites. I plan for both.</textarea></div>
+    <button class="btn" onclick="genValues()">Generate code</button>
+    <div class="output-wrap hidden" id="out-values-wrap">
+      <div class="output-label">Paste this over the whole &lt;ul class="values-list..."&gt;...&lt;/ul&gt; block:</div>
+      <textarea class="output" id="out-values" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-values')">Copy</button><span class="copied" id="copied-values"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Services — pricing tiers</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> services.html — replaces the first &lt;div class="grid reveal-stagger"&gt;...&lt;/div&gt; block (the 3 itinerary tiers)</div>
+    <div class="field"><label>Tier 1 tag</label><input type="text" id="s1tag" value="Weekend trip"></div>
+    <div class="field"><label>Tier 1 title</label><input type="text" id="s1t" value="Short getaway"></div>
+    <div class="field"><label>Tier 1 price</label><input type="text" id="s1price" value="$250"></div>
+    <div class="field"><label>Tier 1 description</label><textarea id="s1p">A full itinerary for a weekend trip — where to stay, what to do, and why, based on your goals.</textarea></div>
+    <div class="field"><label>Tier 2 tag</label><input type="text" id="s2tag" value="5–10 days"></div>
+    <div class="field"><label>Tier 2 title</label><input type="text" id="s2t" value="Standard trip"></div>
+    <div class="field"><label>Tier 2 price</label><input type="text" id="s2price" value="$500"></div>
+    <div class="field"><label>Tier 2 description</label><textarea id="s2p">A complete itinerary for a 5–10 day trip, built around your budget, pace, and travel style.</textarea></div>
+    <div class="field"><label>Tier 3 tag</label><input type="text" id="s3tag" value="Up to 30 days"></div>
+    <div class="field"><label>Tier 3 title</label><input type="text" id="s3t" value="Extended trip"></div>
+    <div class="field"><label>Tier 3 price</label><input type="text" id="s3price" value="$1,000"></div>
+    <div class="field"><label>Tier 3 description</label><textarea id="s3p">A full itinerary for trips up to 30 days — ideal for a career break, sabbatical, or a longer remote-work stint abroad.</textarea></div>
+    <button class="btn" onclick="genServices()">Generate code</button>
+    <div class="output-wrap hidden" id="out-services-wrap">
+      <div class="output-label">Paste this over the 3-tier grid block:</div>
+      <textarea class="output" id="out-services" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-services')">Copy</button><span class="copied" id="copied-services"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Shop — the hat</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> shop.html — replaces the &lt;h3&gt;, description &lt;p&gt;, and &lt;p class="price"&gt; right after the hat graphic</div>
+    <div class="field"><label>Product name</label><input type="text" id="shop-name" value='"No Gracias" Cap'></div>
+    <div class="field"><label>Description</label><textarea id="shop-desc">Beige twill cap, "no gracias" embroidered across the front in white cursive — the o styled as a little smiley. One size, adjustable strap.</textarea></div>
+    <div class="field"><label>Price</label><input type="text" id="shop-price" value="$40 CAD"></div>
+    <button class="btn" onclick="genShop()">Generate code</button>
+    <div class="output-wrap hidden" id="out-shop-wrap">
+      <div class="output-label">Paste this over the &lt;h3&gt;...&lt;/h3&gt;&lt;p&gt;...&lt;/p&gt;&lt;p class="price"&gt;...&lt;/p&gt; lines:</div>
+      <textarea class="output" id="out-shop" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-shop')">Copy</button><span class="copied" id="copied-shop"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Contact — dropdown options</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> contact.html — replaces the &lt;select id="trip-type"&gt;...&lt;/select&gt; block</div>
+    <div class="field"><label>One option per line</label>
+      <textarea id="dropdown-opts" style="min-height:160px;">Weekend itinerary
+5–10 day itinerary
+Up to 30 day itinerary
+Full booking service
+Travel companion
+Free consultation
+The "no gracias" hat
+Something else</textarea>
+      <p class="note">Add, remove, or reorder lines — each line becomes one dropdown choice.</p>
+    </div>
+    <button class="btn" onclick="genDropdown()">Generate code</button>
+    <div class="output-wrap hidden" id="out-dropdown-wrap">
+      <div class="output-label">Paste this over the whole &lt;select id="trip-type"...&gt;...&lt;/select&gt; block:</div>
+      <textarea class="output" id="out-dropdown" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-dropdown')">Copy</button><span class="copied" id="copied-dropdown"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Footer — email &amp; social links (appears in all 5 pages)</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> ⚠️ the SAME block appears near the bottom of index.html, services.html, shop.html, blog.html, AND contact.html. Paste this into all five, replacing each page's &lt;div class="footer-grid"&gt;...&lt;/div&gt; block.</div>
+    <div class="field"><label>Tagline under the logo</label><input type="text" id="f-tag" value="Nomadic travel consulting &amp; planning."></div>
+    <div class="field"><label>Email</label><input type="text" id="f-email" value="dbmems@proton.me"></div>
+    <div class="field"><label>TikTok URL</label><input type="text" id="f-tiktok" value="https://www.tiktok.com/@deathbed.memories"></div>
+    <div class="field"><label>Instagram URL</label><input type="text" id="f-instagram" value="https://www.instagram.com/deathbed.memories/"></div>
+    <div class="field"><label>YouTube URL</label><input type="text" id="f-youtube" value="https://www.youtube.com/@deathbed.memoriess"></div>
+    <button class="btn" onclick="genFooter()">Generate code</button>
+    <div class="output-wrap hidden" id="out-footer-wrap">
+      <div class="output-label">Paste this over each page's &lt;div class="footer-grid"&gt;...&lt;/div&gt; block:</div>
+      <textarea class="output" id="out-footer" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-footer')">Copy</button><span class="copied" id="copied-footer"></span>
+    </div>
+  </div>
+</details>
+
+<script>
+function show(id){ document.getElementById(id).classList.remove('hidden'); }
+function val(id){ return document.getElementById(id).value; }
+function esc(s){ return s.replace(/&(?!amp;|#39;|lt;|gt;|quot;)/g,'&amp;'); }
+
+function copyOut(id){
+  const el = document.getElementById(id);
+  el.select(); el.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(el.value).then(()=>{
+    const flag = document.getElementById('copied-' + id.replace('out-',''));
+    flag.textContent = 'Copied!';
+    setTimeout(()=> flag.textContent = '', 1800);
+  });
+}
+
+function genHero(){
+  const out = `    <p class="hero-tag">${esc(val('hero-tag'))}</p>
+    <h1>${esc(val('hero-h1'))}</h1>
+    <p>
+      ${esc(val('hero-p'))}
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="services.html">
+        ${esc(val('hero-btn1'))}
+        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-outline" href="#concept">${esc(val('hero-btn2'))}</a>
+    </div>`;
+  document.getElementById('out-hero').value = out;
+  show('out-hero-wrap');
+}
+
+function genConcept(){
+  const icons = [
+    '<path d="M12 2v6M12 16v6M2 12h6M16 12h6"/><circle cx="12" cy="12" r="3.2"/>',
+    '<path d="M4 20c2-4 2-8 0-12M20 20c-2-4-2-8 0-12" /><path d="M9 9c1.5 1 4.5 1 6 0M9 15c1.5 1 4.5 1 6 0"/>',
+    '<path d="M12 3l2.4 5.2L20 9l-4 4 1 5.8L12 16l-5 2.8 1-5.8-4-4 5.6-.8L12 3z"/>'
+  ];
+  const titles = [val('c1t'), val('c2t'), val('c3t')];
+  const texts = [val('c1p'), val('c2p'), val('c3p')];
+  let out = '';
+  for (let i=0;i<3;i++){
+    out += `      <div class="card reveal" style="--i:${i}">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">${icons[i]}</svg></div>
+        <h3>${esc(titles[i])}</h3>
+        <p>
+          ${esc(texts[i])}
+        </p>
+      </div>
+`;
+  }
+  document.getElementById('out-concept').value = out.trim();
+  show('out-concept-wrap');
+}
+
+function genValues(){
+  const icons = [
+    '<circle cx="12" cy="10" r="3"/><path d="M12 21c4-4.5 7-8.2 7-11.5A7 7 0 0 0 5 9.5C5 12.8 8 16.5 12 21z"/>',
+    '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
+    '<path d="M12 3c3 2.5 6 3 6 3s.5 8-6 12c-6.5-4-6-12-6-12s3-.5 6-3z"/>',
+    '<path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/>',
+    '<rect x="3" y="7" width="18" height="12" rx="2"/><path d="M3 10h18M16 14h2"/>'
+  ];
+  const titles = [val('v1t'),val('v2t'),val('v3t'),val('v4t'),val('v5t')];
+  const texts = [val('v1p'),val('v2p'),val('v3p'),val('v4p'),val('v5p')];
+  let out = '';
+  for (let i=0;i<5;i++){
+    out += `      <li class="reveal" style="--i:${i}">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">${icons[i]}</svg></div>
+        <strong>${esc(titles[i])}</strong>
+        ${esc(texts[i])}
+      </li>
+`;
+  }
+  document.getElementById('out-values').value = out.trim();
+  show('out-values-wrap');
+}
+
+function genServices(){
+  const tags = [val('s1tag'),val('s2tag'),val('s3tag')];
+  const titles = [val('s1t'),val('s2t'),val('s3t')];
+  const prices = [val('s1price'),val('s2price'),val('s3price')];
+  const texts = [val('s1p'),val('s2p'),val('s3p')];
+  let out = '';
+  for (let i=0;i<3;i++){
+    out += `      <div class="card reveal" style="--i:${i}">
+        <span class="tag">${esc(tags[i])}</span>
+        <h3>${esc(titles[i])}</h3>
+        <p class="price">${esc(prices[i])}</p>
+        <p>${esc(texts[i])}</p>
+      </div>
+`;
+  }
+  document.getElementById('out-services').value = out.trim();
+  show('out-services-wrap');
+}
+
+function genShop(){
+  const out = `        <h3>${esc(val('shop-name'))}</h3>
+        <p>${esc(val('shop-desc'))}</p>
+        <p class="price">${esc(val('shop-price'))}</p>`;
+  document.getElementById('out-shop').value = out;
+  show('out-shop-wrap');
+}
+
+function genDropdown(){
+  const lines = val('dropdown-opts').split('\n').map(l => l.trim()).filter(Boolean);
+  let out = '            <select id="trip-type" name="trip_type">\n';
+  lines.forEach(l => { out += `              <option>${esc(l)}</option>\n`; });
+  out += '            </select>';
+  document.getElementById('out-dropdown').value = out;
+  show('out-dropdown-wrap');
+}
+
+function genFooter(){
+  const out = `    <div class="footer-grid">
+      <div>
+        <h4>deathbed memories</h4>
+        <p>${esc(val('f-tag'))}</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-links">
+          <li><a href="services.html">Services</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:${esc(val('f-email'))}">${esc(val('f-email'))}</a></li>
+          <li><a href="${esc(val('f-tiktok'))}" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="${esc(val('f-instagram'))}" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="${esc(val('f-youtube'))}" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>`;
+  document.getElementById('out-footer').value = out;
+  show('out-footer-wrap');
+}
+</script>
+</body>
+</html>
