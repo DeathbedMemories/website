@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Editor — Deathbed Memories (internal tool)</title>
+<meta name="robots" content="noindex">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F5EDD6; color: #1C1C1A; margin: 0; padding: 1.25rem; line-height: 1.5; }
+  h1 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+  .intro { color: #555; margin-bottom: 1.5rem; font-size: 0.92rem; }
+  .intro strong { color: #1C1C1A; }
+  details { background: #fff; border: 1px solid #ddd2ac; border-radius: 8px; margin-bottom: 1rem; }
+  summary { padding: 1rem 1.1rem; cursor: pointer; font-weight: 600; font-size: 1.02rem; }
+  .panel { padding: 0 1.1rem 1.1rem; }
+  .field { margin-bottom: 0.9rem; }
+  .row { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+  label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 0.3rem; color: #444; }
+  input[type=text], select { width: 100%; padding: 0.55rem 0.65rem; border: 1px solid #ddd2ac; border-radius: 6px; font-size: 0.95rem; font-family: inherit; background: #fffdf7; }
+  input[type=color] { width: 46px; height: 38px; padding: 0; border: 1px solid #ddd2ac; border-radius: 6px; background: none; flex-shrink: 0; }
+  input[type=range] { width: 100%; }
+  .color-field { display: flex; align-items: center; gap: 0.6rem; }
+  .color-field input[type=text] { flex: 1; }
+  .range-value { font-size: 0.8rem; color: #666; min-width: 3.5em; text-align: right; }
+  .note { font-size: 0.78rem; color: #777; margin-top: 0.2rem; }
+  .btn { display: inline-block; background: #C85C38; color: #fff; border: none; padding: 0.65rem 1.2rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem; cursor: pointer; margin-top: 0.25rem; }
+  .btn.secondary { background: #4A7C59; }
+  .btn:active { opacity: 0.85; }
+  .output-wrap { margin-top: 1rem; }
+  .output-wrap.hidden { display: none; }
+  .output-label { font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; }
+  textarea.output { width: 100%; min-height: 220px; background: #fff; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.8rem; color: #222; border: 1px solid #ddd2ac; border-radius: 6px; padding: 0.7rem; }
+  .where { background: #fdf6e3; border: 1px solid #eadfb8; border-radius: 6px; padding: 0.6rem 0.75rem; font-size: 0.82rem; margin-bottom: 0.9rem; }
+  .where b { display:block; margin-bottom:0.15rem; }
+  .copied { color: #4A7C59; font-size: 0.82rem; font-weight: 600; margin-left: 0.6rem; }
+
+  #preview-panel {
+    position: sticky; top: 0.75rem; z-index: 10;
+    background: var(--pv-dark); border-radius: 10px; padding: 1.5rem;
+    margin-bottom: 1.5rem; transition: background 0.2s;
+  }
+  #preview-panel .pv-tag { font-family: var(--pv-header); font-style: italic; color: var(--pv-yellow); font-size: 0.95rem; margin-bottom: 0.4rem; }
+  #preview-panel .pv-h1 { font-family: var(--pv-header); color: var(--pv-cream); font-size: var(--pv-h1); line-height: 1.15; margin-bottom: 0.75rem; }
+  #preview-panel .pv-card { background: var(--pv-white); border-radius: var(--pv-radius); padding: 1.1rem; margin-top: 1rem; max-width: 260px; }
+  #preview-panel .pv-card h3 { font-family: var(--pv-header); font-size: var(--pv-h3); margin: 0 0 0.4rem; color: #1C1C1A; }
+  #preview-panel .pv-card p { font-family: var(--pv-body); font-size: var(--pv-body); color: #444; margin: 0 0 0.6rem; }
+  #preview-panel .pv-price { font-family: var(--pv-header); color: var(--pv-terracotta); font-size: 1.3rem; margin: 0 0 0.6rem; }
+  #preview-panel .pv-btn { display: inline-block; background: var(--pv-terracotta); color: #fff; font-family: var(--pv-body); font-size: 0.85rem; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 999px; }
+  #preview-panel .pv-swatches { display: flex; gap: 0.5rem; margin-top: 1rem; }
+  #preview-panel .pv-swatch { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5); }
+</style>
+</head>
+<body>
+
+<h1>Design Editor</h1>
+<p class="intro">
+  Adjust colors, fonts, and sizes below — the preview updates live. When
+  you're happy with it, tap <strong>Generate code</strong> at the bottom
+  and paste the result over section 1 of <code>css/style.css</code>
+  (the part between <code>:root {</code> and its closing <code>}</code>).
+</p>
+
+<div id="preview-panel">
+  <p class="pv-tag">create the memories you want to have before you die</p>
+  <p class="pv-h1">Don't die without deathbed memories.</p>
+  <div class="pv-card">
+    <h3>Short getaway</h3>
+    <p class="pv-price">$250</p>
+    <p>A full itinerary for a weekend trip.</p>
+    <span class="pv-btn">Book now</span>
+  </div>
+  <div class="pv-swatches" id="pv-swatches"></div>
+</div>
+
+<details open>
+  <summary>Colors</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> css/style.css, inside the <code>:root { ... }</code> block near the top</div>
+
+    <div class="field">
+      <label>Dark (near-black — dark sections, body text)</label>
+      <div class="color-field">
+        <input type="color" id="c-dark" value="#1C1C1A" oninput="syncColor('dark')">
+        <input type="text" id="c-dark-hex" value="#1C1C1A" oninput="syncHex('dark')">
+      </div>
+    </div>
+    <div class="field">
+      <label>Cream (main background)</label>
+      <div class="color-field">
+        <input type="color" id="c-cream" value="#F5EDD6" oninput="syncColor('cream')">
+        <input type="text" id="c-cream-hex" value="#F5EDD6" oninput="syncHex('cream')">
+      </div>
+    </div>
+    <div class="field">
+      <label>Cream 2 (deeper cream — card icon backgrounds, alt sections)</label>
+      <div class="color-field">
+        <input type="color" id="c-cream2" value="#EDE2C4" oninput="syncColor('cream2')">
+        <input type="text" id="c-cream2-hex" value="#EDE2C4" oninput="syncHex('cream2')">
+      </div>
+    </div>
+    <div class="field">
+      <label>Terracotta (primary accent — buttons, links)</label>
+      <div class="color-field">
+        <input type="color" id="c-terracotta" value="#C85C38" oninput="syncColor('terracotta')">
+        <input type="text" id="c-terracotta-hex" value="#C85C38" oninput="syncHex('terracotta')">
+      </div>
+    </div>
+    <div class="field">
+      <label>Forest (secondary accent — nature, values icons)</label>
+      <div class="color-field">
+        <input type="color" id="c-forest" value="#4A7C59" oninput="syncColor('forest')">
+        <input type="text" id="c-forest-hex" value="#4A7C59" oninput="syncHex('forest')">
+      </div>
+    </div>
+    <div class="field">
+      <label>Yellow (highlight accent, used sparingly)</label>
+      <div class="color-field">
+        <input type="color" id="c-yellow" value="#D4A843" oninput="syncColor('yellow')">
+        <input type="text" id="c-yellow-hex" value="#D4A843" oninput="syncHex('yellow')">
+      </div>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Fonts</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> css/style.css (the font variables) — AND if you pick a non-default font, also the &lt;link href="https://fonts.googleapis.com/css2?..."&gt; line in the &lt;head&gt; of every HTML page (a ready snippet is included below if needed).</div>
+
+    <div class="field">
+      <label>Header font (headlines, prices, logo)</label>
+      <select id="font-header" onchange="updatePreview()">
+        <option value="georgia">Georgia (current — no setup needed, built into every device)</option>
+        <option value="playfair">Playfair Display (elegant, high-contrast serif)</option>
+        <option value="merriweather">Merriweather (warm, readable serif)</option>
+        <option value="lora">Lora (soft, modern serif)</option>
+        <option value="times">Times New Roman (classic, no setup needed)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Body font (paragraphs, buttons, menus)</label>
+      <select id="font-body" onchange="updatePreview()">
+        <option value="inter">Inter (current)</option>
+        <option value="poppins">Poppins (rounded, friendly)</option>
+        <option value="worksans">Work Sans (clean, neutral)</option>
+        <option value="nunito">Nunito (soft, rounded)</option>
+        <option value="lato">Lato (warm, professional)</option>
+      </select>
+    </div>
+    <p class="note" id="font-link-note"></p>
+  </div>
+</details>
+
+<details>
+  <summary>Sizes &amp; shape</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> css/style.css, inside the same <code>:root { ... }</code> block</div>
+
+    <div class="field">
+      <label>Corner roundness (cards, buttons corners follow this too)</label>
+      <div class="row">
+        <input type="range" id="s-radius" min="0" max="28" value="10" oninput="updatePreview()">
+        <span class="range-value" id="s-radius-val">10px</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Hero headline size (on desktop; scales down automatically on phones)</label>
+      <div class="row">
+        <input type="range" id="s-hero" min="2.4" max="6" step="0.1" value="5" oninput="updatePreview()">
+        <span class="range-value" id="s-hero-val">5rem</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Section heading size (h2)</label>
+      <div class="row">
+        <input type="range" id="s-h2" min="1.4" max="3" step="0.1" value="2.3" oninput="updatePreview()">
+        <span class="range-value" id="s-h2-val">2.3rem</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Card title size (h3)</label>
+      <div class="row">
+        <input type="range" id="s-h3" min="1" max="1.8" step="0.05" value="1.25" oninput="updatePreview()">
+        <span class="range-value" id="s-h3-val">1.25rem</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Body text size</label>
+      <div class="row">
+        <input type="range" id="s-body" min="0.85" max="1.3" step="0.01" value="1.05" oninput="updatePreview()">
+        <span class="range-value" id="s-body-val">1.05rem</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Page content max width (how wide the site gets on large monitors)</label>
+      <div class="row">
+        <input type="range" id="s-maxwidth" min="900" max="1400" step="10" value="1140" oninput="updatePreview()">
+        <span class="range-value" id="s-maxwidth-val">1140px</span>
+      </div>
+    </div>
+  </div>
+</details>
+
+<button class="btn" onclick="generate()">Generate code</button>
+<div class="output-wrap hidden" id="out-wrap">
+  <div class="output-label">Paste this over the whole <code>:root { ... }</code> block in css/style.css:</div>
+  <textarea class="output" id="out-root" readonly></textarea>
+  <button class="btn secondary" onclick="copyOut('out-root')">Copy</button><span class="copied" id="copied-root"></span>
+
+  <div id="font-link-output" class="hidden" style="margin-top:1.25rem;">
+    <div class="output-label">Also paste this over the existing Google Fonts &lt;link&gt; line, in the &lt;head&gt; of EVERY HTML page (index.html, services.html, shop.html, blog.html, contact.html):</div>
+    <textarea class="output" id="out-fontlink" readonly></textarea>
+    <button class="btn secondary" onclick="copyOut('out-fontlink')">Copy</button><span class="copied" id="copied-fontlink"></span>
+  </div>
+</div>
+
+<script>
+const fontStacks = {
+  georgia:   { css: "Georgia, 'Times New Roman', serif", google: null, label: 'Georgia' },
+  playfair:  { css: "'Playfair Display', Georgia, serif", google: 'Playfair+Display:wght@400;600;700', label: 'Playfair Display' },
+  merriweather: { css: "'Merriweather', Georgia, serif", google: 'Merriweather:wght@400;700', label: 'Merriweather' },
+  lora:      { css: "'Lora', Georgia, serif", google: 'Lora:wght@400;600;700', label: 'Lora' },
+  times:     { css: "'Times New Roman', Times, serif", google: null, label: 'Times New Roman' },
+  inter:     { css: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", google: 'Inter:wght@400;500;600;700', label: 'Inter' },
+  poppins:   { css: "'Poppins', -apple-system, sans-serif", google: 'Poppins:wght@400;500;600;700', label: 'Poppins' },
+  worksans:  { css: "'Work Sans', -apple-system, sans-serif", google: 'Work+Sans:wght@400;500;600;700', label: 'Work Sans' },
+  nunito:    { css: "'Nunito', -apple-system, sans-serif", google: 'Nunito:wght@400;600;700', label: 'Nunito' },
+  lato:      { css: "'Lato', -apple-system, sans-serif", google: 'Lato:wght@400;700', label: 'Lato' },
+};
+
+function val(id){ return document.getElementById(id).value; }
+
+function syncColor(name){
+  document.getElementById('c-' + name + '-hex').value = document.getElementById('c-' + name).value;
+  updatePreview();
+}
+function syncHex(name){
+  const hex = document.getElementById('c-' + name + '-hex').value;
+  if (/^#[0-9a-fA-F]{6}$/.test(hex)) document.getElementById('c-' + name).value = hex;
+  updatePreview();
+}
+
+function updatePreview(){
+  const root = document.documentElement.style;
+  root.setProperty('--pv-dark', val('c-dark'));
+  root.setProperty('--pv-cream', val('c-cream'));
+  root.setProperty('--pv-white', '#ffffff');
+  root.setProperty('--pv-terracotta', val('c-terracotta'));
+  root.setProperty('--pv-forest', val('c-forest'));
+  root.setProperty('--pv-yellow', val('c-yellow'));
+  root.setProperty('--pv-header', fontStacks[val('font-header')].css);
+  root.setProperty('--pv-body', fontStacks[val('font-body')].css);
+  root.setProperty('--pv-radius', val('s-radius') + 'px');
+  root.setProperty('--pv-h1', (val('s-hero') * 0.42) + 'rem');
+  root.setProperty('--pv-h3', val('s-h3') + 'rem');
+  root.setProperty('--pv-body-size', val('s-body') + 'rem');
+
+  document.getElementById('s-radius-val').textContent = val('s-radius') + 'px';
+  document.getElementById('s-hero-val').textContent = val('s-hero') + 'rem';
+  document.getElementById('s-h2-val').textContent = val('s-h2') + 'rem';
+  document.getElementById('s-h3-val').textContent = val('s-h3') + 'rem';
+  document.getElementById('s-body-val').textContent = val('s-body') + 'rem';
+  document.getElementById('s-maxwidth-val').textContent = val('s-maxwidth') + 'px';
+
+  const swatchWrap = document.getElementById('pv-swatches');
+  swatchWrap.innerHTML = '';
+  [val('c-dark'), val('c-cream'), val('c-terracotta'), val('c-forest'), val('c-yellow')].forEach(hex => {
+    const s = document.createElement('div');
+    s.className = 'pv-swatch';
+    s.style.background = hex;
+    swatchWrap.appendChild(s);
+  });
+
+  const headerChanged = val('font-header') !== 'georgia';
+  const bodyChanged = val('font-body') !== 'inter';
+  const note = document.getElementById('font-link-note');
+  if (headerChanged || bodyChanged) {
+    note.textContent = "You've picked a font that needs a one-time Google Fonts link update — that snippet will appear below Generate code.";
+  } else {
+    note.textContent = '';
+  }
+}
+
+function copyOut(id){
+  const el = document.getElementById(id);
+  el.select(); el.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(el.value).then(()=>{
+    const flag = document.getElementById('copied-' + id.replace('out-',''));
+    flag.textContent = 'Copied!';
+    setTimeout(()=> flag.textContent = '', 1800);
+  });
+}
+
+function generate(){
+  const headerFont = fontStacks[val('font-header')];
+  const bodyFont = fontStacks[val('font-body')];
+
+  const out = `:root {
+  /* Brand colors — from your brand deck. Change a hex code here to
+     change that color everywhere on the site. */
+  --color-dark:       ${val('c-dark-hex')};  /* near-black — dark sections, body text */
+  --color-cream:      ${val('c-cream-hex')};  /* main background */
+  --color-cream-2:    ${val('c-cream2-hex')};  /* slightly deeper cream, for texture/cards */
+  --color-terracotta: ${val('c-terracotta-hex')};  /* primary accent — buttons, links, warmth */
+  --color-forest:     ${val('c-forest-hex')};  /* secondary accent — nature, values */
+  --color-yellow:     ${val('c-yellow-hex')};  /* highlight accent, used sparingly */
+  --color-white:      #FFFFFF;
+  --color-line:       rgba(28,28,26,0.12); /* hairline / contour line color on light bg */
+  --color-line-dark:  rgba(245,237,214,0.16); /* contour line color on dark bg */
+
+  /* Fonts */
+  --font-header: ${headerFont.css};
+  --font-body: ${bodyFont.css};
+
+  /* Font sizes — change these to resize text across the whole site */
+  --size-hero:    clamp(2.6rem, 7vw, ${val('s-hero')}rem);
+  --size-h1:      clamp(2rem, 4vw, 2.8rem);
+  --size-h2:      clamp(1.6rem, 3.2vw, ${val('s-h2')}rem);
+  --size-h3:      ${val('s-h3')}rem;
+  --size-body:    ${val('s-body')}rem;
+  --size-small:   0.9rem;
+
+  /* Spacing + shape */
+  --radius: ${val('s-radius')}px;
+  --radius-pill: 999px;
+  --max-width: ${val('s-maxwidth')}px;
+  --gap: 1.75rem;
+  --ease: cubic-bezier(.22,.68,0,1);
+}`;
+
+  document.getElementById('out-root').value = out;
+  document.getElementById('out-wrap').classList.remove('hidden');
+
+  const needsHeaderGoogle = headerFont.google;
+  const needsBodyGoogle = bodyFont.google;
+  const fontLinkBlock = document.getElementById('font-link-output');
+
+  if (needsHeaderGoogle || needsBodyGoogle) {
+    const families = [needsHeaderGoogle, needsBodyGoogle].filter(Boolean).join('&family=');
+    const linkOut = `<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=${families}&display=swap" rel="stylesheet">`;
+    document.getElementById('out-fontlink').value = linkOut;
+    fontLinkBlock.classList.remove('hidden');
+  } else {
+    fontLinkBlock.classList.add('hidden');
+  }
+
+  document.getElementById('out-wrap').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+updatePreview();
+</script>
+</body>
+</html>
