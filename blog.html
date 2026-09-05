@@ -13,7 +13,10 @@
 
 <header class="site-header">
   <nav class="nav">
-    <a class="nav-logo" href="index.html">deathbed memories</a>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2.5 5.5L9 17l2.5-5.5L15 9z"/></svg>
+      deathbed memories
+    </a>
     <button class="nav-toggle" aria-label="Toggle menu">☰</button>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -25,8 +28,9 @@
   </nav>
 </header>
 
-<section class="hero">
+<section class="hero hero-simple">
   <div class="wrap">
+    <p class="hero-tag">the diary</p>
     <h1>From the road</h1>
     <p>
       The real diary version of how these trips actually go — written as I
@@ -43,11 +47,12 @@
      ============================================================ -->
 <section class="section-alt">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
+      <p class="eyebrow">stay in the loop</p>
       <h2>Get new posts by email</h2>
       <p>One email whenever a new post from the road goes live. No spam, unsubscribe anytime.</p>
     </div>
-    <form class="inline-form center" style="justify-content:center;" action="https://formspree.io/f/mgaezpkg" method="POST">
+    <form class="inline-form center reveal" style="justify-content:center;" action="https://formspree.io/f/mgaezpkg" method="POST">
       <label class="sr-only" for="alert-email">Email address</label>
       <input type="email" id="alert-email" name="email" placeholder="you@email.com" required>
       <input type="hidden" name="_subject" value="New blog alert signup — Deathbed Memories">
@@ -63,7 +68,7 @@
      ============================================================ -->
 <section>
   <div class="wrap">
-    <div class="blog-list" id="blog-list"><!-- filled in by js/blog.js --></div>
+    <div class="blog-list reveal" id="blog-list"><!-- filled in by js/blog.js --></div>
   </div>
 </section>
 
@@ -98,6 +103,7 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/reveal.js"></script>
 <script src="js/blog.js"></script>
 </body>
 </html>
