@@ -13,7 +13,10 @@
 
 <header class="site-header">
   <nav class="nav">
-    <a class="nav-logo" href="index.html">deathbed memories</a>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2.5 5.5L9 17l2.5-5.5L15 9z"/></svg>
+      deathbed memories
+    </a>
     <button class="nav-toggle" aria-label="Toggle menu">☰</button>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -25,8 +28,9 @@
   </nav>
 </header>
 
-<section class="hero">
+<section class="hero hero-simple">
   <div class="wrap">
+    <p class="hero-tag">what I offer</p>
     <h1>Services</h1>
     <p>
       From a one-page rationale to a fully booked itinerary, or a travel
@@ -42,29 +46,30 @@
      ============================================================ -->
 <section>
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
+      <p class="eyebrow">tier one</p>
       <h2>Itinerary planning</h2>
       <p>
         I'll build you a detailed itinerary with everything you need to
         book, sent as a clear, easy-to-follow spreadsheet.
       </p>
     </div>
-    <div class="grid">
-      <div class="card">
+    <div class="grid reveal-stagger">
+      <div class="card reveal" style="--i:0">
         <span class="tag">Weekend trip</span>
         <h3>Short getaway</h3>
         <p class="price">$250</p>
         <p>A full itinerary for a weekend trip — where to stay, what to do,
           and why, based on your goals.</p>
       </div>
-      <div class="card">
+      <div class="card reveal" style="--i:1">
         <span class="tag">5–10 days</span>
         <h3>Standard trip</h3>
         <p class="price">$500</p>
         <p>A complete itinerary for a 5–10 day trip, built around your
           budget, pace, and travel style.</p>
       </div>
-      <div class="card">
+      <div class="card reveal" style="--i:2">
         <span class="tag">Up to 30 days</span>
         <h3>Extended trip</h3>
         <p class="price">$1,000</p>
@@ -73,12 +78,13 @@
       </div>
     </div>
 
-    <div class="section-head mt-2">
+    <div class="section-head mt-2 reveal">
+      <p class="eyebrow">add-on</p>
       <h2>Full booking service</h2>
       <p>Approve the itinerary but don't have time to book it yourself?</p>
     </div>
     <div class="grid">
-      <div class="card">
+      <div class="card reveal">
         <span class="tag">Add-on</span>
         <h3>I'll book it for you</h3>
         <p class="price">+15%</p>
@@ -89,13 +95,14 @@
       </div>
     </div>
 
-    <div class="section-head mt-2">
+    <div class="section-head mt-2 reveal">
+      <p class="eyebrow">on the ground</p>
       <h2>Travel companion</h2>
       <p>First-time traveler looking for a buddy? Couple or group wanting a
         companion?</p>
     </div>
     <div class="grid">
-      <div class="card">
+      <div class="card reveal">
         <span class="tag">On the ground</span>
         <h3>Book me as your guide</h3>
         <p class="price">$500/day</p>
@@ -115,7 +122,8 @@
      ============================================================ -->
 <section class="section-alt">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
+      <p class="eyebrow">no pressure</p>
       <h2>Free 10-minute consultation</h2>
       <p>
         Tell me your travel goals — low budget, family-friendly, beachside,
@@ -167,5 +175,6 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/reveal.js"></script>
 </body>
 </html>
