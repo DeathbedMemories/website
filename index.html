@@ -5,21 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deathbed Memories — Travel Planning &amp; Consulting</title>
 <meta name="description" content="Nomadic travel consulting for people who want local over touristy, slower travel, and a trip they'll still be talking about on their deathbed.">
-<!-- Free Google Font for body text. To change it, swap this link
-     and the --font-body value in css/style.css -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- ============================================================
-     NAVIGATION — this block is repeated at the top of every page.
-     To rename a page in the menu, edit the text between the <a> tags.
-     ============================================================ -->
 <header class="site-header">
   <nav class="nav">
-    <a class="nav-logo" href="index.html">deathbed memories</a>
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2.5 5.5L9 17l2.5-5.5L15 9z"/></svg>
+      deathbed memories
+    </a>
     <button class="nav-toggle" aria-label="Toggle menu">☰</button>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
@@ -31,13 +28,21 @@
   </nav>
 </header>
 
-<!-- ============================================================
-     SECTION 1 — HERO / TAGLINE
-     This is the tagline built around the name "Deathbed Memories."
-     Edit the headline, subtext, and button text below.
-     ============================================================ -->
 <section class="hero">
-  <div class="wrap">
+  <div class="topo-bg" aria-hidden="true">
+    <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="topo" width="220" height="220" patternUnits="userSpaceOnUse">
+          <path d="M0,110 Q55,65 110,110 T220,110" stroke="var(--color-line-dark)" fill="none" stroke-width="1"/>
+          <path d="M0,150 Q55,105 110,150 T220,150" stroke="var(--color-line-dark)" fill="none" stroke-width="1"/>
+          <path d="M0,70 Q55,25 110,70 T220,70" stroke="var(--color-line-dark)" fill="none" stroke-width="1"/>
+          <path d="M0,30 Q55,-15 110,30 T220,30" stroke="var(--color-line-dark)" fill="none" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#topo)"/>
+    </svg>
+  </div>
+  <div class="wrap hero-inner">
     <p class="hero-tag">create the memories you want to have before you die</p>
     <h1>Don't die without deathbed memories.</h1>
     <p>
@@ -46,25 +51,50 @@
       I'm Manz — a nomadic travel consultant who plans trips around local
       experience, slower pace, and the kind of days that stay with you.
     </p>
-    <a class="btn btn-primary" href="services.html">See services &amp; book a free consult</a>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="services.html">
+        See services &amp; book a free consult
+        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-outline" href="#concept">Read the philosophy</a>
+    </div>
+  </div>
+  <div class="ridge-divider" aria-hidden="true">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path fill="var(--color-cream)" d="M0,120 L0,72 L90,44 L200,84 L320,26 L440,68 L560,18 L690,70 L810,32 L940,78 L1060,38 L1200,64 L1200,120 Z"/>
+    </svg>
   </div>
 </section>
 
-<!-- ============================================================
-     SECTION 2 — THE NAME / THE CONCEPT
-     Explains what "Deathbed Memories" means as a philosophy.
-     ============================================================ -->
-<section>
+<nav class="trail-nav" aria-label="Page sections">
   <div class="wrap">
-    <div class="section-head">
+    <a class="trail-stop" data-section="concept" href="#concept"><span class="num">1</span> The name</a>
+    <span class="trail-connector">···</span>
+    <a class="trail-stop" data-section="values" href="#values"><span class="num">2</span> Philosophy</a>
+    <span class="trail-connector">···</span>
+    <a class="trail-stop" data-section="follow" href="#follow"><span class="num">3</span> Follow along</a>
+    <span class="trail-connector">···</span>
+    <a class="trail-stop" href="services.html"><span class="num">4</span> Services</a>
+    <span class="trail-connector">···</span>
+    <a class="trail-stop" href="shop.html"><span class="num">5</span> Shop</a>
+    <span class="trail-connector">···</span>
+    <a class="trail-stop" href="blog.html"><span class="num">6</span> Blog</a>
+  </div>
+</nav>
+
+<section id="concept">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">the concept</p>
       <h2>Why "Deathbed Memories"</h2>
       <p>
         The name isn't morbid — it's a filter. It's the question I run every
         trip through before I book a single thing.
       </p>
     </div>
-    <div class="grid">
-      <div class="card">
+    <div class="grid reveal-stagger">
+      <div class="card reveal" style="--i:0">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"/><circle cx="12" cy="12" r="3.2"/></svg></div>
         <h3>The idea</h3>
         <p>
           Most people plan travel around what's convenient, popular, or safe
@@ -74,7 +104,8 @@
           the moments worth having been there for.
         </p>
       </div>
-      <div class="card">
+      <div class="card reveal" style="--i:1">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20c2-4 2-8 0-12M20 20c-2-4-2-8 0-12" /><path d="M9 9c1.5 1 4.5 1 6 0M9 15c1.5 1 4.5 1 6 0"/></svg></div>
         <h3>The practice</h3>
         <p>
           I built this approach on the road — four months of daily travel
@@ -84,7 +115,8 @@
           what I'd do differently.
         </p>
       </div>
-      <div class="card">
+      <div class="card reveal" style="--i:2">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.4 5.2L20 9l-4 4 1 5.8L12 16l-5 2.8 1-5.8-4-4 5.6-.8L12 3z"/></svg></div>
         <h3>The promise</h3>
         <p>
           When it's time to feel ready — whenever that comes — I want you to
@@ -97,46 +129,48 @@
   </div>
 </section>
 
-<!-- ============================================================
-     SECTION 3 — PHILOSOPHY & VALUES
-     Your point of view, to connect with the kind of client you want.
-     ============================================================ -->
-<section class="section-alt">
+<section id="values" class="section-alt">
   <div class="wrap">
-    <div class="section-head">
-      <h2>How I plan travel</h2>
+    <div class="section-head reveal">
+      <p class="eyebrow">how I plan</p>
+      <h2>Five values, every itinerary</h2>
       <p>
-        Every itinerary I build gets run through the same five values.
+        Every itinerary I build gets run through the same five checks.
         If these match how you want to travel, we'll work well together.
       </p>
     </div>
-    <ul class="values-list">
-      <li>
+    <ul class="values-list reveal-stagger">
+      <li class="reveal" style="--i:0">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="10" r="3"/><path d="M12 21c4-4.5 7-8.2 7-11.5A7 7 0 0 0 5 9.5C5 12.8 8 16.5 12 21z"/></svg></div>
         <strong>Local over tourist</strong>
         Fewer landmarks, more of what the people who actually live there do
         on a normal Tuesday.
       </li>
-      <li>
+      <li class="reveal" style="--i:1">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
         <strong>Slower travel</strong>
         Stay at least a week before moving on. Depth over a checklist of
         cities.
       </li>
-      <li>
+      <li class="reveal" style="--i:2">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c3 2.5 6 3 6 3s.5 8-6 12c-6.5-4-6-12-6-12s3-.5 6-3z"/></svg></div>
         <strong>Sustainable approach</strong>
         Travel that doesn't burn you — or the places you're visiting — out.
       </li>
-      <li>
+      <li class="reveal" style="--i:3">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/></svg></div>
         <strong>Safety, seriously</strong>
         Especially as a solo traveler myself, safety isn't an afterthought
         in any plan I build.
       </li>
-      <li>
+      <li class="reveal" style="--i:4">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M3 10h18M16 14h2"/></svg></div>
         <strong>Affordability</strong>
         A great trip and a realistic budget aren't opposites. I plan for
         both.
       </li>
     </ul>
-    <p class="mt-2">
+    <p class="mt-2 reveal">
       Who this is for: aspiring digital nomads figuring out remote work
       abroad, solo adventurers who want to explore on foot, travelers tired
       of touristy itineraries, and burned-out professionals ready for a
@@ -145,24 +179,17 @@
   </div>
 </section>
 
-<!-- ============================================================
-     SECTION 4 — RECENT CONTENT (TikTok / Instagram / YouTube /
-     Lemon8 / OnlyFans). Pulls from data/social.json — edit that
-     file to update this section, not this HTML.
-     ============================================================ -->
-<section>
+<section id="follow">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
+      <p class="eyebrow">on the road</p>
       <h2>Follow the trip</h2>
       <p>Recent posts from the road, pulled from each platform.</p>
     </div>
-    <div class="grid" id="social-grid"><!-- filled in by js/social.js --></div>
+    <div class="grid reveal" id="social-grid"><!-- filled in by js/social.js --></div>
   </div>
 </section>
 
-<!-- ============================================================
-     FOOTER — repeated on every page.
-     ============================================================ -->
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -194,6 +221,7 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/reveal.js"></script>
 <script src="js/social.js"></script>
 </body>
 </html>
