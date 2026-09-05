@@ -46,58 +46,64 @@ Pages hosting stays free either way.)*
 
 ---
 
-## 2.5 IMPORTANT — before your site is fully live
+## 2.5 Forms & booking — already connected
 
-Two features need one-time free signups to actually work. Until you do
-these, the forms and booking widget will show placeholder text.
+Your Formspree form (`https://formspree.io/f/mgaezpkg`) is already wired
+into the contact form, the blog "notify me" signup, and the shop request
+form. Your Calendly link
+(`https://calendly.com/dbmems-proton/30min`) is already embedded on the
+Services page. You don't need to do anything else for these to work —
+this section just explains how they work, in case you ever want to
+change or replace them.
 
-### Setting up the contact & blog signup forms
+### Contact & blog signup forms
 Both the contact form and the "notify me" blog signup use **Formspree**
 (free plan, no credit card) to email submissions straight to
 dbmems@proton.me — GitHub Pages can't run its own backend, so this is
 the simplest free way to make a form actually send email.
 
-1. Go to [formspree.io](https://formspree.io) and sign up free.
-2. Click **New Form**, name it, and set the email to
-   `dbmems@proton.me`.
-3. Formspree gives you a form endpoint like
+If you ever want to swap in a different Formspree form (e.g. to split
+shop requests into their own inbox thread):
+1. Go to [formspree.io](https://formspree.io), sign in, create a new
+   form, and set the notification email to `dbmems@proton.me`.
+2. Formspree gives you a new form endpoint like
    `https://formspree.io/f/abcdwxyz`.
-4. Open `contact.html` and `blog.html` in GitHub (click the file, then
-   the pencil/edit icon). Find `YOUR_FORM_ID` in each file's `<form
-   action="...">` line and replace it with your real ID (in
-   `contact.html` you can also just create a second Formspree form for
-   the blog signups, or reuse the same one).
-5. Commit the change. Test the form on your live site.
+3. Open the relevant file in GitHub (`contact.html`, `blog.html`, or
+   `shop.html`), find the existing `action="https://formspree.io/f/mgaezpkg"`
+   line, and replace the ID with your new one.
+4. Commit the change. Test the form on your live site.
 
-### Setting up free consultation booking
+### Free consultation booking
 The Services page embeds **Calendly** (free plan) so people can book a
-time directly on your calendar.
-
-1. Go to [calendly.com](https://calendly.com) and sign up free.
-2. Create an event type called "Free 10-Minute Consultation," set it
-   to 10 minutes, and connect it to whatever calendar you use.
-3. Click **Share** → copy your event link (looks like
-   `https://calendly.com/your-username/free-consultation`).
-4. Open `services.html` in GitHub's editor, find
-   `data-url="https://calendly.com/your-username/free-consultation"`
-   and replace it with your real link. Commit the change.
+time directly on your calendar. If you ever want to point it at a
+different event type or account:
+1. In [calendly.com](https://calendly.com), create/open the event type,
+   click **Share**, and copy the event link.
+2. Open `services.html` in GitHub's editor, find
+   `data-url="https://calendly.com/dbmems-proton/30min"`, and replace
+   the link. Commit the change.
 
 ### Setting up the shop
-GitHub Pages can display pages but **cannot process payments** — it's
-just free file hosting, not a store. `shop.html` shows your product
-grid, but each "Shop this design" button needs to point somewhere that
-can actually take payment. Two free-to-start options:
+The shop currently sells one item — the "No Gracias" cap — and instead of
+an instant checkout, `shop.html` has a **request form** (already
+connected to the same Formspree form as the contact form): the buyer
+enters their name, email, quantity, and shipping address, it lands in
+your inbox, and you follow up with a payment link (Wise, PayPal, or
+e-transfer) yourself.
 
-- **Payhip** or **Gumroad** (free to list, they take a small % per
-  sale, no monthly fee) — upload your design, set a price, get a
-  product link, paste that link into the `buyUrl` field for that
-  product in `data/products.json`.
-- **Printful + Etsy** (or Printful's own free storefront) if you want
-  print-on-demand apparel with no inventory to hold — Printful prints
-  and ships when someone orders, Etsy or Printful's storefront handles
-  checkout.
-
-Until you set this up, the buttons are placeholders (`"buyUrl": "#"`).
+- To change the price, product name, or description, edit the text
+  directly in `shop.html` inside the `<div class="card reveal">` block
+  — search for `$40 CAD`.
+- To add a second product later, copy the whole `.shop-layout` block
+  (both the product card and its form) and edit the copy.
+- The hat graphic on the page right now is a placeholder built with
+  code (no photo needed to look finished). Once you have a real
+  product photo, replace the `<div class="hat-mockup">...</div>` block
+  with `<img class="product-image" src="images/shop/hat.jpg" alt="...">`
+  — create an `images/shop/` folder and upload your photo there first.
+- If you'd rather shop requests land in a separate inbox thread from
+  general inquiries, create a second free form at formspree.io and
+  swap its ID into `shop.html`'s `action="https://formspree.io/f/mgaezpkg"` line.
 
 ---
 
@@ -110,7 +116,7 @@ these:
 | To change... | Edit this file |
 |---|---|
 | Add a new blog post | `data/posts.json` |
-| Add/remove/reprice shop items | `data/products.json` |
+| Change the hat's price/description, or add a 2nd product | `shop.html` directly (it's just one product, no data file) |
 | Update the "recent posts" feed (TikTok/IG/YouTube/Lemon8/OnlyFans) | `data/social.json` |
 
 **How to edit a file on GitHub (from your phone or laptop, no software
@@ -137,7 +143,12 @@ needed):**
 3. Commit. Done — no HTML page to create.
 
 ### Updating "recent posts" (Section 6)
-Open `data/social.json` and replace the placeholder `url` for each
+**Does this update automatically? No — you paste in new links by hand.**
+None of the five platforms let a free static site pull new posts on its
+own without either a paid developer account or a fragile third-party
+workaround, so the reliable free approach is: whenever you post
+something you want featured, open `data/social.json` and swap in that
+post's link. It takes under a minute per platform. Open `data/social.json` and replace the placeholder `url` for each
 platform with a link to one specific video/post/reel:
 - **YouTube:** a link like `https://www.youtube.com/watch?v=XXXXXXX`
 - **TikTok:** a link like `https://www.tiktok.com/@deathbed.memories/video/XXXXXXXXXXXXX`
@@ -158,17 +169,3 @@ etc.) if you want to adjust something more specific.
 
 ## 5. Site structure, for reference
 
-```
-index.html        → Home (tagline, name concept, values, recent posts)
-services.html      → Services, pricing, free consultation booking
-shop.html          → Apparel shop
-blog.html          → Blog list + email signup
-contact.html        → Contact form + direct email
-css/style.css        → All colors, fonts, and layout
-js/                → Site behavior (menu, blog, shop, social feed)
-data/posts.json      → Blog posts — edit this to publish
-data/products.json    → Shop items — edit this to update
-data/social.json      → Recent social posts — edit this to update
-images/blog/          → Blog photos go here
-images/shop/          → Product photos go here
-```
