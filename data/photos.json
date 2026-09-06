@@ -1,0 +1,14 @@
+[
+  {
+    "id": "example-photo-1",
+    "title": "Example: Mountain Ridge at Dawn",
+    "location": "Placeholder location",
+    "image": "images/photography/example-1.jpg"
+  },
+  {
+    "id": "example-photo-2",
+    "title": "Example: Coastal Fog",
+    "location": "Placeholder location",
+    "image": "images/photography/example-2.jpg"
+  }
+]
