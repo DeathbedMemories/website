@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photography — Deathbed Memories</title>
+<meta name="description" content="Landscape and nature photography prints, shot on a Nikon DSLR on the road.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     THIS PAGE IS NOT LINKED FROM YOUR MAIN NAVIGATION YET — same
+     situation as tours.html. To go live: add
+       <li><a href="photography.html">Photography</a></li>
+     to the <ul class="nav-links"> (and footer <ul class="footer-links">)
+     in index.html, services.html, shop.html, blog.html, and
+     contact.html. Remove that line to take it offline again.
+     ============================================================ -->
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="nav-logo" href="index.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2.5 5.5L9 17l2.5-5.5L15 9z"/></svg>
+      deathbed memories
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="photography.html" class="active">Photography</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero hero-simple">
+  <div class="wrap">
+    <p class="hero-tag">shot on the road</p>
+    <h1>Landscape &amp; Nature Prints</h1>
+    <p>
+      Amateur photography, shot on a Nikon DSLR wherever the trip takes me.
+      A few of my favourites are available as prints below.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">the gallery</p>
+      <h2>Available prints</h2>
+    </div>
+    <div class="grid reveal" id="photo-gallery"><!-- filled in by js/photos.js --></div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">pricing</p>
+      <h2>Print options</h2>
+    </div>
+    <div class="grid reveal-stagger">
+      <div class="card reveal" style="--i:0">
+        <span class="tag">Digital-quality print</span>
+        <h3>Print only</h3>
+        <p class="price">$35 CAD</p>
+        <p>A professionally printed photo paper print, unframed. You
+          arrange your own framing if you'd like it framed.</p>
+      </div>
+      <div class="card reveal" style="--i:1">
+        <span class="tag">Ready to hang</span>
+        <h3>Canvas print + shipping</h3>
+        <p class="price">$120 CAD</p>
+        <p>Stretched canvas print, ready to hang, shipped directly to you
+          anywhere in Canada or the US. Other destinations on request.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">order a print</p>
+      <h2>Request one</h2>
+      <p>Same as the shop — this isn't instant checkout. I'll follow up with a payment link (Wise, PayPal, or e-transfer) and confirm shipping before anything's charged.</p>
+    </div>
+    <form action="https://formspree.io/f/mgaezpkg" method="POST">
+      <input type="hidden" name="_subject" value="Photography print order">
+      <div>
+        <label for="print-photo-choice">Which photo?</label>
+        <select id="print-photo-choice" name="photo_choice">
+          <!-- options filled in by js/photos.js from data/photos.json -->
+        </select>
+      </div>
+      <div>
+        <label for="print-type">Print type</label>
+        <select id="print-type" name="print_type">
+          <option>Print only — $35 CAD</option>
+          <option>Canvas print + shipping — $120 CAD</option>
+        </select>
+      </div>
+      <div>
+        <label for="print-name">Name</label>
+        <input type="text" id="print-name" name="name" required>
+      </div>
+      <div>
+        <label for="print-email">Email</label>
+        <input type="email" id="print-email" name="email" required>
+      </div>
+      <div>
+        <label for="print-address">Shipping address (leave blank if print-only, local pickup)</label>
+        <textarea id="print-address" name="shipping_address" placeholder="Street, city, province/state, postal code, country"></textarea>
+      </div>
+      <div>
+        <label for="print-notes">Anything else?</label>
+        <textarea id="print-notes" name="notes" placeholder="Size preference, questions, etc."></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">
+        Send request
+        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>deathbed memories</h4>
+        <p>Nomadic travel consulting &amp; planning.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-links">
+          <li><a href="services.html">Services</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:dbmems@proton.me">dbmems@proton.me</a></li>
+          <li><a href="https://www.tiktok.com/@deathbed.memories" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://www.instagram.com/deathbed.memories/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.youtube.com/@deathbed.memoriess" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Deathbed Memories. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/reveal.js"></script>
+<script src="js/photos.js"></script>
+</body>
+</html>
