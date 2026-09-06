@@ -32,6 +32,31 @@
   .where { background: #fdf6e3; border: 1px solid #eadfb8; border-radius: 6px; padding: 0.6rem 0.75rem; font-size: 0.82rem; margin-bottom: 0.9rem; }
   .where b { display:block; margin-bottom:0.15rem; }
   .copied { color: var(--forest); font-size: 0.82rem; font-weight: 600; margin-left: 0.6rem; }
+
+  /* ---- Live preview boxes (styled like the real site) ---- */
+  .preview-box { margin: 1rem 0; }
+  .preview-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #999; margin-bottom: 0.5rem; }
+  .pv-hero { background: var(--dark); color: var(--cream); border-radius: 8px; padding: 2rem 1.5rem; text-align: center; }
+  .pv-hero .pv-tag { font-family: Georgia, serif; font-style: italic; color: #D4A843; font-size: 0.85rem; margin-bottom: 0.5rem; }
+  .pv-hero h2 { font-family: Georgia, serif; font-weight: normal; font-size: 1.5rem; margin-bottom: 0.6rem; }
+  .pv-hero p { font-size: 0.85rem; opacity: 0.85; margin-bottom: 1rem; max-width: 40ch; margin-left: auto; margin-right: auto; }
+  .pv-hero .pv-btns { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+  .pv-hero .pv-btn-primary { background: var(--terracotta); color: #fff; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.78rem; font-weight: 600; }
+  .pv-hero .pv-btn-outline { border: 1px solid var(--cream); color: var(--cream); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.78rem; font-weight: 600; }
+  .pv-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 0.6rem; }
+  .pv-card { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 0.85rem; }
+  .pv-card h4 { font-family: Georgia, serif; font-weight: normal; font-size: 0.95rem; margin-bottom: 0.3rem; color: var(--dark); }
+  .pv-card p { font-size: 0.78rem; color: #555; margin: 0; }
+  .pv-card .pv-price { font-family: Georgia, serif; color: var(--terracotta); font-size: 1.1rem; margin: 0.3rem 0; }
+  .pv-card .pv-tag { display: inline-block; font-size: 0.65rem; color: var(--forest); border: 1px solid var(--forest); border-radius: 999px; padding: 0.1rem 0.5rem; margin-bottom: 0.4rem; }
+  .pv-hat { background: var(--dark); border-radius: 8px; padding: 1rem 1.25rem; display: flex; gap: 1rem; align-items: center; }
+  .pv-hat-icon { width: 46px; height: 46px; flex-shrink: 0; }
+  .pv-section-head { text-align: center; padding: 0.5rem 0; }
+  .pv-section-head .pv-eyebrow { font-family: Georgia, serif; font-style: italic; color: var(--terracotta); font-size: 0.85rem; margin-bottom: 0.3rem; }
+  .pv-section-head h4 { font-family: Georgia, serif; font-weight: normal; font-size: 1.2rem; margin-bottom: 0.4rem; color: var(--dark); }
+  .pv-section-head p { font-size: 0.82rem; color: #555; margin: 0; }
+  .pv-who { background: var(--forest); color: #F5EDD6; border-radius: 8px; padding: 1.25rem 1.4rem; font-size: 0.88rem; line-height: 1.6; }
+  .pv-who strong { font-family: Georgia, serif; font-style: italic; font-weight: normal; }
 </style>
 </head>
 <body>
@@ -50,15 +75,17 @@
   <div class="panel">
     <div class="where"><b>Goes in:</b> index.html — replaces the block starting at &lt;section class="hero"&gt; content, specifically the text inside .hero-inner</div>
     <div class="field"><label>Small italic tagline above the headline</label>
-      <input type="text" id="hero-tag" value="create the memories you want to have before you die"></div>
+      <input type="text" id="hero-tag" value="create the memories you want to have before you die" oninput="livePreviewHero()"></div>
     <div class="field"><label>Big headline</label>
-      <input type="text" id="hero-h1" value="Don't die without deathbed memories."></div>
+      <input type="text" id="hero-h1" value="Don't die without deathbed memories." oninput="livePreviewHero()"></div>
     <div class="field"><label>Paragraph below the headline</label>
-      <textarea id="hero-p">Every trip I plan is built around one question: when you look back from the very end, will this be one of the moments you're glad you had? I'm Manz — a nomadic travel consultant who plans trips around local experience, slower pace, and the kind of days that stay with you.</textarea></div>
+      <textarea id="hero-p" oninput="livePreviewHero()">Every trip I plan is built around one question: when you look back from the very end, will this be one of the moments you're glad you had? I'm Manz — a nomadic travel consultant who plans trips around local experience, slower pace, and the kind of days that stay with you.</textarea></div>
     <div class="field"><label>Primary button text</label>
-      <input type="text" id="hero-btn1" value="See services & book a free consult"></div>
+      <input type="text" id="hero-btn1" value="See services & book a free consult" oninput="livePreviewHero()"></div>
     <div class="field"><label>Secondary button text</label>
-      <input type="text" id="hero-btn2" value="Read the philosophy"></div>
+      <input type="text" id="hero-btn2" value="Read the philosophy" oninput="livePreviewHero()"></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-hero"></div>
     <button class="btn" onclick="genHero()">Generate code</button>
     <div class="output-wrap hidden" id="out-hero-wrap">
       <div class="output-label">Paste this over the &lt;div class="wrap hero-inner"&gt;...&lt;/div&gt; block:</div>
@@ -72,12 +99,14 @@
   <summary>Homepage — "Why the name" (3 cards)</summary>
   <div class="panel">
     <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="concept"&gt;, replaces the &lt;div class="grid reveal-stagger"&gt;...&lt;/div&gt; block</div>
-    <div class="field"><label>Card 1 title</label><input type="text" id="c1t" value="The idea"></div>
-    <div class="field"><label>Card 1 text</label><textarea id="c1p">Most people plan travel around what's convenient, popular, or safe to post. I plan around what you'll actually remember when it counts — near the end of your life, looking back. Deathbed Memories is what's left after you strip away the itinerary filler: the moments worth having been there for.</textarea></div>
-    <div class="field"><label>Card 2 title</label><input type="text" id="c2t" value="The practice"></div>
-    <div class="field"><label>Card 2 text</label><textarea id="c2p">I built this approach on the road — four months of daily travel across seven countries, documented in real time. Not a highlight reel shot after the fact, but the actual decision-making: why I booked what I booked, what a local told me that changed my plans, what I'd do differently.</textarea></div>
-    <div class="field"><label>Card 3 title</label><input type="text" id="c3t" value="The promise"></div>
-    <div class="field"><label>Card 3 text</label><textarea id="c3p">When it's time to feel ready — whenever that comes — I want you to be able to say you packed light, stayed a while, lived like a local, and walked the paths most people skip. That's the trip I plan for you.</textarea></div>
+    <div class="field"><label>Card 1 title</label><input type="text" id="c1t" value="The idea" oninput="livePreviewConcept()"></div>
+    <div class="field"><label>Card 1 text</label><textarea id="c1p" oninput="livePreviewConcept()">Most people plan travel around what's convenient, popular, or safe to post. I plan around what you'll actually remember when it counts — near the end of your life, looking back. Deathbed Memories is what's left after you strip away the itinerary filler: the moments worth having been there for.</textarea></div>
+    <div class="field"><label>Card 2 title</label><input type="text" id="c2t" value="The practice" oninput="livePreviewConcept()"></div>
+    <div class="field"><label>Card 2 text</label><textarea id="c2p" oninput="livePreviewConcept()">I built this approach on the road — four months of daily travel across seven countries, documented in real time. Not a highlight reel shot after the fact, but the actual decision-making: why I booked what I booked, what a local told me that changed my plans, what I'd do differently.</textarea></div>
+    <div class="field"><label>Card 3 title</label><input type="text" id="c3t" value="The promise" oninput="livePreviewConcept()"></div>
+    <div class="field"><label>Card 3 text</label><textarea id="c3p" oninput="livePreviewConcept()">When it's time to feel ready — whenever that comes — I want you to be able to say you packed light, stayed a while, lived like a local, and walked the paths most people skip. That's the trip I plan for you.</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-concept"></div>
     <button class="btn" onclick="genConcept()">Generate code</button>
     <div class="output-wrap hidden" id="out-concept-wrap">
       <div class="output-label">Paste this over the whole "grid reveal-stagger" block:</div>
@@ -88,20 +117,31 @@
 </details>
 
 <details>
-  <summary>Homepage — Values list (5 items)</summary>
+  <summary>Homepage — "How I plan" section (heading + 4 values)</summary>
   <div class="panel">
-    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="values"&gt;, replaces the &lt;ul class="values-list reveal-stagger"&gt;...&lt;/ul&gt; block</div>
-    <div class="field"><label>Value 1 title</label><input type="text" id="v1t" value="Local over tourist"></div>
-    <div class="field"><label>Value 1 text</label><textarea id="v1p">Fewer landmarks, more of what the people who actually live there do on a normal Tuesday.</textarea></div>
-    <div class="field"><label>Value 2 title</label><input type="text" id="v2t" value="Slower travel"></div>
-    <div class="field"><label>Value 2 text</label><textarea id="v2p">Stay at least a week before moving on. Depth over a checklist of cities.</textarea></div>
-    <div class="field"><label>Value 3 title</label><input type="text" id="v3t" value="Sustainable approach"></div>
-    <div class="field"><label>Value 3 text</label><textarea id="v3p">Travel that doesn't burn you — or the places you're visiting — out.</textarea></div>
-    <div class="field"><label>Value 4 title</label><input type="text" id="v4t" value="Safety, seriously"></div>
-    <div class="field"><label>Value 4 text</label><textarea id="v4p">Especially as a solo traveler myself, safety isn't an afterthought in any plan I build.</textarea></div>
-    <div class="field"><label>Value 5 title</label><input type="text" id="v5t" value="Affordability"></div>
-    <div class="field"><label>Value 5 text</label><textarea id="v5p">A great trip and a realistic budget aren't opposites. I plan for both.</textarea></div>
-    <button class="btn" onclick="genValues()">Generate code</button>
+    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="values"&gt;. The heading fields replace the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block; the values replace the &lt;ul class="values-list reveal-stagger"&gt;...&lt;/ul&gt; block (two separate paste locations, both shown below after generating).</div>
+    <div class="field"><label>Small italic label above the heading</label><input type="text" id="values-eyebrow" value="how I plan" oninput="livePreviewValuesHead()"></div>
+    <div class="field"><label>Heading</label><input type="text" id="values-h2" value="Four values, every itinerary" oninput="livePreviewValuesHead()"></div>
+    <div class="field"><label>Intro sentence below the heading</label><textarea id="values-intro" oninput="livePreviewValuesHead()">Every itinerary I build gets run through the same four checks. If these match how you want to travel, we'll work well together.</textarea></div>
+    <div class="preview-label">Live preview — heading</div>
+    <div class="preview-box" id="pv-values-head"></div>
+    <div class="field"><label>Value 1 title</label><input type="text" id="v1t" value="Local over tourist" oninput="livePreviewValues()"></div>
+    <div class="field"><label>Value 1 text</label><textarea id="v1p" oninput="livePreviewValues()">Fewer landmarks, more of what the people who actually live there do on a normal Tuesday.</textarea></div>
+    <div class="field"><label>Value 2 title</label><input type="text" id="v2t" value="Slower travel" oninput="livePreviewValues()"></div>
+    <div class="field"><label>Value 2 text</label><textarea id="v2p" oninput="livePreviewValues()">Stay at least a week before moving on. Depth over a checklist of cities.</textarea></div>
+    <div class="field"><label>Value 3 title</label><input type="text" id="v3t" value="Safety, seriously" oninput="livePreviewValues()"></div>
+    <div class="field"><label>Value 3 text</label><textarea id="v3p" oninput="livePreviewValues()">Especially as a solo traveler myself, safety isn't an afterthought in any plan I build.</textarea></div>
+    <div class="field"><label>Value 4 title</label><input type="text" id="v4t" value="Affordability" oninput="livePreviewValues()"></div>
+    <div class="field"><label>Value 4 text</label><textarea id="v4p" oninput="livePreviewValues()">A great trip and a realistic budget aren't opposites. I plan for both.</textarea></div>
+    <div class="preview-label">Live preview — values</div>
+    <div class="preview-box" id="pv-values"></div>
+    <button class="btn" onclick="genValuesHead()">Generate heading code</button>
+    <div class="output-wrap hidden" id="out-values-head-wrap">
+      <div class="output-label">Paste this over the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block (the FIRST one inside #values, right before the values list):</div>
+      <textarea class="output" id="out-values-head" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-values-head')">Copy</button><span class="copied" id="copied-values-head"></span>
+    </div>
+    <button class="btn" onclick="genValues()">Generate values code</button>
     <div class="output-wrap hidden" id="out-values-wrap">
       <div class="output-label">Paste this over the whole &lt;ul class="values-list..."&gt;...&lt;/ul&gt; block:</div>
       <textarea class="output" id="out-values" readonly></textarea>
@@ -111,21 +151,58 @@
 </details>
 
 <details>
+  <summary>Homepage — "Who this is for" color block</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="values"&gt;, replaces the &lt;p&gt; text inside the &lt;div class="who-block reveal mt-2"&gt;...&lt;/div&gt; block (leave the pride-squiggle and tree SVGs above it as they are).</div>
+    <div class="field"><label>Bold lead-in phrase</label><input type="text" id="who-lead" value="Who this is for:" oninput="livePreviewWho()"></div>
+    <div class="field"><label>Rest of the sentence</label><textarea id="who-text" oninput="livePreviewWho()">aspiring digital nomads figuring out remote work abroad, solo adventurers who want to explore on foot, travelers tired of touristy itineraries, and burned-out professionals ready for a real change of pace.</textarea></div>
+    <div class="preview-label">Live preview — the color block, exactly as styled on the real site</div>
+    <div class="preview-box" id="pv-who"></div>
+    <button class="btn" onclick="genWho()">Generate code</button>
+    <div class="output-wrap hidden" id="out-who-wrap">
+      <div class="output-label">Paste this over the &lt;p&gt;...&lt;/p&gt; inside the who-block (keep the SVGs above it untouched):</div>
+      <textarea class="output" id="out-who" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-who')">Copy</button><span class="copied" id="copied-who"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Homepage — "Follow the trip" section heading</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="follow"&gt;, replaces the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block</div>
+    <div class="field"><label>Small italic label above the heading</label><input type="text" id="follow-eyebrow" value="on the road" oninput="livePreviewFollow()"></div>
+    <div class="field"><label>Heading</label><input type="text" id="follow-h2" value="Follow the trip" oninput="livePreviewFollow()"></div>
+    <div class="field"><label>Intro sentence below the heading</label><textarea id="follow-intro" oninput="livePreviewFollow()">Recent posts from the road, pulled from each platform.</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-follow"></div>
+    <button class="btn" onclick="genFollow()">Generate code</button>
+    <div class="output-wrap hidden" id="out-follow-wrap">
+      <div class="output-label">Paste this over the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block inside #follow:</div>
+      <textarea class="output" id="out-follow" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-follow')">Copy</button><span class="copied" id="copied-follow"></span>
+    </div>
+  </div>
+</details>
+
+<details>
   <summary>Services — pricing tiers</summary>
   <div class="panel">
     <div class="where"><b>Goes in:</b> services.html — replaces the first &lt;div class="grid reveal-stagger"&gt;...&lt;/div&gt; block (the 3 itinerary tiers)</div>
-    <div class="field"><label>Tier 1 tag</label><input type="text" id="s1tag" value="Weekend trip"></div>
-    <div class="field"><label>Tier 1 title</label><input type="text" id="s1t" value="Short getaway"></div>
-    <div class="field"><label>Tier 1 price</label><input type="text" id="s1price" value="$250"></div>
-    <div class="field"><label>Tier 1 description</label><textarea id="s1p">A full itinerary for a weekend trip — where to stay, what to do, and why, based on your goals.</textarea></div>
-    <div class="field"><label>Tier 2 tag</label><input type="text" id="s2tag" value="5–10 days"></div>
-    <div class="field"><label>Tier 2 title</label><input type="text" id="s2t" value="Standard trip"></div>
-    <div class="field"><label>Tier 2 price</label><input type="text" id="s2price" value="$500"></div>
-    <div class="field"><label>Tier 2 description</label><textarea id="s2p">A complete itinerary for a 5–10 day trip, built around your budget, pace, and travel style.</textarea></div>
-    <div class="field"><label>Tier 3 tag</label><input type="text" id="s3tag" value="Up to 30 days"></div>
-    <div class="field"><label>Tier 3 title</label><input type="text" id="s3t" value="Extended trip"></div>
-    <div class="field"><label>Tier 3 price</label><input type="text" id="s3price" value="$1,000"></div>
-    <div class="field"><label>Tier 3 description</label><textarea id="s3p">A full itinerary for trips up to 30 days — ideal for a career break, sabbatical, or a longer remote-work stint abroad.</textarea></div>
+    <div class="field"><label>Tier 1 tag</label><input type="text" id="s1tag" value="Weekend trip" oninput="livePreviewServices()"></div>
+    <div class="field"><label>Tier 1 title</label><input type="text" id="s1t" value="Short getaway" oninput="livePreviewServices()"></div>
+    <div class="field"><label>Tier 1 price</label><input type="text" id="s1price" value="$250" oninput="livePreviewServices()"></div>
+    <div class="field"><label>Tier 1 description</label><textarea id="s1p" oninput="livePreviewServices()">A full itinerary for a weekend trip — where to stay, what to do, and why, based on your goals.</textarea></div>
+    <div class="field"><label>Tier 2 tag</label><input type="text" id="s2tag" value="5–10 days" oninput="livePreviewServices()"></div>
+    <div class="field"><label>Tier 2 title</label><input type="text" id="s2t" value="Standard trip" oninput="livePreviewServices()"></div>
+    <div class="field"><label>Tier 2 price</label><input type="text" id="s2price" value="$500" oninput="livePreviewServices()"></div>
+    <div class="field"><label>Tier 2 description</label><textarea id="s2p" oninput="livePreviewServices()">A complete itinerary for a 5–10 day trip, built around your budget, pace, and travel style.</textarea></div>
+    <div class="field"><label>Tier 3 tag</label><input type="text" id="s3tag" value="Up to 30 days" oninput="livePreviewServices()"></div>
+    <div class="field"><label>Tier 3 title</label><input type="text" id="s3t" value="Extended trip" oninput="livePreviewServices()"></div>
+    <div class="field"><label>Tier 3 price</label><input type="text" id="s3price" value="$1,000" oninput="livePreviewServices()"></div>
+    <div class="field"><label>Tier 3 description</label><textarea id="s3p" oninput="livePreviewServices()">A full itinerary for trips up to 30 days — ideal for a career break, sabbatical, or a longer remote-work stint abroad.</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-services"></div>
     <button class="btn" onclick="genServices()">Generate code</button>
     <div class="output-wrap hidden" id="out-services-wrap">
       <div class="output-label">Paste this over the 3-tier grid block:</div>
@@ -139,9 +216,11 @@
   <summary>Shop — the hat</summary>
   <div class="panel">
     <div class="where"><b>Goes in:</b> shop.html — replaces the &lt;h3&gt;, description &lt;p&gt;, and &lt;p class="price"&gt; right after the hat graphic</div>
-    <div class="field"><label>Product name</label><input type="text" id="shop-name" value='"No Gracias" Cap'></div>
-    <div class="field"><label>Description</label><textarea id="shop-desc">Beige twill cap, "no gracias" embroidered across the front in white cursive — the o styled as a little smiley. One size, adjustable strap.</textarea></div>
-    <div class="field"><label>Price</label><input type="text" id="shop-price" value="$40 CAD"></div>
+    <div class="field"><label>Product name</label><input type="text" id="shop-name" value='"No Gracias" Cap' oninput="livePreviewShop()"></div>
+    <div class="field"><label>Description</label><textarea id="shop-desc" oninput="livePreviewShop()">Beige twill cap, "no gracias" embroidered across the front in white cursive — the o styled as a little smiley. One size, adjustable strap.</textarea></div>
+    <div class="field"><label>Price</label><input type="text" id="shop-price" value="$40 CAD" oninput="livePreviewShop()"></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-shop"></div>
     <button class="btn" onclick="genShop()">Generate code</button>
     <div class="output-wrap hidden" id="out-shop-wrap">
       <div class="output-label">Paste this over the &lt;h3&gt;...&lt;/h3&gt;&lt;p&gt;...&lt;/p&gt;&lt;p class="price"&gt;...&lt;/p&gt; lines:</div>
@@ -252,14 +331,13 @@ function genValues(){
   const icons = [
     '<circle cx="12" cy="10" r="3"/><path d="M12 21c4-4.5 7-8.2 7-11.5A7 7 0 0 0 5 9.5C5 12.8 8 16.5 12 21z"/>',
     '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
-    '<path d="M12 3c3 2.5 6 3 6 3s.5 8-6 12c-6.5-4-6-12-6-12s3-.5 6-3z"/>',
     '<path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/>',
     '<rect x="3" y="7" width="18" height="12" rx="2"/><path d="M3 10h18M16 14h2"/>'
   ];
-  const titles = [val('v1t'),val('v2t'),val('v3t'),val('v4t'),val('v5t')];
-  const texts = [val('v1p'),val('v2p'),val('v3p'),val('v4p'),val('v5p')];
+  const titles = [val('v1t'),val('v2t'),val('v3t'),val('v4t')];
+  const texts = [val('v1p'),val('v2p'),val('v3p'),val('v4p')];
   let out = '';
-  for (let i=0;i<5;i++){
+  for (let i=0;i<4;i++){
     out += `      <li class="reveal" style="--i:${i}">
         <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">${icons[i]}</svg></div>
         <strong>${esc(titles[i])}</strong>
@@ -297,6 +375,129 @@ function genShop(){
   document.getElementById('out-shop').value = out;
   show('out-shop-wrap');
 }
+
+/* ============================================================
+   LIVE PREVIEW FUNCTIONS
+   These render a small mock-up styled like the real site, purely
+   so you can see your wording/spacing before pasting anything.
+   They don't affect the "Generate code" output at all.
+   ============================================================ */
+
+function livePreviewHero(){
+  document.getElementById('pv-hero').innerHTML = `
+    <div class="pv-hero">
+      <div class="pv-tag">${esc(val('hero-tag'))}</div>
+      <h2>${esc(val('hero-h1'))}</h2>
+      <p>${esc(val('hero-p'))}</p>
+      <div class="pv-btns">
+        <span class="pv-btn-primary">${esc(val('hero-btn1'))}</span>
+        <span class="pv-btn-outline">${esc(val('hero-btn2'))}</span>
+      </div>
+    </div>`;
+}
+
+function livePreviewConcept(){
+  const titles = [val('c1t'), val('c2t'), val('c3t')];
+  const texts = [val('c1p'), val('c2p'), val('c3p')];
+  let cards = '';
+  for (let i=0;i<3;i++){
+    cards += `<div class="pv-card"><h4>${esc(titles[i])}</h4><p>${esc(texts[i])}</p></div>`;
+  }
+  document.getElementById('pv-concept').innerHTML = `<div class="pv-cards">${cards}</div>`;
+}
+
+function livePreviewValues(){
+  const titles = [val('v1t'),val('v2t'),val('v3t'),val('v4t')];
+  const texts = [val('v1p'),val('v2p'),val('v3p'),val('v4p')];
+  let cards = '';
+  for (let i=0;i<4;i++){
+    cards += `<div class="pv-card"><h4>${esc(titles[i])}</h4><p>${esc(texts[i])}</p></div>`;
+  }
+  document.getElementById('pv-values').innerHTML = `<div class="pv-cards">${cards}</div>`;
+}
+
+function livePreviewServices(){
+  const tags = [val('s1tag'),val('s2tag'),val('s3tag')];
+  const titles = [val('s1t'),val('s2t'),val('s3t')];
+  const prices = [val('s1price'),val('s2price'),val('s3price')];
+  const texts = [val('s1p'),val('s2p'),val('s3p')];
+  let cards = '';
+  for (let i=0;i<3;i++){
+    cards += `<div class="pv-card"><span class="pv-tag">${esc(tags[i])}</span><h4>${esc(titles[i])}</h4><p class="pv-price">${esc(prices[i])}</p><p>${esc(texts[i])}</p></div>`;
+  }
+  document.getElementById('pv-services').innerHTML = `<div class="pv-cards">${cards}</div>`;
+}
+
+function livePreviewShop(){
+  document.getElementById('pv-shop').innerHTML = `
+    <div class="pv-hat">
+      <svg class="pv-hat-icon" viewBox="0 0 320 220"><path d="M20 150 Q160 40 300 150 L300 165 Q160 60 20 165 Z" fill="#D8C39C"/><ellipse cx="160" cy="176" rx="150" ry="16" fill="#C9B187"/></svg>
+      <div>
+        <h4 style="color:#fff;font-family:Georgia,serif;margin:0 0 0.3rem;">${esc(val('shop-name'))}</h4>
+        <p style="color:#ddd;font-size:0.8rem;margin:0 0 0.3rem;">${esc(val('shop-desc'))}</p>
+        <p style="color:#e8a582;font-family:Georgia,serif;font-size:1.1rem;margin:0;">${esc(val('shop-price'))}</p>
+      </div>
+    </div>`;
+}
+
+function genValuesHead(){
+  const out = `      <p class="eyebrow">${esc(val('values-eyebrow'))}</p>
+      <h2>${esc(val('values-h2'))}</h2>
+      <p>
+        ${esc(val('values-intro'))}
+      </p>`;
+  document.getElementById('out-values-head').value = out;
+  show('out-values-head-wrap');
+}
+
+function livePreviewValuesHead(){
+  document.getElementById('pv-values-head').innerHTML = `
+    <div class="pv-section-head">
+      <div class="pv-eyebrow">${esc(val('values-eyebrow'))}</div>
+      <h4>${esc(val('values-h2'))}</h4>
+      <p>${esc(val('values-intro'))}</p>
+    </div>`;
+}
+
+function genWho(){
+  const out = `      <p>
+        <strong>${esc(val('who-lead'))}</strong> ${esc(val('who-text'))}
+      </p>`;
+  document.getElementById('out-who').value = out;
+  show('out-who-wrap');
+}
+
+function livePreviewWho(){
+  document.getElementById('pv-who').innerHTML = `
+    <div class="pv-who"><strong>${esc(val('who-lead'))}</strong> ${esc(val('who-text'))}</div>`;
+}
+
+function genFollow(){
+  const out = `      <p class="eyebrow">${esc(val('follow-eyebrow'))}</p>
+      <h2>${esc(val('follow-h2'))}</h2>
+      <p>${esc(val('follow-intro'))}</p>`;
+  document.getElementById('out-follow').value = out;
+  show('out-follow-wrap');
+}
+
+function livePreviewFollow(){
+  document.getElementById('pv-follow').innerHTML = `
+    <div class="pv-section-head">
+      <div class="pv-eyebrow">${esc(val('follow-eyebrow'))}</div>
+      <h4>${esc(val('follow-h2'))}</h4>
+      <p>${esc(val('follow-intro'))}</p>
+    </div>`;
+}
+
+// Render every preview once on page load, using the pre-filled defaults
+livePreviewHero();
+livePreviewConcept();
+livePreviewValuesHead();
+livePreviewValues();
+livePreviewWho();
+livePreviewFollow();
+livePreviewServices();
+livePreviewShop();
 
 function genDropdown(){
   const lines = val('dropdown-opts').split('\n').map(l => l.trim()).filter(Boolean);
