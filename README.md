@@ -138,17 +138,29 @@ there's no data file for these. Here's where each thing lives:
 
 | Content | File |
 |---|---|
-| Hero headline/tagline, "why the name" cards, values list | `index.html` |
+| Hero headline/tagline, "how I build every trip" cards | `index.html` |
+| "How I plan" heading + 4 values, "Who this is for" block, "Follow the trip" heading | `index.html` |
+| Trail-nav labels (the numbered row under the homepage hero) | `index.html` — see note below |
 | Service pricing & descriptions, consultation heading | `services.html` |
 | Hat name/price/description | `shop.html` |
 | Contact page text, dropdown options | `contact.html` |
-| Email, social links, tagline in the footer | **Repeated in all 5 HTML files** — see note below |
+| Tour pricing & inquiry form text | `tours.html` (not linked from navigation yet — see Section 6) |
+| Photography pricing & gallery | `photography.html` + `data/photos.json` (not linked yet — see Section 6) |
+| Email, social links, tagline in the footer | **Repeated in every HTML page** — see note below |
+
+**Trail-nav label note:** on the homepage, right under the hero, there's
+a row of numbered buttons (Home, About, Follow along, Services, Shop,
+Blog). To rename any of them, open `index.html`, find
+`<nav class="trail-nav"...>`, and edit the words right after each
+`</span>` — e.g. in `<span class="num">1</span> Home`, just change
+"Home" to whatever you want. The number and the link target
+(`href="#concept"` etc.) don't need to change unless you're also moving
+what that button scrolls to.
 
 **Footer note:** the footer (email, social links, copyright line) is
-pasted separately into the bottom of `index.html`, `services.html`,
-`shop.html`, `blog.html`, and `contact.html` — there's no shared
+pasted separately into the bottom of every page — there's no shared
 template file, so changing your email or a social handle means editing
-it in all five files, not just one.
+it in each file, not just one.
 
 ### The Content Editor tool (editor.html)
 To make hand-editing these safer, there's a small helper page —
@@ -161,14 +173,20 @@ HTML.
 **To use it:**
 1. Visit `https://your-username.github.io/deathbed-memories-website/editor.html`
    (same URL as your live site, with `/editor.html` added on the end).
-2. Tap open the section you want (Hero, Values, Services pricing, Shop,
-   Contact dropdown, or Footer).
-3. Edit the fields — they're pre-filled with your current site copy.
+2. Tap open the section you want: Hero, "How I build every trip" cards,
+   "How I plan" heading + 4 values, "Who this is for" block, "Follow the
+   trip" heading, Services pricing, Shop, Contact dropdown, or Footer.
+3. Edit the fields — they're pre-filled with your current site copy, and
+   most sections show a live preview that updates as you type.
 4. Tap **Generate code**, then **Copy**.
 5. Go to the actual page file on GitHub (noted at the top of each
    section, e.g. "Goes in: index.html"), tap edit, find the matching
    block of code, select just that chunk, delete it, and paste in the
    new version. Commit changes.
+
+Note: the "How I plan" section has two separate Generate buttons — one
+for the heading text, one for the 4 values — since they paste into two
+different spots in the file. Generate and paste each one separately.
 
 It won't ever break your file's overall structure as long as you paste
 over the *same block* it tells you to — it's not a live preview or an
