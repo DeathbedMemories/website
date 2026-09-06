@@ -46,6 +46,7 @@
   --radius-pill: 999px;
   --max-width: 1140px;
   --gap: 1.75rem;
+  --section-padding: 6rem;
   --ease: cubic-bezier(.22,.68,0,1);
 }
 
@@ -85,7 +86,7 @@ h1, h2, h3 {
   padding: 0 1.5rem;
 }
 
-section { padding: 6rem 0; position: relative; }
+section { padding: var(--section-padding) 0; position: relative; }
 
 a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
   outline: 3px solid var(--color-forest);
@@ -129,6 +130,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   top: 0;
   z-index: 50;
   border-bottom: 1px solid var(--color-line-dark);
+}
+.site-header::before {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #F6A5A5, #F8C99B, #F5E39B, #A8D8B9, #9AC7E0, #C7A8DB);
 }
 
 .nav {
@@ -386,6 +394,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .values-list .card-icon { margin-bottom: 0.9rem; }
 .values-list strong { display: block; font-family: var(--font-header); font-size: 1.15rem; margin-bottom: 0.35rem; }
 
+.who-block {
+  position: relative;
+  background: var(--color-forest);
+  color: var(--color-cream);
+  border-radius: var(--radius);
+  padding: 2.25rem 2rem 2rem;
+  overflow: hidden;
+}
+.who-block p { font-size: 1.05rem; line-height: 1.7; max-width: 68ch; position: relative; z-index: 2; }
+.who-block strong { font-family: var(--font-header); font-style: italic; font-weight: normal; }
+.who-block .pride-squiggle { width: 160px; margin-bottom: 1rem; opacity: 0.9; }
+.who-block .pride-squiggle svg { width: 100%; height: 18px; display: block; }
+.who-block .who-tree {
+  position: absolute;
+  right: 1rem; bottom: -0.5rem;
+  width: 70px; height: auto;
+  opacity: 0.35;
+}
+
 /* ---------- 11. FORMS ---------- */
 form { display: flex; flex-direction: column; gap: 1.1rem; max-width: 520px; }
 
@@ -541,6 +568,17 @@ textarea { min-height: 140px; resize: vertical; }
   color: var(--color-cream);
   padding: 4rem 0 2rem;
   position: relative;
+  overflow: hidden;
+}
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 42px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='42' viewBox='0 0 220 42'%3E%3Cpath d='M28 42V27 M16 27 L28 5 L40 27 Z' fill='%234A7C59'/%3E%3Cpath d='M85 42V30 M74 30 L85 13 L96 30 Z' fill='%2374A886'/%3E%3Cpath d='M142 42V24 L130 24 L142 2 L154 24 L142 24' fill='%233A6247'/%3E%3Cpath d='M195 42V31 M185 31 L195 16 L205 31 Z' fill='%2374A886'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: bottom left;
+  opacity: 0.6;
 }
 .footer-grid {
   display: flex;
@@ -557,7 +595,8 @@ textarea { min-height: 140px; resize: vertical; }
 .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
 .footer-links a { color: var(--color-cream); opacity: 0.85; }
 .footer-bottom {
-  border-top: 1px solid var(--color-line-dark);
+  border-top: 2px solid transparent;
+  border-image: linear-gradient(90deg, #F6A5A5, #F8C99B, #F5E39B, #A8D8B9, #9AC7E0, #C7A8DB) 1;
   padding-top: 1.5rem;
   font-size: var(--size-small);
   opacity: 0.6;
@@ -573,3 +612,35 @@ textarea { min-height: 140px; resize: vertical; }
   padding: 0; margin: -1px; overflow: hidden;
   clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
+
+/* ---------- 18. BACKGROUND PHOTOS (optional, any section) ----------
+   Add class="has-bg-photo" plus an inline style with the image, e.g.:
+   <section class="hero hero-simple has-bg-photo" style="background-image:url('images/backgrounds/services-hero.jpg')">
+   A dark gradient overlay is added automatically so text stays
+   readable over any photo — you don't need to darken the photo
+   yourself. See css-editor.html's "Background Photos" section for a
+   tool that writes this snippet for you. */
+.has-bg-photo {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+.has-bg-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(28,28,26,0.55), rgba(28,28,26,0.8));
+  z-index: 0;
+}
+.has-bg-photo > .wrap,
+.has-bg-photo .hero-inner {
+  position: relative;
+  z-index: 1;
+}
+.has-bg-photo h1, .has-bg-photo h2, .has-bg-photo h3,
+.has-bg-photo p, .has-bg-photo .eyebrow, .has-bg-photo .hero-tag {
+  color: var(--color-cream);
+}
+.has-bg-photo .section-head p { color: var(--color-cream); opacity: 0.85; }
+.hero-simple .wrap { position: relative; z-index: 2; }
