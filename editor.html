@@ -6,6 +6,15 @@
 <title>Content Editor — Deathbed Memories (internal tool)</title>
 <meta name="robots" content="noindex">
 <style>
+  /* ============================================================
+     This page is a private helper tool, not part of the public
+     site. It never sends anything anywhere — everything happens
+     in your browser. It just turns form fields into ready-to-paste
+     HTML/text so you don't have to hand-edit tags.
+     It is NOT linked from your site's navigation, so visitors
+     won't stumble onto it, but it is reachable if someone types
+     the exact address — there's no sensitive data on it either way.
+     ============================================================ */
   :root {
     --dark:#1C1C1A; --cream:#F5EDD6; --terracotta:#C85C38; --forest:#4A7C59; --white:#fff; --line:#ddd2ac;
   }
@@ -70,20 +79,21 @@
   Commit changes — same as always, just a smaller paste each time).
 </p>
 
+<!-- ============================================================= -->
 <details open>
   <summary>Homepage — Hero (top banner)</summary>
   <div class="panel">
     <div class="where"><b>Goes in:</b> index.html — replaces the block starting at &lt;section class="hero"&gt; content, specifically the text inside .hero-inner</div>
     <div class="field"><label>Small italic tagline above the headline</label>
-      <input type="text" id="hero-tag" value="create the memories you want to have before you die" oninput="livePreviewHero()"></div>
+      <input type="text" id="hero-tag" value="live your bucket list" oninput="livePreviewHero()"></div>
     <div class="field"><label>Big headline</label>
-      <input type="text" id="hero-h1" value="Don't die without deathbed memories." oninput="livePreviewHero()"></div>
+      <input type="text" id="hero-h1" value="Create deathbed memories." oninput="livePreviewHero()"></div>
     <div class="field"><label>Paragraph below the headline</label>
-      <textarea id="hero-p" oninput="livePreviewHero()">Every trip I plan is built around one question: when you look back from the very end, will this be one of the moments you're glad you had? I'm Manz — a nomadic travel consultant who plans trips around local experience, slower pace, and the kind of days that stay with you.</textarea></div>
+      <textarea id="hero-p" oninput="livePreviewHero()">for customized experiences you'll remember at the end of life, plan a trip with Manz - your nomadic commission-free personal travel consultant</textarea></div>
     <div class="field"><label>Primary button text</label>
       <input type="text" id="hero-btn1" value="See services & book a free consult" oninput="livePreviewHero()"></div>
     <div class="field"><label>Secondary button text</label>
-      <input type="text" id="hero-btn2" value="Read the philosophy" oninput="livePreviewHero()"></div>
+      <input type="text" id="hero-btn2" value="How to DIY" oninput="livePreviewHero()"></div>
     <div class="preview-label">Live preview</div>
     <div class="preview-box" id="pv-hero"></div>
     <button class="btn" onclick="genHero()">Generate code</button>
@@ -96,18 +106,51 @@
 </details>
 
 <details>
-  <summary>Homepage — "Why the name" (3 cards)</summary>
+  <summary>Homepage — Trail nav labels (the numbered row)</summary>
   <div class="panel">
-    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="concept"&gt;, replaces the &lt;div class="grid reveal-stagger"&gt;...&lt;/div&gt; block</div>
-    <div class="field"><label>Card 1 title</label><input type="text" id="c1t" value="The idea" oninput="livePreviewConcept()"></div>
-    <div class="field"><label>Card 1 text</label><textarea id="c1p" oninput="livePreviewConcept()">Most people plan travel around what's convenient, popular, or safe to post. I plan around what you'll actually remember when it counts — near the end of your life, looking back. Deathbed Memories is what's left after you strip away the itinerary filler: the moments worth having been there for.</textarea></div>
-    <div class="field"><label>Card 2 title</label><input type="text" id="c2t" value="The practice" oninput="livePreviewConcept()"></div>
-    <div class="field"><label>Card 2 text</label><textarea id="c2p" oninput="livePreviewConcept()">I built this approach on the road — four months of daily travel across seven countries, documented in real time. Not a highlight reel shot after the fact, but the actual decision-making: why I booked what I booked, what a local told me that changed my plans, what I'd do differently.</textarea></div>
-    <div class="field"><label>Card 3 title</label><input type="text" id="c3t" value="The promise" oninput="livePreviewConcept()"></div>
-    <div class="field"><label>Card 3 text</label><textarea id="c3p" oninput="livePreviewConcept()">When it's time to feel ready — whenever that comes — I want you to be able to say you packed light, stayed a while, lived like a local, and walked the paths most people skip. That's the trip I plan for you.</textarea></div>
+    <div class="where"><b>Goes in:</b> index.html — replaces the contents of &lt;nav class="trail-nav"&gt;...&lt;/nav&gt;. The number and link target for each stop stay the same; only the visible words change.</div>
+    <div class="field"><label>1 — links to the Approach section</label><input type="text" id="trail1" value="Do it yourself" oninput="livePreviewTrail()"></div>
+    <div class="field"><label>2 — links to the How to Plan section</label><input type="text" id="trail2" value="Tips" oninput="livePreviewTrail()"></div>
+    <div class="field"><label>3 — links to the Follow section</label><input type="text" id="trail3" value="Follow along" oninput="livePreviewTrail()"></div>
+    <div class="field"><label>4 — links to Services page</label><input type="text" id="trail4" value="Services" oninput="livePreviewTrail()"></div>
+    <div class="field"><label>5 — links to Shop page</label><input type="text" id="trail5" value="Shop" oninput="livePreviewTrail()"></div>
+    <div class="field"><label>6 — links to Blog page</label><input type="text" id="trail6" value="Blog" oninput="livePreviewTrail()"></div>
     <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-trail"></div>
+    <button class="btn" onclick="genTrail('out-trail')">Generate code</button>
+    <div class="output-wrap hidden" id="out-trail-wrap">
+      <div class="output-label">Paste this over everything inside &lt;nav class="trail-nav"...&gt;...&lt;/nav&gt;'s &lt;div class="wrap"&gt;:</div>
+      <textarea class="output" id="out-trail" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-trail')">Copy</button><span class="copied" id="copied-trail"></span>
+    </div>
+  </div>
+</details>
+
+<!-- ============================================================= -->
+<details>
+  <summary>Homepage — Approach section (heading + 3 cards)</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="concept"&gt;. The heading fields replace the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block; the cards replace the &lt;div class="grid reveal-stagger"&gt;...&lt;/div&gt; block (two separate paste locations, both shown below after generating).</div>
+    <div class="field"><label>Small italic label above the heading</label><input type="text" id="approach-eyebrow" value="the approach" oninput="previewSectionHead('approach','pv-approach-head')"></div>
+    <div class="field"><label>Heading</label><input type="text" id="approach-h2" value="How every trip is built" oninput="previewSectionHead('approach','pv-approach-head')"></div>
+    <div class="field"><label>Intro sentence below the heading</label><textarea id="approach-intro" oninput="previewSectionHead('approach','pv-approach-head')">Three guiding principles to travel by, no matter the destination.</textarea></div>
+    <div class="preview-label">Live preview — heading</div>
+    <div class="preview-box" id="pv-approach-head"></div>
+    <div class="field"><label>Card 1 title</label><input type="text" id="c1t" value="Prioritize nature" oninput="livePreviewConcept()"></div>
+    <div class="field"><label>Card 1 text</label><textarea id="c1p" oninput="livePreviewConcept()">Any trip with me includes getting to know a new place by visiting its parks, waterfront trails and colourful outdoor art spaces. Time spent outdoors is spiritual, healing, clarifying and is guaranteed to lead to lasting memories.</textarea></div>
+    <div class="field"><label>Card 2 title</label><input type="text" id="c2t" value="Live like a local" oninput="livePreviewConcept()"></div>
+    <div class="field"><label>Card 2 text</label><textarea id="c2p" oninput="livePreviewConcept()">I know we're tourists but we're going to try not to be touristy. Resting somewhere safe, quiet and centrally located to where your adventure takes you is needed for reflection that will solidify the feeling of your experiences.</textarea></div>
+    <div class="field"><label>Card 3 title</label><input type="text" id="c3t" value="Travel flexibly" oninput="livePreviewConcept()"></div>
+    <div class="field"><label>Card 3 text</label><textarea id="c3p" oninput="livePreviewConcept()">Slowing down and staying a while reduces stress if something changes. Use transportation pricing to determine your travel dates and fill everything else in from there. Remember to leave space on the calendar for local agency deals and unplanned adventures.</textarea></div>
+    <div class="preview-label">Live preview — cards</div>
     <div class="preview-box" id="pv-concept"></div>
-    <button class="btn" onclick="genConcept()">Generate code</button>
+    <button class="btn" onclick="genSectionHead('approach','out-approach-head')">Generate heading code</button>
+    <div class="output-wrap hidden" id="out-approach-head-wrap">
+      <div class="output-label">Paste this over the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block inside #concept:</div>
+      <textarea class="output" id="out-approach-head" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-approach-head')">Copy</button><span class="copied" id="copied-approach-head"></span>
+    </div>
+    <button class="btn" onclick="genConcept()">Generate cards code</button>
     <div class="output-wrap hidden" id="out-concept-wrap">
       <div class="output-label">Paste this over the whole "grid reveal-stagger" block:</div>
       <textarea class="output" id="out-concept" readonly></textarea>
@@ -116,32 +159,33 @@
   </div>
 </details>
 
+<!-- ============================================================= -->
 <details>
-  <summary>Homepage — "How I plan" section (heading + 4 values)</summary>
+  <summary>Homepage — "How to plan" section (heading + 4 steps)</summary>
   <div class="panel">
-    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="values"&gt;. The heading fields replace the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block; the values replace the &lt;ul class="values-list reveal-stagger"&gt;...&lt;/ul&gt; block (two separate paste locations, both shown below after generating).</div>
-    <div class="field"><label>Small italic label above the heading</label><input type="text" id="values-eyebrow" value="how I plan" oninput="livePreviewValuesHead()"></div>
-    <div class="field"><label>Heading</label><input type="text" id="values-h2" value="Four values, every itinerary" oninput="livePreviewValuesHead()"></div>
-    <div class="field"><label>Intro sentence below the heading</label><textarea id="values-intro" oninput="livePreviewValuesHead()">Every itinerary I build gets run through the same four checks. If these match how you want to travel, we'll work well together.</textarea></div>
+    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="values"&gt;. The heading fields replace the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block; the steps replace the &lt;ul class="values-list reveal-stagger"&gt;...&lt;/ul&gt; block (two separate paste locations, both shown below after generating).</div>
+    <div class="field"><label>Small italic label above the heading</label><input type="text" id="values-eyebrow" value="how to plan" oninput="livePreviewValuesHead()"></div>
+    <div class="field"><label>Heading</label><input type="text" id="values-h2" value="Four steps to follow" oninput="livePreviewValuesHead()"></div>
+    <div class="field"><label>Intro sentence below the heading</label><textarea id="values-intro" oninput="livePreviewValuesHead()">Itineraries should be accommodating to the unique needs of each person.</textarea></div>
     <div class="preview-label">Live preview — heading</div>
     <div class="preview-box" id="pv-values-head"></div>
-    <div class="field"><label>Value 1 title</label><input type="text" id="v1t" value="Local over tourist" oninput="livePreviewValues()"></div>
-    <div class="field"><label>Value 1 text</label><textarea id="v1p" oninput="livePreviewValues()">Fewer landmarks, more of what the people who actually live there do on a normal Tuesday.</textarea></div>
-    <div class="field"><label>Value 2 title</label><input type="text" id="v2t" value="Slower travel" oninput="livePreviewValues()"></div>
-    <div class="field"><label>Value 2 text</label><textarea id="v2p" oninput="livePreviewValues()">Stay at least a week before moving on. Depth over a checklist of cities.</textarea></div>
-    <div class="field"><label>Value 3 title</label><input type="text" id="v3t" value="Safety, seriously" oninput="livePreviewValues()"></div>
-    <div class="field"><label>Value 3 text</label><textarea id="v3p" oninput="livePreviewValues()">Especially as a solo traveler myself, safety isn't an afterthought in any plan I build.</textarea></div>
-    <div class="field"><label>Value 4 title</label><input type="text" id="v4t" value="Affordability" oninput="livePreviewValues()"></div>
-    <div class="field"><label>Value 4 text</label><textarea id="v4p" oninput="livePreviewValues()">A great trip and a realistic budget aren't opposites. I plan for both.</textarea></div>
-    <div class="preview-label">Live preview — values</div>
+    <div class="field"><label>Step 1 title</label><input type="text" id="v1t" value="Start with research" oninput="livePreviewValues()"></div>
+    <div class="field"><label>Step 1 text</label><textarea id="v1p" oninput="livePreviewValues()">Think about the kind of environments that spark inspiration, joy, peace and adventure.</textarea></div>
+    <div class="field"><label>Step 2 title</label><input type="text" id="v2t" value="Book early" oninput="livePreviewValues()"></div>
+    <div class="field"><label>Step 2 text</label><textarea id="v2p" oninput="livePreviewValues()">To get the lowest overall trip cost, booking 3-6 months in advance is when to start.</textarea></div>
+    <div class="field"><label>Step 3 title</label><input type="text" id="v3t" value="Keep it organized" oninput="livePreviewValues()"></div>
+    <div class="field"><label>Step 3 text</label><textarea id="v3p" oninput="livePreviewValues()">All booking details go into a fun, themed spreadsheet for easy reference offline.</textarea></div>
+    <div class="field"><label>Step 4 title</label><input type="text" id="v4t" value="Set intentions and goals" oninput="livePreviewValues()"></div>
+    <div class="field"><label>Step 4 text</label><textarea id="v4p" oninput="livePreviewValues()">These experiences are about growth, appreciation and expanding the world as we know it.</textarea></div>
+    <div class="preview-label">Live preview — steps</div>
     <div class="preview-box" id="pv-values"></div>
     <button class="btn" onclick="genValuesHead()">Generate heading code</button>
     <div class="output-wrap hidden" id="out-values-head-wrap">
-      <div class="output-label">Paste this over the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block (the FIRST one inside #values, right before the values list):</div>
+      <div class="output-label">Paste this over the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block (the FIRST one inside #values, right before the steps list):</div>
       <textarea class="output" id="out-values-head" readonly></textarea>
       <button class="btn secondary" onclick="copyOut('out-values-head')">Copy</button><span class="copied" id="copied-values-head"></span>
     </div>
-    <button class="btn" onclick="genValues()">Generate values code</button>
+    <button class="btn" onclick="genValues()">Generate steps code</button>
     <div class="output-wrap hidden" id="out-values-wrap">
       <div class="output-label">Paste this over the whole &lt;ul class="values-list..."&gt;...&lt;/ul&gt; block:</div>
       <textarea class="output" id="out-values" readonly></textarea>
@@ -151,16 +195,21 @@
 </details>
 
 <details>
-  <summary>Homepage — "Who this is for" color block</summary>
+  <summary>Homepage — Tip Downloads color block</summary>
   <div class="panel">
-    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="values"&gt;, replaces the &lt;p&gt; text inside the &lt;div class="who-block reveal mt-2"&gt;...&lt;/div&gt; block (leave the pride-squiggle and tree SVGs above it as they are).</div>
-    <div class="field"><label>Bold lead-in phrase</label><input type="text" id="who-lead" value="Who this is for:" oninput="livePreviewWho()"></div>
-    <div class="field"><label>Rest of the sentence</label><textarea id="who-text" oninput="livePreviewWho()">aspiring digital nomads figuring out remote work abroad, solo adventurers who want to explore on foot, travelers tired of touristy itineraries, and burned-out professionals ready for a real change of pace.</textarea></div>
+    <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="values"&gt;, replaces the &lt;p class="who-lead"&gt;...&lt;/p&gt; and &lt;div class="who-actions"&gt;...&lt;/div&gt; inside the &lt;div class="who-block reveal mt-2"&gt;...&lt;/div&gt; block (leave the pride-squiggle and tree SVGs above them as they are).</div>
+    <div class="field"><label>Lead line (italic)</label><input type="text" id="tips-lead" value="Two free guides, straight from the road." oninput="previewTips('pv-who')"></div>
+    <div class="field"><label>Button 1 label</label><input type="text" id="tips-label1" value="5 Tips for Travel Booking" oninput="previewTips('pv-who')"></div>
+    <div class="field"><label>Button 1 file name (inside the files/ folder)</label><input type="text" id="tips-file1" value="5-tips-travel-booking.pdf" oninput="previewTips('pv-who')"></div>
+    <div class="field"><label>Button 2 label</label><input type="text" id="tips-label2" value="5 Packing Tips" oninput="previewTips('pv-who')"></div>
+    <div class="field"><label>Button 2 file name (inside the files/ folder)</label><input type="text" id="tips-file2" value="5-packing-tips.pdf" oninput="previewTips('pv-who')"></div>
+    <p class="note">To add a 3rd guide later, upload its PDF into the <code>files/</code> folder and copy one of the two &lt;a class="btn btn-primary"&gt;...&lt;/a&gt; blocks in the generated code, editing the label and filename.</p>
     <div class="preview-label">Live preview — the color block, exactly as styled on the real site</div>
     <div class="preview-box" id="pv-who"></div>
-    <button class="btn" onclick="genWho()">Generate code</button>
+    <button class="btn" onclick="genTips('out-who')">Generate code</button>
     <div class="output-wrap hidden" id="out-who-wrap">
-      <div class="output-label">Paste this over the &lt;p&gt;...&lt;/p&gt; inside the who-block (keep the SVGs above it untouched):</div>
+          <div class="output-wrap hidden" id="out-who-wrap">
+      <div class="output-label">Paste this over the &lt;p class="who-lead"&gt;...&lt;/p&gt; and &lt;div class="who-actions"&gt;...&lt;/div&gt; together (keep the SVGs above them untouched):</div>
       <textarea class="output" id="out-who" readonly></textarea>
       <button class="btn secondary" onclick="copyOut('out-who')">Copy</button><span class="copied" id="copied-who"></span>
     </div>
@@ -171,9 +220,9 @@
   <summary>Homepage — "Follow the trip" section heading</summary>
   <div class="panel">
     <div class="where"><b>Goes in:</b> index.html — inside &lt;section id="follow"&gt;, replaces the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block</div>
-    <div class="field"><label>Small italic label above the heading</label><input type="text" id="follow-eyebrow" value="on the road" oninput="livePreviewFollow()"></div>
-    <div class="field"><label>Heading</label><input type="text" id="follow-h2" value="Follow the trip" oninput="livePreviewFollow()"></div>
-    <div class="field"><label>Intro sentence below the heading</label><textarea id="follow-intro" oninput="livePreviewFollow()">Recent posts from the road, pulled from each platform.</textarea></div>
+    <div class="field"><label>Small italic label above the heading</label><input type="text" id="follow-eyebrow" value="on the trail" oninput="livePreviewFollow()"></div>
+    <div class="field"><label>Heading</label><input type="text" id="follow-h2" value="Creating my own deathbed memories" oninput="livePreviewFollow()"></div>
+    <div class="field"><label>Intro sentence below the heading</label><textarea id="follow-intro" oninput="livePreviewFollow()">Follow on your favourite platform.</textarea></div>
     <div class="preview-label">Live preview</div>
     <div class="preview-box" id="pv-follow"></div>
     <button class="btn" onclick="genFollow()">Generate code</button>
@@ -185,6 +234,44 @@
   </div>
 </details>
 
+<!-- ============================================================= -->
+<details>
+  <summary>Services — Hero</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> services.html — replaces the text inside &lt;section class="hero hero-simple"&gt;'s &lt;div class="wrap"&gt;</div>
+    <div class="field"><label>Small italic tagline</label><input type="text" id="svc-hero-tag" value="what I offer" oninput="previewHeroSimple('svc-hero','pv-svc-hero')"></div>
+    <div class="field"><label>Headline</label><input type="text" id="svc-hero-h1" value="Services" oninput="previewHeroSimple('svc-hero','pv-svc-hero')"></div>
+    <div class="field"><label>Paragraph</label><textarea id="svc-hero-p" oninput="previewHeroSimple('svc-hero','pv-svc-hero')">From a one-page rationale to a fully booked itinerary, or a travel companion to join you on the ground.</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-svc-hero"></div>
+    <button class="btn" onclick="genHeroSimple('svc-hero','out-svc-hero')">Generate code</button>
+    <div class="output-wrap hidden" id="out-svc-hero-wrap">
+      <div class="output-label">Paste this over the &lt;div class="wrap"&gt;...&lt;/div&gt; inside the hero:</div>
+      <textarea class="output" id="out-svc-hero" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-svc-hero')">Copy</button><span class="copied" id="copied-svc-hero"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Services — Free consultation heading</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> services.html — replaces the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block right before the Calendly booking widget</div>
+    <div class="field"><label>Small italic label above the heading</label><input type="text" id="svc-consult-eyebrow" value="no pressure" oninput="previewSectionHead('svc-consult','pv-svc-consult')"></div>
+    <div class="field"><label>Heading</label><input type="text" id="svc-consult-h2" value="Free 10-minute consultation" oninput="previewSectionHead('svc-consult','pv-svc-consult')"></div>
+    <div class="field"><label>Intro paragraph</label><textarea id="svc-consult-intro" oninput="previewSectionHead('svc-consult','pv-svc-consult')">Tell me your travel goals — low budget, family-friendly, beachside, adventure, couples, solo, remote-work friendly — and I'll share my honest thoughts, based on my own travel and the values above. No pressure, no upsell on this call.</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-svc-consult"></div>
+    <button class="btn" onclick="genSectionHead('svc-consult','out-svc-consult')">Generate code</button>
+    <div class="output-wrap hidden" id="out-svc-consult-wrap">
+      <div class="output-label">Paste this over that &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block:</div>
+      <textarea class="output" id="out-svc-consult" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-svc-consult')">Copy</button><span class="copied" id="copied-svc-consult"></span>
+    </div>
+  </div>
+</details>
+
+<!-- ============================================================= -->
 <details>
   <summary>Services — pricing tiers</summary>
   <div class="panel">
@@ -212,6 +299,25 @@
   </div>
 </details>
 
+<!-- ============================================================= -->
+<details>
+  <summary>Shop — Hero</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> shop.html — replaces the text inside &lt;section class="hero hero-simple"&gt;'s &lt;div class="wrap"&gt;</div>
+    <div class="field"><label>Small italic tagline</label><input type="text" id="shop-hero-tag" value="one design, for now" oninput="previewHeroSimple('shop-hero','pv-shop-hero')"></div>
+    <div class="field"><label>Headline</label><input type="text" id="shop-hero-h1" value="Shop" oninput="previewHeroSimple('shop-hero','pv-shop-hero')"></div>
+    <div class="field"><label>Paragraph</label><textarea id="shop-hero-p" oninput="previewHeroSimple('shop-hero','pv-shop-hero')">One item right now — the line that ends every conversation about a place you didn't love.</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-shop-hero"></div>
+    <button class="btn" onclick="genHeroSimple('shop-hero','out-shop-hero')">Generate code</button>
+    <div class="output-wrap hidden" id="out-shop-hero-wrap">
+      <div class="output-label">Paste this over the &lt;div class="wrap"&gt;...&lt;/div&gt; inside the hero:</div>
+      <textarea class="output" id="out-shop-hero" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-shop-hero')">Copy</button><span class="copied" id="copied-shop-hero"></span>
+    </div>
+  </div>
+</details>
+
 <details>
   <summary>Shop — the hat</summary>
   <div class="panel">
@@ -226,6 +332,61 @@
       <div class="output-label">Paste this over the &lt;h3&gt;...&lt;/h3&gt;&lt;p&gt;...&lt;/p&gt;&lt;p class="price"&gt;...&lt;/p&gt; lines:</div>
       <textarea class="output" id="out-shop" readonly></textarea>
       <button class="btn secondary" onclick="copyOut('out-shop')">Copy</button><span class="copied" id="copied-shop"></span>
+    </div>
+  </div>
+</details>
+
+<!-- ============================================================= -->
+<details>
+  <summary>Blog — Hero</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> blog.html — replaces the text inside &lt;section class="hero hero-simple"&gt;'s &lt;div class="wrap"&gt;</div>
+    <div class="field"><label>Small italic tagline</label><input type="text" id="blog-hero-tag" value="the diary" oninput="previewHeroSimple('blog-hero','pv-blog-hero')"></div>
+    <div class="field"><label>Headline</label><input type="text" id="blog-hero-h1" value="From the road" oninput="previewHeroSimple('blog-hero','pv-blog-hero')"></div>
+    <div class="field"><label>Paragraph</label><textarea id="blog-hero-p" oninput="previewHeroSimple('blog-hero','pv-blog-hero')">The real diary version of how these trips actually go — written as I travel, not polished after the fact. Tap a post to read it.</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-blog-hero"></div>
+    <button class="btn" onclick="genHeroSimple('blog-hero','out-blog-hero')">Generate code</button>
+    <div class="output-wrap hidden" id="out-blog-hero-wrap">
+      <div class="output-label">Paste this over the &lt;div class="wrap"&gt;...&lt;/div&gt; inside the hero:</div>
+      <textarea class="output" id="out-blog-hero" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-blog-hero')">Copy</button><span class="copied" id="copied-blog-hero"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Blog — Email signup heading</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> blog.html — replaces the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block right above the email signup form</div>
+    <div class="field"><label>Small italic label above the heading</label><input type="text" id="blog-signup-eyebrow" value="stay in the loop" oninput="previewSectionHead('blog-signup','pv-blog-signup')"></div>
+    <div class="field"><label>Heading</label><input type="text" id="blog-signup-h2" value="Get new posts by email" oninput="previewSectionHead('blog-signup','pv-blog-signup')"></div>
+    <div class="field"><label>Intro sentence</label><textarea id="blog-signup-intro" oninput="previewSectionHead('blog-signup','pv-blog-signup')">One email whenever a new post from the road goes live. No spam, unsubscribe anytime.</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-blog-signup"></div>
+    <button class="btn" onclick="genSectionHead('blog-signup','out-blog-signup')">Generate code</button>
+    <div class="output-wrap hidden" id="out-blog-signup-wrap">
+      <div class="output-label">Paste this over that &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block:</div>
+      <textarea class="output" id="out-blog-signup" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-blog-signup')">Copy</button><span class="copied" id="copied-blog-signup"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Contact — Hero</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> contact.html — replaces the text inside &lt;section class="hero hero-simple"&gt;'s &lt;div class="wrap"&gt;</div>
+    <div class="field"><label>Small italic tagline</label><input type="text" id="contact-hero-tag" value="say hello" oninput="previewHeroSimple('contact-hero','pv-contact-hero')"></div>
+    <div class="field"><label>Headline</label><input type="text" id="contact-hero-h1" value="Get in touch" oninput="previewHeroSimple('contact-hero','pv-contact-hero')"></div>
+    <div class="field"><label>Paragraph</label><textarea id="contact-hero-p" oninput="previewHeroSimple('contact-hero','pv-contact-hero')">Questions, custom requests, or just want to say hi before booking a consult.</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-contact-hero"></div>
+    <button class="btn" onclick="genHeroSimple('contact-hero','out-contact-hero')">Generate code</button>
+    <div class="output-wrap hidden" id="out-contact-hero-wrap">
+      <div class="output-label">Paste this over the &lt;div class="wrap"&gt;...&lt;/div&gt; inside the hero:</div>
+      <textarea class="output" id="out-contact-hero" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-contact-hero')">Copy</button><span class="copied" id="copied-contact-hero"></span>
     </div>
   </div>
 </details>
@@ -254,10 +415,206 @@ Something else</textarea>
   </div>
 </details>
 
+<!-- ============================================================= -->
 <details>
-  <summary>Footer — email &amp; social links (appears in all 5 pages)</summary>
+  <summary>Tours — Hero</summary>
   <div class="panel">
-    <div class="where"><b>Goes in:</b> ⚠️ the SAME block appears near the bottom of index.html, services.html, shop.html, blog.html, AND contact.html. Paste this into all five, replacing each page's &lt;div class="footer-grid"&gt;...&lt;/div&gt; block.</div>
+    <div class="where"><b>Goes in:</b> tours.html — replaces the text inside &lt;section class="hero hero-simple"&gt;'s &lt;div class="wrap"&gt;</div>
+    <div class="field"><label>Small italic tagline</label><input type="text" id="tours-hero-tag" value="seasonal & local" oninput="previewHeroSimple('tours-hero','pv-tours-hero')"></div>
+    <div class="field"><label>Headline</label><input type="text" id="tours-hero-h1" value="Cannabis Walking Tours" oninput="previewHeroSimple('tours-hero','pv-tours-hero')"></div>
+    <div class="field"><label>Paragraph</label><textarea id="tours-hero-p" oninput="previewHeroSimple('tours-hero','pv-tours-hero')">When I'm not on the road, I lead small, relaxed walking tours around the city — cannabis-friendly, nature-forward, and built for people who want a slower, more social way to see the place they live (or are visiting).</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-tours-hero"></div>
+    <button class="btn" onclick="genHeroSimple('tours-hero','out-tours-hero')">Generate code</button>
+    <div class="output-wrap hidden" id="out-tours-hero-wrap">
+      <div class="output-label">Paste this over the &lt;div class="wrap"&gt;...&lt;/div&gt; inside the hero:</div>
+      <textarea class="output" id="out-tours-hero" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-tours-hero')">Copy</button><span class="copied" id="copied-tours-hero"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Tours — "What to expect" (heading + 3 cards)</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> tours.html — heading replaces the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block above the 3 cards; cards replace the &lt;div class="grid reveal-stagger"&gt;...&lt;/div&gt; block below it.</div>
+    <div class="field"><label>Small italic label</label><input type="text" id="tours-expect-eyebrow" value="how it works" oninput="previewSectionHead('tours-expect','pv-tours-expect-head')"></div>
+    <div class="field"><label>Heading</label><input type="text" id="tours-expect-h2" value="What to expect" oninput="previewSectionHead('tours-expect','pv-tours-expect-head')"></div>
+    <div class="field"><label>Intro sentence (optional — leave blank for none)</label><textarea id="tours-expect-intro" oninput="previewSectionHead('tours-expect','pv-tours-expect-head')"></textarea></div>
+    <div class="preview-label">Live preview — heading</div>
+    <div class="preview-box" id="pv-tours-expect-head"></div>
+    <div class="field"><label>Card 1 title</label><input type="text" id="tours-expect1t" value="Small, easy groups" oninput="previewCards('tours-expect',3,'pv-tours-expect')"></div>
+    <div class="field"><label>Card 1 text</label><textarea id="tours-expect1p" oninput="previewCards('tours-expect',3,'pv-tours-expect')">Solo, couples, or small groups of friends — a relaxed pace, a few stops, and plenty of time to actually enjoy the walk rather than rush through it.</textarea></div>
+    <div class="field"><label>Card 2 title</label><input type="text" id="tours-expect2t" value="Roughly 2 hours" oninput="previewCards('tours-expect',3,'pv-tours-expect')"></div>
+    <div class="field"><label>Card 2 text</label><textarea id="tours-expect2p" oninput="previewCards('tours-expect',3,'pv-tours-expect')">A loop through parks, waterfront, or neighborhood routes, picked based on the season and what you're in the mood for.</textarea></div>
+    <div class="field"><label>Card 3 title</label><input type="text" id="tours-expect3t" value="Bring your own" oninput="previewCards('tours-expect',3,'pv-tours-expect')"></div>
+    <div class="field"><label>Card 3 text</label><textarea id="tours-expect3p" oninput="previewCards('tours-expect',3,'pv-tours-expect')">I guide the route and the pace — you bring whatever you're comfortable consuming, and consume responsibly and legally for your province. I don't supply, sell, or handle cannabis as part of the tour.</textarea></div>
+    <div class="preview-label">Live preview — cards</div>
+    <div class="preview-box" id="pv-tours-expect"></div>
+    <button class="btn" onclick="genSectionHead('tours-expect','out-tours-expect-head')">Generate heading code</button>
+    <div class="output-wrap hidden" id="out-tours-expect-head-wrap">
+      <div class="output-label">Paste this over that &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block:</div>
+      <textarea class="output" id="out-tours-expect-head" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-tours-expect-head')">Copy</button><span class="copied" id="copied-tours-expect-head"></span>
+    </div>
+    <button class="btn" onclick="genCards('tours-expect',3,toursExpectIcons,'out-tours-expect')">Generate cards code</button>
+    <div class="output-wrap hidden" id="out-tours-expect-wrap">
+      <div class="output-label">Paste this over the 3-card grid block:</div>
+      <textarea class="output" id="out-tours-expect" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-tours-expect')">Copy</button><span class="copied" id="copied-tours-expect"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Tours — Pricing (heading + 3 tiers)</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> tours.html — heading replaces the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block above the pricing cards; tiers replace the &lt;div class="grid reveal-stagger"&gt;...&lt;/div&gt; block below it.</div>
+    <div class="field"><label>Small italic label</label><input type="text" id="tours-pricing-eyebrow" value="pricing" oninput="previewSectionHead('tours-pricing','pv-tours-pricing-head')"></div>
+    <div class="field"><label>Heading</label><input type="text" id="tours-pricing-h2" value="Book a tour" oninput="previewSectionHead('tours-pricing','pv-tours-pricing-head')"></div>
+    <div class="field"><label>Intro sentence (optional)</label><textarea id="tours-pricing-intro" oninput="previewSectionHead('tours-pricing','pv-tours-pricing-head')"></textarea></div>
+    <div class="preview-label">Live preview — heading</div>
+    <div class="preview-box" id="pv-tours-pricing-head"></div>
+    <div class="field"><label>Tier 1 tag</label><input type="text" id="toursprice1tag" value="1–2 people" oninput="previewPricing('toursprice',3,'pv-tours-pricing')"></div>
+    <div class="field"><label>Tier 1 title</label><input type="text" id="toursprice1t" value="Solo / duo tour" oninput="previewPricing('toursprice',3,'pv-tours-pricing')"></div>
+    <div class="field"><label>Tier 1 price</label><input type="text" id="toursprice1price" value="$60" oninput="previewPricing('toursprice',3,'pv-tours-pricing')"></div>
+    <div class="field"><label>Tier 1 description</label><textarea id="toursprice1p" oninput="previewPricing('toursprice',3,'pv-tours-pricing')">A private walk just for you or you and a friend — pick the pace, ask questions, take it slow.</textarea></div>
+    <div class="field"><label>Tier 2 tag</label><input type="text" id="toursprice2tag" value="3–5 people" oninput="previewPricing('toursprice',3,'pv-tours-pricing')"></div>
+    <div class="field"><label>Tier 2 title</label><input type="text" id="toursprice2t" value="Small group tour" oninput="previewPricing('toursprice',3,'pv-tours-pricing')"></div>
+    <div class="field"><label>Tier 2 price</label><input type="text" id="toursprice2price" value="$45/person" oninput="previewPricing('toursprice',3,'pv-tours-pricing')"></div>
+    <div class="field"><label>Tier 2 description</label><textarea id="toursprice2p" oninput="previewPricing('toursprice',3,'pv-tours-pricing')">Same route and pace, split with a few friends — a nice option for a casual group outing.</textarea></div>
+    <div class="field"><label>Tier 3 tag</label><input type="text" id="toursprice3tag" value="6+ people" oninput="previewPricing('toursprice',3,'pv-tours-pricing')"></div>
+    <div class="field"><label>Tier 3 title</label><input type="text" id="toursprice3t" value="Private group booking" oninput="previewPricing('toursprice',3,'pv-tours-pricing')"></div>
+    <div class="field"><label>Tier 3 price</label><input type="text" id="toursprice3price" value="Contact for pricing" oninput="previewPricing('toursprice',3,'pv-tours-pricing')"></div>
+    <div class="field"><label>Tier 3 description</label><textarea id="toursprice3p" oninput="previewPricing('toursprice',3,'pv-tours-pricing')">Bachelorette groups, birthdays, or a work team outing — message me with your group size and I'll put a plan together.</textarea></div>
+    <div class="preview-label">Live preview — tiers</div>
+    <div class="preview-box" id="pv-tours-pricing"></div>
+    <button class="btn" onclick="genSectionHead('tours-pricing','out-tours-pricing-head')">Generate heading code</button>
+    <div class="output-wrap hidden" id="out-tours-pricing-head-wrap">
+      <div class="output-label">Paste this over that &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block:</div>
+      <textarea class="output" id="out-tours-pricing-head" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-tours-pricing-head')">Copy</button><span class="copied" id="copied-tours-pricing-head"></span>
+    </div>
+    <button class="btn" onclick="genPricing('toursprice',3,'out-tours-pricing')">Generate tiers code</button>
+    <div class="output-wrap hidden" id="out-tours-pricing-wrap">
+      <div class="output-label">Paste this over the 3-tier grid block:</div>
+      <textarea class="output" id="out-tours-pricing" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-tours-pricing')">Copy</button><span class="copied" id="copied-tours-pricing"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Tours — Request heading</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> tours.html — replaces the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block right above the inquiry form</div>
+    <div class="field"><label>Small italic label</label><input type="text" id="tours-request-eyebrow" value="request a date" oninput="previewSectionHead('tours-request','pv-tours-request')"></div>
+    <div class="field"><label>Heading</label><input type="text" id="tours-request-h2" value="Check availability" oninput="previewSectionHead('tours-request','pv-tours-request')"></div>
+    <div class="field"><label>Intro sentence</label><textarea id="tours-request-intro" oninput="previewSectionHead('tours-request','pv-tours-request')">I'll follow up to confirm a date, time, and meeting point, plus a payment link (Wise, PayPal, or e-transfer).</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-tours-request"></div>
+    <button class="btn" onclick="genSectionHead('tours-request','out-tours-request')">Generate code</button>
+    <div class="output-wrap hidden" id="out-tours-request-wrap">
+      <div class="output-label">Paste this over that &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block:</div>
+      <textarea class="output" id="out-tours-request" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-tours-request')">Copy</button><span class="copied" id="copied-tours-request"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Photography — Hero</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> photography.html — replaces the text inside &lt;section class="hero hero-simple"&gt;'s &lt;div class="wrap"&gt;</div>
+    <div class="field"><label>Small italic tagline</label><input type="text" id="photo-hero-tag" value="shot on the road" oninput="previewHeroSimple('photo-hero','pv-photo-hero')"></div>
+    <div class="field"><label>Headline</label><input type="text" id="photo-hero-h1" value="Landscape & Nature Prints" oninput="previewHeroSimple('photo-hero','pv-photo-hero')"></div>
+    <div class="field"><label>Paragraph</label><textarea id="photo-hero-p" oninput="previewHeroSimple('photo-hero','pv-photo-hero')">Amateur photography, shot on a Nikon DSLR wherever the trip takes me. A few of my favourites are available as prints below.</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-photo-hero"></div>
+    <button class="btn" onclick="genHeroSimple('photo-hero','out-photo-hero')">Generate code</button>
+    <div class="output-wrap hidden" id="out-photo-hero-wrap">
+      <div class="output-label">Paste this over the &lt;div class="wrap"&gt;...&lt;/div&gt; inside the hero:</div>
+      <textarea class="output" id="out-photo-hero" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-photo-hero')">Copy</button><span class="copied" id="copied-photo-hero"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Photography — Gallery heading</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> photography.html — replaces the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block above the photo gallery grid</div>
+    <div class="field"><label>Small italic label</label><input type="text" id="photo-gallery-eyebrow" value="the gallery" oninput="previewSectionHead('photo-gallery','pv-photo-gallery')"></div>
+    <div class="field"><label>Heading</label><input type="text" id="photo-gallery-h2" value="Available prints" oninput="previewSectionHead('photo-gallery','pv-photo-gallery')"></div>
+    <div class="field"><label>Intro sentence (optional)</label><textarea id="photo-gallery-intro" oninput="previewSectionHead('photo-gallery','pv-photo-gallery')"></textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-photo-gallery"></div>
+    <button class="btn" onclick="genSectionHead('photo-gallery','out-photo-gallery')">Generate code</button>
+    <div class="output-wrap hidden" id="out-photo-gallery-wrap">
+      <div class="output-label">Paste this over that &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block:</div>
+      <textarea class="output" id="out-photo-gallery" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-photo-gallery')">Copy</button><span class="copied" id="copied-photo-gallery"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Photography — Pricing (heading + 2 tiers)</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> photography.html — heading replaces the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block above pricing; tiers replace the &lt;div class="grid reveal-stagger"&gt;...&lt;/div&gt; block below it.</div>
+    <div class="field"><label>Small italic label</label><input type="text" id="photo-pricing-eyebrow" value="pricing" oninput="previewSectionHead('photo-pricing','pv-photo-pricing-head')"></div>
+    <div class="field"><label>Heading</label><input type="text" id="photo-pricing-h2" value="Print options" oninput="previewSectionHead('photo-pricing','pv-photo-pricing-head')"></div>
+    <div class="field"><label>Intro sentence (optional)</label><textarea id="photo-pricing-intro" oninput="previewSectionHead('photo-pricing','pv-photo-pricing-head')"></textarea></div>
+    <div class="preview-label">Live preview — heading</div>
+    <div class="preview-box" id="pv-photo-pricing-head"></div>
+    <div class="field"><label>Tier 1 tag</label><input type="text" id="photoprice1tag" value="Digital-quality print" oninput="previewPricing('photoprice',2,'pv-photo-pricing')"></div>
+    <div class="field"><label>Tier 1 title</label><input type="text" id="photoprice1t" value="Print only" oninput="previewPricing('photoprice',2,'pv-photo-pricing')"></div>
+    <div class="field"><label>Tier 1 price</label><input type="text" id="photoprice1price" value="$35 CAD" oninput="previewPricing('photoprice',2,'pv-photo-pricing')"></div>
+    <div class="field"><label>Tier 1 description</label><textarea id="photoprice1p" oninput="previewPricing('photoprice',2,'pv-photo-pricing')">A professionally printed photo paper print, unframed. You arrange your own framing if you'd like it framed.</textarea></div>
+    <div class="field"><label>Tier 2 tag</label><input type="text" id="photoprice2tag" value="Ready to hang" oninput="previewPricing('photoprice',2,'pv-photo-pricing')"></div>
+    <div class="field"><label>Tier 2 title</label><input type="text" id="photoprice2t" value="Canvas print + shipping" oninput="previewPricing('photoprice',2,'pv-photo-pricing')"></div>
+    <div class="field"><label>Tier 2 price</label><input type="text" id="photoprice2price" value="$120 CAD" oninput="previewPricing('photoprice',2,'pv-photo-pricing')"></div>
+    <div class="field"><label>Tier 2 description</label><textarea id="photoprice2p" oninput="previewPricing('photoprice',2,'pv-photo-pricing')">Stretched canvas print, ready to hang, shipped directly to you anywhere in Canada or the US. Other destinations on request.</textarea></div>
+    <div class="preview-label">Live preview — tiers</div>
+    <div class="preview-box" id="pv-photo-pricing"></div>
+    <button class="btn" onclick="genSectionHead('photo-pricing','out-photo-pricing-head')">Generate heading code</button>
+    <div class="output-wrap hidden" id="out-photo-pricing-head-wrap">
+      <div class="output-label">Paste this over that &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block:</div>
+      <textarea class="output" id="out-photo-pricing-head" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-photo-pricing-head')">Copy</button><span class="copied" id="copied-photo-pricing-head"></span>
+    </div>
+    <button class="btn" onclick="genPricing('photoprice',2,'out-photo-pricing')">Generate tiers code</button>
+    <div class="output-wrap hidden" id="out-photo-pricing-wrap">
+      <div class="output-label">Paste this over the 2-tier grid block:</div>
+      <textarea class="output" id="out-photo-pricing" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-photo-pricing')">Copy</button><span class="copied" id="copied-photo-pricing"></span>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Photography — Order heading</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> photography.html — replaces the &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block right above the print order form</div>
+    <div class="field"><label>Small italic label</label><input type="text" id="photo-order-eyebrow" value="order a print" oninput="previewSectionHead('photo-order','pv-photo-order')"></div>
+    <div class="field"><label>Heading</label><input type="text" id="photo-order-h2" value="Request one" oninput="previewSectionHead('photo-order','pv-photo-order')"></div>
+    <div class="field"><label>Intro sentence</label><textarea id="photo-order-intro" oninput="previewSectionHead('photo-order','pv-photo-order')">Same as the shop — this isn't instant checkout. I'll follow up with a payment link (Wise, PayPal, or e-transfer) and confirm shipping before anything's charged.</textarea></div>
+    <div class="preview-label">Live preview</div>
+    <div class="preview-box" id="pv-photo-order"></div>
+    <button class="btn" onclick="genSectionHead('photo-order','out-photo-order')">Generate code</button>
+    <div class="output-wrap hidden" id="out-photo-order-wrap">
+      <div class="output-label">Paste this over that &lt;div class="section-head reveal"&gt;...&lt;/div&gt; block:</div>
+      <textarea class="output" id="out-photo-order" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-photo-order')">Copy</button><span class="copied" id="copied-photo-order"></span>
+    </div>
+  </div>
+</details>
+
+<!-- ============================================================= -->
+<details>
+  <summary>Footer — email &amp; social links (appears in every page)</summary>
+  <div class="panel">
+    <div class="where"><b>Goes in:</b> ⚠️ the SAME block appears near the bottom of EVERY page — index.html, services.html, shop.html, blog.html, contact.html, tours.html, and photography.html. Paste this into all of them, replacing each page's &lt;div class="footer-grid"&gt;...&lt;/div&gt; block.</div>
     <div class="field"><label>Tagline under the logo</label><input type="text" id="f-tag" value="Nomadic travel consulting &amp; planning."></div>
     <div class="field"><label>Email</label><input type="text" id="f-email" value="dbmems@proton.me"></div>
     <div class="field"><label>TikTok URL</label><input type="text" id="f-tiktok" value="https://www.tiktok.com/@deathbed.memories"></div>
@@ -392,150 +749,4 @@ function livePreviewHero(){
       <div class="pv-btns">
         <span class="pv-btn-primary">${esc(val('hero-btn1'))}</span>
         <span class="pv-btn-outline">${esc(val('hero-btn2'))}</span>
-      </div>
-    </div>`;
-}
 
-function livePreviewConcept(){
-  const titles = [val('c1t'), val('c2t'), val('c3t')];
-  const texts = [val('c1p'), val('c2p'), val('c3p')];
-  let cards = '';
-  for (let i=0;i<3;i++){
-    cards += `<div class="pv-card"><h4>${esc(titles[i])}</h4><p>${esc(texts[i])}</p></div>`;
-  }
-  document.getElementById('pv-concept').innerHTML = `<div class="pv-cards">${cards}</div>`;
-}
-
-function livePreviewValues(){
-  const titles = [val('v1t'),val('v2t'),val('v3t'),val('v4t')];
-  const texts = [val('v1p'),val('v2p'),val('v3p'),val('v4p')];
-  let cards = '';
-  for (let i=0;i<4;i++){
-    cards += `<div class="pv-card"><h4>${esc(titles[i])}</h4><p>${esc(texts[i])}</p></div>`;
-  }
-  document.getElementById('pv-values').innerHTML = `<div class="pv-cards">${cards}</div>`;
-}
-
-function livePreviewServices(){
-  const tags = [val('s1tag'),val('s2tag'),val('s3tag')];
-  const titles = [val('s1t'),val('s2t'),val('s3t')];
-  const prices = [val('s1price'),val('s2price'),val('s3price')];
-  const texts = [val('s1p'),val('s2p'),val('s3p')];
-  let cards = '';
-  for (let i=0;i<3;i++){
-    cards += `<div class="pv-card"><span class="pv-tag">${esc(tags[i])}</span><h4>${esc(titles[i])}</h4><p class="pv-price">${esc(prices[i])}</p><p>${esc(texts[i])}</p></div>`;
-  }
-  document.getElementById('pv-services').innerHTML = `<div class="pv-cards">${cards}</div>`;
-}
-
-function livePreviewShop(){
-  document.getElementById('pv-shop').innerHTML = `
-    <div class="pv-hat">
-      <svg class="pv-hat-icon" viewBox="0 0 320 220"><path d="M20 150 Q160 40 300 150 L300 165 Q160 60 20 165 Z" fill="#D8C39C"/><ellipse cx="160" cy="176" rx="150" ry="16" fill="#C9B187"/></svg>
-      <div>
-        <h4 style="color:#fff;font-family:Georgia,serif;margin:0 0 0.3rem;">${esc(val('shop-name'))}</h4>
-        <p style="color:#ddd;font-size:0.8rem;margin:0 0 0.3rem;">${esc(val('shop-desc'))}</p>
-        <p style="color:#e8a582;font-family:Georgia,serif;font-size:1.1rem;margin:0;">${esc(val('shop-price'))}</p>
-      </div>
-    </div>`;
-}
-
-function genValuesHead(){
-  const out = `      <p class="eyebrow">${esc(val('values-eyebrow'))}</p>
-      <h2>${esc(val('values-h2'))}</h2>
-      <p>
-        ${esc(val('values-intro'))}
-      </p>`;
-  document.getElementById('out-values-head').value = out;
-  show('out-values-head-wrap');
-}
-
-function livePreviewValuesHead(){
-  document.getElementById('pv-values-head').innerHTML = `
-    <div class="pv-section-head">
-      <div class="pv-eyebrow">${esc(val('values-eyebrow'))}</div>
-      <h4>${esc(val('values-h2'))}</h4>
-      <p>${esc(val('values-intro'))}</p>
-    </div>`;
-}
-
-function genWho(){
-  const out = `      <p>
-        <strong>${esc(val('who-lead'))}</strong> ${esc(val('who-text'))}
-      </p>`;
-  document.getElementById('out-who').value = out;
-  show('out-who-wrap');
-}
-
-function livePreviewWho(){
-  document.getElementById('pv-who').innerHTML = `
-    <div class="pv-who"><strong>${esc(val('who-lead'))}</strong> ${esc(val('who-text'))}</div>`;
-}
-
-function genFollow(){
-  const out = `      <p class="eyebrow">${esc(val('follow-eyebrow'))}</p>
-      <h2>${esc(val('follow-h2'))}</h2>
-      <p>${esc(val('follow-intro'))}</p>`;
-  document.getElementById('out-follow').value = out;
-  show('out-follow-wrap');
-}
-
-function livePreviewFollow(){
-  document.getElementById('pv-follow').innerHTML = `
-    <div class="pv-section-head">
-      <div class="pv-eyebrow">${esc(val('follow-eyebrow'))}</div>
-      <h4>${esc(val('follow-h2'))}</h4>
-      <p>${esc(val('follow-intro'))}</p>
-    </div>`;
-}
-
-// Render every preview once on page load, using the pre-filled defaults
-livePreviewHero();
-livePreviewConcept();
-livePreviewValuesHead();
-livePreviewValues();
-livePreviewWho();
-livePreviewFollow();
-livePreviewServices();
-livePreviewShop();
-
-function genDropdown(){
-  const lines = val('dropdown-opts').split('\n').map(l => l.trim()).filter(Boolean);
-  let out = '            <select id="trip-type" name="trip_type">\n';
-  lines.forEach(l => { out += `              <option>${esc(l)}</option>\n`; });
-  out += '            </select>';
-  document.getElementById('out-dropdown').value = out;
-  show('out-dropdown-wrap');
-}
-
-function genFooter(){
-  const out = `    <div class="footer-grid">
-      <div>
-        <h4>deathbed memories</h4>
-        <p>${esc(val('f-tag'))}</p>
-      </div>
-      <div>
-        <h4>Site</h4>
-        <ul class="footer-links">
-          <li><a href="services.html">Services</a></li>
-          <li><a href="shop.html">Shop</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <ul class="footer-links">
-          <li><a href="mailto:${esc(val('f-email'))}">${esc(val('f-email'))}</a></li>
-          <li><a href="${esc(val('f-tiktok'))}" target="_blank" rel="noopener">TikTok</a></li>
-          <li><a href="${esc(val('f-instagram'))}" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="${esc(val('f-youtube'))}" target="_blank" rel="noopener">YouTube</a></li>
-        </ul>
-      </div>
-    </div>`;
-  document.getElementById('out-footer').value = out;
-  show('out-footer-wrap');
-}
-</script>
-</body>
-</html>
