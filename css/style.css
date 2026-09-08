@@ -513,10 +513,44 @@ textarea { min-height: 140px; resize: vertical; }
   border-radius: calc(var(--radius) - 2px);
   background: var(--color-cream-2);
 }
-.hat-mockup {
-  background: var(--color-dark);
-  border-radius: calc(var(--radius) - 2px);
-  padding: 1.5rem;
+.hat-swatches {
+  display: flex;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+.hat-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--color-line);
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+.hat-swatch:hover { transform: scale(1.1); }
+.hat-swatch.active {
+  border-color: var(--color-white);
+  box-shadow: 0 0 0 2px var(--color-terracotta);
+}
+.hat-specs {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: #55524a;
+}
+.hat-specs li {
+  padding-left: 1rem;
+  position: relative;
+}
+.hat-specs li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.55em;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--color-terracotta);
 }
 .shop-layout {
   display: grid;
