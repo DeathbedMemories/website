@@ -749,4 +749,308 @@ function livePreviewHero(){
       <div class="pv-btns">
         <span class="pv-btn-primary">${esc(val('hero-btn1'))}</span>
         <span class="pv-btn-outline">${esc(val('hero-btn2'))}</span>
+      </div>
+    </div>`;
+}
+
+function livePreviewConcept(){
+  const titles = [val('c1t'), val('c2t'), val('c3t')];
+  const texts = [val('c1p'), val('c2p'), val('c3p')];
+  let cards = '';
+  for (let i=0;i<3;i++){
+    cards += `<div class="pv-card"><h4>${esc(titles[i])}</h4><p>${esc(texts[i])}</p></div>`;
+  }
+  document.getElementById('pv-concept').innerHTML = `<div class="pv-cards">${cards}</div>`;
+}
+
+function livePreviewValues(){
+  const titles = [val('v1t'),val('v2t'),val('v3t'),val('v4t')];
+  const texts = [val('v1p'),val('v2p'),val('v3p'),val('v4p')];
+  let cards = '';
+  for (let i=0;i<4;i++){
+    cards += `<div class="pv-card"><h4>${esc(titles[i])}</h4><p>${esc(texts[i])}</p></div>`;
+  }
+  document.getElementById('pv-values').innerHTML = `<div class="pv-cards">${cards}</div>`;
+}
+
+function livePreviewServices(){
+  const tags = [val('s1tag'),val('s2tag'),val('s3tag')];
+  const titles = [val('s1t'),val('s2t'),val('s3t')];
+  const prices = [val('s1price'),val('s2price'),val('s3price')];
+  const texts = [val('s1p'),val('s2p'),val('s3p')];
+  let cards = '';
+  for (let i=0;i<3;i++){
+    cards += `<div class="pv-card"><span class="pv-tag">${esc(tags[i])}</span><h4>${esc(titles[i])}</h4><p class="pv-price">${esc(prices[i])}</p><p>${esc(texts[i])}</p></div>`;
+  }
+  document.getElementById('pv-services').innerHTML = `<div class="pv-cards">${cards}</div>`;
+}
+
+function livePreviewShop(){
+  document.getElementById('pv-shop').innerHTML = `
+    <div class="pv-hat">
+      <svg class="pv-hat-icon" viewBox="0 0 320 220"><path d="M20 150 Q160 40 300 150 L300 165 Q160 60 20 165 Z" fill="#D8C39C"/><ellipse cx="160" cy="176" rx="150" ry="16" fill="#C9B187"/></svg>
+      <div>
+        <h4 style="color:#fff;font-family:Georgia,serif;margin:0 0 0.3rem;">${esc(val('shop-name'))}</h4>
+        <p style="color:#ddd;font-size:0.8rem;margin:0 0 0.3rem;">${esc(val('shop-desc'))}</p>
+        <p style="color:#e8a582;font-family:Georgia,serif;font-size:1.1rem;margin:0;">${esc(val('shop-price'))}</p>
+      </div>
+    </div>`;
+}
+
+function genValuesHead(){
+  const out = `      <p class="eyebrow">${esc(val('values-eyebrow'))}</p>
+      <h2>${esc(val('values-h2'))}</h2>
+      <p>
+        ${esc(val('values-intro'))}
+      </p>`;
+  document.getElementById('out-values-head').value = out;
+  show('out-values-head-wrap');
+}
+
+function livePreviewValuesHead(){
+  document.getElementById('pv-values-head').innerHTML = `
+    <div class="pv-section-head">
+      <div class="pv-eyebrow">${esc(val('values-eyebrow'))}</div>
+      <h4>${esc(val('values-h2'))}</h4>
+      <p>${esc(val('values-intro'))}</p>
+    </div>`;
+}
+
+function genTips(outId){
+  const out = `      <p class="who-lead">${esc(val('tips-lead'))}</p>
+      <div class="who-actions">
+        <a class="btn btn-primary" href="files/${esc(val('tips-file1'))}" target="_blank" rel="noopener">
+          ${esc(val('tips-label1'))}
+          <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M7 12l5 5 5-5M5 21h14"/></svg>
+        </a>
+        <a class="btn btn-primary" href="files/${esc(val('tips-file2'))}" target="_blank" rel="noopener">
+          ${esc(val('tips-label2'))}
+          <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M7 12l5 5 5-5M5 21h14"/></svg>
+        </a>
+      </div>`;
+  document.getElementById(outId).value = out;
+  show(outId+'-wrap');
+}
+
+function previewTips(previewId){
+  document.getElementById(previewId).innerHTML = `
+    <div class="pv-who">
+      <p style="font-family:Georgia,serif;font-style:italic;margin:0 0 0.75rem;">${esc(val('tips-lead'))}</p>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <span style="background:#C85C38;color:#fff;padding:0.4rem 0.8rem;border-radius:999px;font-size:0.72rem;font-weight:600;">${esc(val('tips-label1'))}</span>
+        <span style="background:#C85C38;color:#fff;padding:0.4rem 0.8rem;border-radius:999px;font-size:0.72rem;font-weight:600;">${esc(val('tips-label2'))}</span>
+      </div>
+    </div>`;
+}
+
+/* ============================================================
+   GENERIC HELPERS — used by every "new" section added below, so
+   each one didn't need its own dedicated function. If you're
+   reading this out of curiosity: "prefix" just means the shared
+   start of that section's field IDs, e.g. "svc-hero" for the
+   Services hero fields (svc-hero-tag, svc-hero-h1, svc-hero-p).
+   ============================================================ */
+
+// Hero-simple pattern (tag/h1/p, no buttons) — used by every interior page's hero
+function genHeroSimple(prefix, outId){
+  const out = `    <p class="hero-tag">${esc(val(prefix+'-tag'))}</p>
+    <h1>${esc(val(prefix+'-h1'))}</h1>
+    <p>
+      ${esc(val(prefix+'-p'))}
+    </p>`;
+  document.getElementById(outId).value = out;
+  show(outId+'-wrap');
+}
+function previewHeroSimple(prefix, previewId){
+  document.getElementById(previewId).innerHTML = `
+    <div class="pv-hero">
+      <div class="pv-tag">${esc(val(prefix+'-tag'))}</div>
+      <h2>${esc(val(prefix+'-h1'))}</h2>
+      <p>${esc(val(prefix+'-p'))}</p>
+    </div>`;
+}
+
+// Section-head pattern (eyebrow/h2/optional intro) — used by most section headings
+function genSectionHead(prefix, outId){
+  const intro = val(prefix+'-intro');
+  let out = `      <p class="eyebrow">${esc(val(prefix+'-eyebrow'))}</p>
+      <h2>${esc(val(prefix+'-h2'))}</h2>`;
+  if (intro.trim()) out += `\n      <p>${esc(intro)}</p>`;
+  document.getElementById(outId).value = out;
+  show(outId+'-wrap');
+}
+function previewSectionHead(prefix, previewId){
+  const intro = val(prefix+'-intro');
+  document.getElementById(previewId).innerHTML = `
+    <div class="pv-section-head">
+      <div class="pv-eyebrow">${esc(val(prefix+'-eyebrow'))}</div>
+      <h4>${esc(val(prefix+'-h2'))}</h4>
+      ${intro.trim() ? `<p>${esc(intro)}</p>` : ''}
+    </div>`;
+}
+
+// Icon cards pattern (icon + title + text, no tag/price) — used by Tours "what to expect"
+function genCards(prefix, count, icons, outId){
+  let out = '';
+  for (let i=1;i<=count;i++){
+    out += `      <div class="card reveal" style="--i:${i-1}">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">${icons[i-1]}</svg></div>
+        <h3>${esc(val(prefix+i+'t'))}</h3>
+        <p>
+          ${esc(val(prefix+i+'p'))}
+        </p>
+      </div>
+`;
+  }
+  document.getElementById(outId).value = out.trim();
+  show(outId+'-wrap');
+}
+function previewCards(prefix, count, previewId){
+  let cards = '';
+  for (let i=1;i<=count;i++){
+    cards += `<div class="pv-card"><h4>${esc(val(prefix+i+'t'))}</h4><p>${esc(val(prefix+i+'p'))}</p></div>`;
+  }
+  document.getElementById(previewId).innerHTML = `<div class="pv-cards">${cards}</div>`;
+}
+
+// Pricing cards pattern (tag + title + price + text, no icon) — Tours & Photography pricing
+function genPricing(prefix, count, outId){
+  let out = '';
+  for (let i=1;i<=count;i++){
+    out += `      <div class="card reveal" style="--i:${i-1}">
+        <span class="tag">${esc(val(prefix+i+'tag'))}</span>
+        <h3>${esc(val(prefix+i+'t'))}</h3>
+        <p class="price">${esc(val(prefix+i+'price'))}</p>
+        <p>${esc(val(prefix+i+'p'))}</p>
+      </div>
+`;
+  }
+  document.getElementById(outId).value = out.trim();
+  show(outId+'-wrap');
+}
+function previewPricing(prefix, count, previewId){
+  let cards = '';
+  for (let i=1;i<=count;i++){
+    cards += `<div class="pv-card"><span class="pv-tag">${esc(val(prefix+i+'tag'))}</span><h4>${esc(val(prefix+i+'t'))}</h4><p class="pv-price">${esc(val(prefix+i+'price'))}</p><p>${esc(val(prefix+i+'p'))}</p></div>`;
+  }
+  document.getElementById(previewId).innerHTML = `<div class="pv-cards">${cards}</div>`;
+}
+
+// Trail nav labels
+function genTrail(outId){
+  const l = [1,2,3,4,5,6].map(i => esc(val('trail'+i)));
+  const out = `    <a class="trail-stop" data-section="concept" href="#concept"><span class="num">1</span> ${l[0]}</a>
+    <span class="trail-connector">···</span>
+    <a class="trail-stop" data-section="values" href="#values"><span class="num">2</span> ${l[1]}</a>
+    <span class="trail-connector">···</span>
+    <a class="trail-stop" data-section="follow" href="#follow"><span class="num">3</span> ${l[2]}</a>
+    <span class="trail-connector">···</span>
+    <a class="trail-stop" href="services.html"><span class="num">4</span> ${l[3]}</a>
+    <span class="trail-connector">···</span>
+    <a class="trail-stop" href="shop.html"><span class="num">5</span> ${l[4]}</a>
+    <span class="trail-connector">···</span>
+    <a class="trail-stop" href="blog.html"><span class="num">6</span> ${l[5]}</a>`;
+  document.getElementById(outId).value = out;
+  show(outId+'-wrap');
+}
+function livePreviewTrail(){
+  const l = [1,2,3,4,5,6].map(i => esc(val('trail'+i)));
+  const pills = l.map((label,idx)=>`<span style="display:inline-flex;align-items:center;gap:0.35rem;border:1px solid #ddd2ac;border-radius:999px;padding:0.35rem 0.8rem;font-size:0.75rem;font-weight:600;margin:0.2rem 0.2rem 0.2rem 0;"><span style="background:#EDE2C4;border-radius:50%;width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;font-size:0.62rem;">${idx+1}</span>${label}</span>`).join('');
+  document.getElementById('pv-trail').innerHTML = `<div style="display:flex;flex-wrap:wrap;">${pills}</div>`;
+}
+
+// Icon set for the Tours "what to expect" cards, matching the real site exactly
+const toursExpectIcons = [
+  '<circle cx="12" cy="10" r="3"/><path d="M12 21c4-4.5 7-8.2 7-11.5A7 7 0 0 0 5 9.5C5 12.8 8 16.5 12 21z"/>',
+  '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
+  '<path d="M12 3c3 2.5 6 3 6 3s.5 8-6 12c-6.5-4-6-12-6-12s3-.5 6-3z"/>'
+];
+
+function genFollow(){
+  const out = `      <p class="eyebrow">${esc(val('follow-eyebrow'))}</p>
+      <h2>${esc(val('follow-h2'))}</h2>
+      <p>${esc(val('follow-intro'))}</p>`;
+  document.getElementById('out-follow').value = out;
+  show('out-follow-wrap');
+}
+
+function livePreviewFollow(){
+  document.getElementById('pv-follow').innerHTML = `
+    <div class="pv-section-head">
+      <div class="pv-eyebrow">${esc(val('follow-eyebrow'))}</div>
+      <h4>${esc(val('follow-h2'))}</h4>
+      <p>${esc(val('follow-intro'))}</p>
+    </div>`;
+}
+
+// Render every preview once on page load, using the pre-filled defaults
+livePreviewHero();
+livePreviewTrail();
+livePreviewConcept();
+previewSectionHead('approach','pv-approach-head');
+livePreviewValuesHead();
+livePreviewValues();
+previewTips('pv-who');
+livePreviewFollow();
+livePreviewServices();
+previewHeroSimple('svc-hero','pv-svc-hero');
+previewSectionHead('svc-consult','pv-svc-consult');
+livePreviewShop();
+previewHeroSimple('shop-hero','pv-shop-hero');
+previewHeroSimple('blog-hero','pv-blog-hero');
+previewSectionHead('blog-signup','pv-blog-signup');
+previewHeroSimple('contact-hero','pv-contact-hero');
+previewHeroSimple('tours-hero','pv-tours-hero');
+previewSectionHead('tours-expect','pv-tours-expect-head');
+previewCards('tours-expect',3,'pv-tours-expect');
+previewSectionHead('tours-pricing','pv-tours-pricing-head');
+previewPricing('toursprice',3,'pv-tours-pricing');
+previewSectionHead('tours-request','pv-tours-request');
+previewHeroSimple('photo-hero','pv-photo-hero');
+previewSectionHead('photo-gallery','pv-photo-gallery');
+previewSectionHead('photo-pricing','pv-photo-pricing-head');
+previewPricing('photoprice',2,'pv-photo-pricing');
+previewSectionHead('photo-order','pv-photo-order');
+
+function genDropdown(){
+  const lines = val('dropdown-opts').split('\n').map(l => l.trim()).filter(Boolean);
+  let out = '            <select id="trip-type" name="trip_type">\n';
+  lines.forEach(l => { out += `              <option>${esc(l)}</option>\n`; });
+  out += '            </select>';
+  document.getElementById('out-dropdown').value = out;
+  show('out-dropdown-wrap');
+}
+
+function genFooter(){
+  const out = `    <div class="footer-grid">
+      <div>
+        <h4>deathbed memories</h4>
+        <p>${esc(val('f-tag'))}</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-links">
+          <li><a href="services.html">Services</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:${esc(val('f-email'))}">${esc(val('f-email'))}</a></li>
+          <li><a href="${esc(val('f-tiktok'))}" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="${esc(val('f-instagram'))}" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="${esc(val('f-youtube'))}" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>`;
+  document.getElementById('out-footer').value = out;
+  show('out-footer-wrap');
+}
+</script>
+</body>
+</html>
+
 
