@@ -32,43 +32,43 @@
   <div class="wrap">
     <p class="hero-tag">one design, for now</p>
     <h1>Shop</h1>
-    <p>Be less approachable and reduce unwanted attention with this hat</p>
+    <p>Be less approachable and reduce unwanted attention with this hat.</p>
   </div>
 </section>
 
 <!-- ============================================================
-     PRODUCT — currently a single item. To add a second product
-     later, copy the whole <div class="grid"> block below (both
-     the .card and the form) and edit the copy's text, price, and
-     form fields.
+     PRODUCT — currently a single item, three color options.
+     To add a second product later, copy the whole .shop-layout
+     block (both the .card and the form) and edit the copy's text,
+     price, and form fields.
 
-     HAT MOCKUP: this is a placeholder graphic built from CSS/SVG so
-     the page looks finished before you have real product photos.
-     Once you have a real photo, replace the whole <div class="hat-mockup">
-     block with: <img class="product-image" src="images/shop/hat.jpg" alt="Beige hat that says no gracias">
-     (put the photo in images/shop/ — create that folder if needed).
+     COLOR SWATCHES: clicking a swatch swaps the main photo and
+     updates the Color dropdown in the form (see js/hat-swatches.js).
+     To add a 4th color: add another swatch button, upload its photo
+     to images/shop/, and add a matching <option> to the Color
+     dropdown below.
      ============================================================ -->
 <section>
   <div class="wrap">
     <div class="shop-layout">
 
       <div class="card reveal">
-        <div class="hat-mockup" role="img" aria-label="Beige cap with 'no gracias' embroidered in white cursive, the O styled as a smiley face">
-          <svg viewBox="0 0 320 220" width="100%" height="auto">
-            <path d="M20 150 Q160 40 300 150 L300 165 Q160 60 20 165 Z" fill="#D8C39C"/>
-            <path d="M15 150 Q160 30 305 150 Q305 170 160 178 Q15 170 15 150 Z" fill="#E4D2AC"/>
-            <ellipse cx="160" cy="176" rx="150" ry="16" fill="#C9B187"/>
-            <text x="160" y="118" text-anchor="middle" font-family="'Dancing Script', cursive" font-weight="700" font-size="40" fill="#FFFFFF">n</text>
-            <circle cx="176" cy="108" r="12" fill="none" stroke="#FFFFFF" stroke-width="3"/>
-            <path d="M170 111 Q176 116 182 111" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
-            <circle cx="172" cy="104" r="1.6" fill="#FFFFFF"/>
-            <circle cx="180" cy="104" r="1.6" fill="#FFFFFF"/>
-            <text x="245" y="118" text-anchor="middle" font-family="'Dancing Script', cursive" font-weight="700" font-size="40" fill="#FFFFFF">gracias</text>
-          </svg>
+        <img class="product-image" id="hat-image" src="images/shop/hat-khaki.jpg" alt='Khaki "No Gracias" cap'>
+        <div class="hat-swatches" role="group" aria-label="Choose a color">
+          <button type="button" class="hat-swatch active" data-color="Khaki" data-image="images/shop/hat-khaki.jpg" style="background:#C6BBA3;" aria-label="Khaki"></button>
+          <button type="button" class="hat-swatch" data-color="Navy" data-image="images/shop/hat-navy.jpg" style="background:#33445E;" aria-label="Navy"></button>
+          <button type="button" class="hat-swatch" data-color="Black" data-image="images/shop/hat-black.jpg" style="background:#1C1C1A;" aria-label="Black"></button>
         </div>
         <h3>"No Gracias" Cap</h3>
-        <p>Beige twill cap, "no gracias" embroidered across the front in white
-          cursive — the o styled as a little smiley. One size, adjustable strap.</p>
+        <p>Cotton twill cap, "no gracias" embroidered across the front in white
+          cursive — the o styled as a little smiley. One size, adjustable strap.
+          Available in khaki, navy, or black.</p>
+        <ul class="hat-specs">
+  <li>Unstructured, six-panel, low-profile</li>
+  <li>Pre-curved visor</li>
+  <li>Self-fabric tri-glide buckle closure in antique brass</li>
+  <li>Tear away label</li>
+</ul>
         <p class="price">$40 CAD</p>
       </div>
 
@@ -97,6 +97,14 @@
           <div>
             <label for="shop-email">Email</label>
             <input type="email" id="shop-email" name="email" required>
+          </div>
+          <div>
+            <label for="shop-color">Color</label>
+            <select id="shop-color" name="color">
+              <option>Khaki</option>
+              <option>Navy</option>
+              <option>Black</option>
+            </select>
           </div>
           <div>
             <label for="shop-qty">Quantity</label>
@@ -158,5 +166,6 @@
 
 <script src="js/main.js"></script>
 <script src="js/reveal.js"></script>
+<script src="js/hat-swatches.js"></script>
 </body>
 </html>
