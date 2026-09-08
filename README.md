@@ -132,65 +132,85 @@ needed):**
    within a minute or two.
 
 ### Editing content that isn't the blog
-Homepage headlines, service pricing, the shop description, and the
-contact form's dropdown all live directly inside their page's HTML —
-there's no data file for these. Here's where each thing lives:
+Nearly everything on the site — headlines, cards, pricing, form labels —
+lives directly inside each page's HTML. The good news: **`editor.html`
+now has a fill-in section with a live preview for almost every piece of
+text on every page** (see below), so you rarely need to hunt through
+raw HTML anymore. This table is here for reference / for anything you'd
+rather edit by hand:
 
 | Content | File |
 |---|---|
-| Hero headline/tagline, "how I build every trip" cards | `index.html` |
-| "How I plan" heading + 4 values, "Who this is for" block, "Follow the trip" heading | `index.html` |
+| Hero headline/tagline, "How every trip is built" cards | `index.html` |
+| "How to plan" heading + 4 steps, Tip Downloads block, "Follow the trip" heading | `index.html` |
 | Trail-nav labels (the numbered row under the homepage hero) | `index.html` — see note below |
 | Service pricing & descriptions, consultation heading | `services.html` |
-| Hat name/price/description | `shop.html` |
-| Contact page text, dropdown options | `contact.html` |
-| Tour pricing & inquiry form text | `tours.html` (not linked from navigation yet — see Section 6) |
-| Photography pricing & gallery | `photography.html` + `data/photos.json` (not linked yet — see Section 6) |
+| Hat name/price/description, request form labels | `shop.html` |
+| Contact page text, dropdown options, form labels | `contact.html` |
+| Tour hero/pricing/cards/form text | `tours.html` (not linked from navigation yet — see Section 5) |
+| Photography hero/pricing/gallery/form text | `photography.html` + `data/photos.json` (not linked yet — see Section 5) |
 | Email, social links, tagline in the footer | **Repeated in every HTML page** — see note below |
 
 **Trail-nav label note:** on the homepage, right under the hero, there's
-a row of numbered buttons (Home, About, Follow along, Services, Shop,
-Blog). To rename any of them, open `index.html`, find
-`<nav class="trail-nav"...>`, and edit the words right after each
-`</span>` — e.g. in `<span class="num">1</span> Home`, just change
-"Home" to whatever you want. The number and the link target
+a row of numbered buttons (currently: Do it yourself, Tips, Follow
+along, Services, Shop, Blog). To rename any of them, open `index.html`,
+find `<nav class="trail-nav"...>`, and edit the words right after each
+`</span>` — e.g. in `<span class="num">1</span> Do it yourself`, just
+change the words after the number. The number and the link target
 (`href="#concept"` etc.) don't need to change unless you're also moving
-what that button scrolls to.
+what that button scrolls to. `editor.html` also has a dedicated "Trail
+nav labels" section if you'd rather use the fill-in-and-copy approach.
 
 **Footer note:** the footer (email, social links, copyright line) is
 pasted separately into the bottom of every page — there's no shared
 template file, so changing your email or a social handle means editing
-it in each file, not just one.
+it in each file, not just one. `editor.html`'s Footer section generates
+one block you paste into all of them.
 
 ### The Content Editor tool (editor.html)
-To make hand-editing these safer, there's a small helper page —
-`editor.html` — that isn't part of the public site (it's not linked
-from your navigation) but lives in your repo and opens right from your
-browser. It's a set of simple fill-in forms; nothing you type in it
-gets sent anywhere, it just turns your answers into ready-to-paste
-HTML.
+To make hand-editing safer, there's a helper page — `editor.html` —
+that isn't part of the public site (it's not linked from your
+navigation) but lives in your repo and opens right from your browser.
+It's a big set of simple fill-in forms covering **every heading, card,
+pricing tier, and form label on every page** (Home, Services, Shop,
+Blog, Contact, Tours, Photography, plus the shared Footer). Nothing you
+type in it gets sent anywhere — it just turns your answers into
+ready-to-paste HTML, most with a live preview that updates as you type.
 
 **To use it:**
 1. Visit `https://your-username.github.io/deathbed-memories-website/editor.html`
    (same URL as your live site, with `/editor.html` added on the end).
-2. Tap open the section you want: Hero, "How I build every trip" cards,
-   "How I plan" heading + 4 values, "Who this is for" block, "Follow the
-   trip" heading, Services pricing, Shop, Contact dropdown, or Footer.
-3. Edit the fields — they're pre-filled with your current site copy, and
-   most sections show a live preview that updates as you type.
+2. Tap open the section you want — they're organized roughly in page
+   order (Home first, then Services, Shop, Blog, Contact, Tours,
+   Photography, Footer last).
+3. Edit the fields — they're pre-filled with your current site copy.
 4. Tap **Generate code**, then **Copy**.
 5. Go to the actual page file on GitHub (noted at the top of each
    section, e.g. "Goes in: index.html"), tap edit, find the matching
    block of code, select just that chunk, delete it, and paste in the
    new version. Commit changes.
 
-Note: the "How I plan" section has two separate Generate buttons — one
-for the heading text, one for the 4 values — since they paste into two
-different spots in the file. Generate and paste each one separately.
+**Sections with two (or more) Generate buttons** — like "How to plan"
+or "Tours — Pricing" — paste into two different spots in the file
+(usually a heading block and a separate cards/tiers block below it).
+Generate and paste each one separately; the "Goes in" note at the top
+of each section tells you exactly which block goes where.
+
+**Form-label sections work a little differently.** For the four request
+forms (Shop, Contact, Tours, Photography), the Generate button produces
+several individual lines rather than one block — each line replaces
+the *one matching line* in the real file (matched by its `for="..."` or
+`id="..."` attribute, which never changes). This is intentionally more
+granular than the rest of the tool, because forms have technical bits
+(field names, required flags, the Formspree connection) that must stay
+exactly as they are for submissions to keep working — regenerating a
+whole form risked accidentally undoing that. Find each line by its
+attribute and swap in the new text; everything else on that line stays
+put.
 
 It won't ever break your file's overall structure as long as you paste
-over the *same block* it tells you to — it's not a live preview or an
-auto-publish tool, just a safer way to produce the HTML snippet.
+over the *same block or line* it tells you to — it's not a live
+preview or an auto-publish tool, just a safer way to produce the HTML.
 
 ### Setting up the blog images folder
 The `images/blog/` folder doesn't exist until you create it — GitHub's
@@ -243,21 +263,3 @@ it's named `Personal Item.jpg`.
    `data/posts.json`:
    ```json
    "image": "images/blog/Personal Item.jpg",
-
-# Site structure for reference
-index.html        → Home (tagline, approach cards, values, follow-the-trip)
-services.html      → Services, pricing, free consultation booking
-shop.html          → Shop — the "No Gracias" cap + purchase request form
-blog.html          → Blog list + email signup
-contact.html        → Contact form + direct email
-tours.html          → Cannabis walking tours — NOT in nav yet (Section 6)
-photography.html     → Landscape/nature print sales — NOT in nav yet (Section 6)
-editor.html         → Private helper tool — generates paste-ready code (Section 3)
-css-editor.html      → Private helper tool — colors/fonts/sizes/backgrounds (Section 4)
-css/style.css        → All colors, fonts, and layout
-js/                → Site behavior (menu, scroll reveal, blog, social feed, photo gallery)
-data/posts.json      → Blog posts — edit this to publish
-data/social.json      → Recent social posts — edit this to update
-data/photos.json      → Photography gallery — edit this to add prints for sale
-images/blog/          → Blog photos go here
-images/photography/    → Photography print images go here (create when ready)
