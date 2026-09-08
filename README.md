@@ -263,3 +263,25 @@ it's named `Personal Item.jpg`.
    `data/posts.json`:
    ```json
    "image": "images/blog/Personal Item.jpg",
+
+   index.html        → Home (tagline, approach cards, how-to-plan steps, tip downloads, follow-the-trip)
+
+#site structure for reference
+
+services.html      → Services, pricing, free consultation booking
+shop.html          → Shop — the "No Gracias" cap + purchase request form
+blog.html          → Blog list + email signup
+contact.html        → Contact form + direct email
+tours.html          → Cannabis walking tours — NOT in nav yet (Section 5)
+photography.html     → Landscape/nature print sales — NOT in nav yet (Section 5)
+editor.html         → Private helper tool — every section, every page (Section 3)
+css-editor.html      → Private helper tool — colors/fonts/sizes/backgrounds (Section 4)
+css/style.css        → All colors, fonts, and layout
+js/                → Site behavior (menu, scroll reveal, blog, social feed, photo gallery)
+data/posts.json      → Blog posts — edit this to publish
+data/social.json      → Recent social posts — edit this to update
+data/photos.json      → Photography gallery — edit this to add prints for sale
+files/              → Downloadable PDFs (the two free guides on the homepage)
+images/blog/          → Blog photos go here
+images/photography/    → Photography print images go here (create when ready)
+
