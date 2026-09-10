@@ -22,7 +22,7 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="services.html" class="active">Services</a></li>
       <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
+      <li><a href="blog.html">Diary</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -32,9 +32,7 @@
   <div class="wrap">
     <p class="hero-tag">what I offer</p>
     <h1>Services</h1>
-    <p>
-      Schedule a free chat, let me plan your custom itinarery and I'll take care of all the booking. 
-    </p>
+    <p>Schedule a free chat, let me plan your custom itinarery and I'll take care of all the booking.</p>
   </div>
 </section>
 
@@ -46,7 +44,7 @@
 <section>
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">research & planning</p>
+      <p class="eyebrow">research &amp; planning</p>
       <h2>Itinerary building</h2>
       <p>
         I'll create a thoughtful itinerary with everything you need to
@@ -64,14 +62,15 @@
         <span class="tag">1-2 week trip</span>
         <h3>Standard vacation</h3>
         <p class="price">$450 USD</p>
-        <p>Every itinerary includes recommendaations for transportation, where to stay, what to do
-          and why, based on your unique needs.</p>
+        <p>Every itinerary includes recommendaations for transportation,
+          where to stay, what to do and why, based on your unique needs.</p>
       </div>
       <div class="card reveal" style="--i:2">
         <span class="tag">Up to 30 days</span>
         <h3>Long term travel</h3>
         <p class="price">$750 USD</p>
-        <p>Ideal for a career break, sabbatical or a remote-work experience abroad.</p>
+        <p>Ideal for a career break, sabbatical or a remote-work experience
+          abroad.</p>
       </div>
     </div>
 
@@ -85,34 +84,40 @@
         <span class="tag">Add-on</span>
         <h3>I'll book it for you</h3>
         <p class="price">+15%</p>
-        <p>An additional 15% of your total trip cost. With my strategic booking approach, you're guarenteed to get the best price.</p>
+        <p>An additional 15% of your total trip cost. With my strategic
+          booking approach, you're guarenteed to get the best price.</p>
       </div>
     </div>
 
     <div class="section-head mt-2 reveal">
       <p class="eyebrow">get me IRL</p>
       <h2>Travel host</h2>
-      <p>First time solo adventurer looking for a buddy? Couple or group wanting a
-        guide?</p>
+      <p>First time solo adventurer looking for a buddy? Couple or group
+        wanting a guide?</p>
     </div>
     <div class="grid">
       <div class="card reveal">
         <span class="tag">Premium service</span>
         <h3>Book me to join you!</h3>
         <p class="price">$500 USD/day</p>
-        <p>Plus airfare and private lodging. I'll be your friendly, experienced
-          travel companion for however many days you need.</p>
+        <p>Plus airfare and private lodging. I'll be your friendly,
+          experienced travel companion for however many days you need.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     FREE CONSULTATION / BOOKING
-     This uses Calendly's free plan to let clients pick a time on
-     your calendar. See README.md "Setting up free consultation
-     booking" for the 5-minute setup — then replace the src="..."
-     link below with your own Calendly link.
+     FREE CONSULTATION — now an async, email-based chat instead of
+     a live call. Fill this out and I'll follow up personally with
+     specific suggestions based on what matters to you.
+
+     Live calls (via Calendly) are intentionally NOT offered here —
+     those become available once you've booked a paid planning
+     package above. See process.html for how that works. If you
+     ever want to bring the live-call option back onto this page,
+     the Calendly embed snippet is preserved in a comment in
+     process.html for easy copy-back.
      ============================================================ -->
 <section class="section-alt">
   <div class="wrap">
@@ -120,19 +125,49 @@
       <p class="eyebrow">no pressure</p>
       <h2>Free chat consultation</h2>
       <p>
-        Tell me about your travel needs and goals: low sensory experiences, family-friendly, close to water,
-        adventure, frienship finding, discretion or suitable for remote-work. I'll provide specific
-        suggestions based on how you like to travel. 
+        Tell me about your travel needs and goals: low sensory experiences,
+        family-friendly, close to water, adventure, frienship finding,
+        discretion or suitable for remote-work. I'll provide specific
+        suggestions based on how you like to travel.
       </p>
     </div>
-    <!-- CALENDLY EMBED — replace the URL below with your own,
-         from calendly.com once your account is set up. -->
-    <div class="calendly-inline-widget" data-url="https://calendly.com/dbmems-proton/30min" style="min-width:280px;height:650px;"></div>
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <form action="https://formspree.io/f/mgaezpkg" method="POST">
+      <input type="hidden" name="_subject" value="Free consultation chat — Deathbed Memories">
+      <div>
+        <label for="consult-name">Name</label>
+        <input type="text" id="consult-name" name="name" required>
+      </div>
+      <div>
+        <label for="consult-email">Email</label>
+        <input type="email" id="consult-email" name="email" required>
+      </div>
+      <div>
+        <label>What matters most for this trip? (check all that apply)</label>
+        <div class="checkbox-grid">
+          <label class="checkbox-item"><input type="checkbox" name="preferences" value="Low sensory experiences"> Low sensory experiences</label>
+          <label class="checkbox-item"><input type="checkbox" name="preferences" value="Family-friendly"> Family-friendly</label>
+          <label class="checkbox-item"><input type="checkbox" name="preferences" value="Close to water"> Close to water</label>
+          <label class="checkbox-item"><input type="checkbox" name="preferences" value="Adventure"> Adventure</label>
+          <label class="checkbox-item"><input type="checkbox" name="preferences" value="Friendship finding"> Friendship finding</label>
+          <label class="checkbox-item"><input type="checkbox" name="preferences" value="Discretion"> Discretion</label>
+          <label class="checkbox-item"><input type="checkbox" name="preferences" value="Suitable for remote-work"> Suitable for remote-work</label>
+        </div>
+      </div>
+      <div>
+        <label for="consult-details">Tell me more</label>
+        <textarea id="consult-details" name="details" placeholder="Budget range, rough dates, who's coming, anything else that matters to you."></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">
+        Send it over
+        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
     <p class="form-note center mt-2">
-      Prefer email? Reach out directly at
-      <a href="mailto:dbmems@proton.me">dbmems@proton.me</a> or use the
-      <a href="contact.html">contact form</a>.
+      Prefer a live call instead? Once you've booked one of the planning
+      packages above, live calls are included — see the
+      <a href="process.html">Process &amp; Terms</a> page for how that
+      works. Otherwise, reach out directly at
+      <a href="mailto:dbmems@proton.me">dbmems@proton.me</a>.
     </p>
   </div>
 </section>
@@ -149,8 +184,9 @@
         <ul class="footer-links">
           <li><a href="services.html">Services</a></li>
           <li><a href="shop.html">Shop</a></li>
-          <li><a href="blog.html">Blog</a></li>
+          <li><a href="blog.html">Diary</a></li>
           <li><a href="contact.html">Contact</a></li>
+          <li><a href="process.html">Process &amp; Terms</a></li>
         </ul>
       </div>
       <div>
@@ -163,7 +199,10 @@
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 Deathbed Memories. All rights reserved.</div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Deathbed Memories. All rights reserved.</p>
+      <p class="footer-free">This site costs $0/month to run — built with AI (Claude), hosted free on GitHub Pages. <a href="contact.html?topic=website">Build what you love. I can help →</a></p>
+    </div>
   </div>
 </footer>
 
