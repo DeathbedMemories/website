@@ -31,7 +31,7 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
+      <li><a href="blog.html">Diary</a></li>
       <li><a href="photography.html" class="active">Photography</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -49,6 +49,12 @@
   </div>
 </section>
 
+<!-- ============================================================
+     GALLERY — filled in by js/photos.js from data/photos.json.
+     To add a photo: upload it into images/photography/ (create
+     that folder the same way you created images/blog/), then add
+     an entry to data/photos.json.
+     ============================================================ -->
 <section>
   <div class="wrap">
     <div class="section-head reveal">
@@ -59,6 +65,9 @@
   </div>
 </section>
 
+<!-- ============================================================
+     PRICING — edit directly here, same pattern as services.html.
+     ============================================================ -->
 <section class="section-alt">
   <div class="wrap">
     <div class="section-head reveal">
@@ -84,6 +93,12 @@
   </div>
 </section>
 
+<!-- ============================================================
+     ORDER FORM — same Formspree pattern as the shop's hat request
+     form. One shared form for all photos; the buyer picks which
+     photo and print type from dropdowns, filled from
+     data/photos.json by js/photos.js.
+     ============================================================ -->
 <section>
   <div class="wrap">
     <div class="section-head reveal">
@@ -142,8 +157,9 @@
         <ul class="footer-links">
           <li><a href="services.html">Services</a></li>
           <li><a href="shop.html">Shop</a></li>
-          <li><a href="blog.html">Blog</a></li>
+          <li><a href="blog.html">Diary</a></li>
           <li><a href="contact.html">Contact</a></li>
+          <li><a href="process.html">Process &amp; Terms</a></li>
         </ul>
       </div>
       <div>
@@ -156,7 +172,10 @@
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 Deathbed Memories. All rights reserved.</div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Deathbed Memories. All rights reserved.</p>
+      <p class="footer-free">This site costs $0/month to run — built with AI (Claude), hosted free on GitHub Pages. <a href="contact.html?topic=website">Build what you love. I can help →</a></p>
+    </div>
   </div>
 </footer>
 
