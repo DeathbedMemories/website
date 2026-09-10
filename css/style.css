@@ -378,6 +378,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* ---------- 10. VALUES LIST ---------- */
+/* ---------- 10. VALUES LIST ---------- */
 .values-list {
   list-style: none;
   display: grid;
@@ -458,6 +459,27 @@ textarea { min-height: 140px; resize: vertical; }
   max-width: none;
 }
 .inline-form input { flex: 1; min-width: 220px; }
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+.checkbox-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: var(--color-terracotta);
+}
 
 /* ---------- 12. BLOG ---------- */
 .blog-list { display: flex; flex-direction: column; gap: 1.25rem; }
@@ -647,8 +669,16 @@ textarea { min-height: 140px; resize: vertical; }
   border-image: linear-gradient(90deg, #F6A5A5, #F8C99B, #F5E39B, #A8D8B9, #9AC7E0, #C7A8DB) 1;
   padding-top: 1.5rem;
   font-size: var(--size-small);
-  opacity: 0.6;
   text-align: center;
+}
+.footer-bottom p { margin: 0; color: rgba(245,237,214,0.6); }
+.footer-free {
+  margin-top: 0.6rem !important;
+  color: var(--color-cream) !important;
+}
+.footer-free a {
+  color: var(--color-yellow);
+  font-weight: 600;
 }
 
 /* ---------- 17. UTILITIES ---------- */
