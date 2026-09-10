@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — Deathbed Memories</title>
+<title>Diary — Deathbed Memories</title>
 <meta name="description" content="Solo traveller diary and candid, emotionl trip stories from Deathbed Memories.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="blog.html" class="active">Diary</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -33,16 +33,28 @@
     <p class="hero-tag">the diary</p>
     <h1>After the trail</h1>
     <p>
-      An emotive AuDHD experience of travelling solo for months at a time with only a personal item sized bag. 
+      An emotive AuDHD experience of travelling solo for months at a time
+      with only a personal item sized bag.
     </p>
   </div>
 </section>
 
 <!-- ============================================================
+     DIARY LIST — filled in by js/blog.js from data/posts.json.
+     To publish a new post, add an entry to data/posts.json.
+     You do not need to edit this HTML file.
+     Moved above the signup form per your request — posts first,
+     signup below.
+     ============================================================ -->
+<section>
+  <div class="wrap">
+    <div class="blog-list reveal" id="blog-list"><!-- filled in by js/blog.js --></div>
+  </div>
+</section>
+
+<!-- ============================================================
      EMAIL ALERT SIGNUP — new-post notifications.
-     This form uses Formspree's free plan. See README.md "Setting
-     up the contact & signup forms" to get your own form ID, then
-     replace YOUR_FORM_ID below.
+     Uses Formspree's free plan, same setup as the rest of the site.
      ============================================================ -->
 <section class="section-alt">
   <div class="wrap">
@@ -54,20 +66,9 @@
     <form class="inline-form center reveal" style="justify-content:center;" action="https://formspree.io/f/mgaezpkg" method="POST">
       <label class="sr-only" for="alert-email">Email address</label>
       <input type="email" id="alert-email" name="email" placeholder="you@email.com" required>
-      <input type="hidden" name="_subject" value="New blog alert signup — Deathbed Memories">
+      <input type="hidden" name="_subject" value="New diary alert signup — Deathbed Memories">
       <button class="btn btn-primary" type="submit">Notify me</button>
     </form>
-  </div>
-</section>
-
-<!-- ============================================================
-     BLOG LIST — filled in by js/blog.js from data/posts.json.
-     To publish a new post, add an entry to data/posts.json.
-     You do not need to edit this HTML file.
-     ============================================================ -->
-<section>
-  <div class="wrap">
-    <div class="blog-list reveal" id="blog-list"><!-- filled in by js/blog.js --></div>
   </div>
 </section>
 
@@ -83,8 +84,9 @@
         <ul class="footer-links">
           <li><a href="services.html">Services</a></li>
           <li><a href="shop.html">Shop</a></li>
-          <li><a href="blog.html">Blog</a></li>
+          <li><a href="blog.html">Diary</a></li>
           <li><a href="contact.html">Contact</a></li>
+          <li><a href="process.html">Process &amp; Terms</a></li>
         </ul>
       </div>
       <div>
@@ -97,7 +99,10 @@
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 Deathbed Memories. All rights reserved.</div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Deathbed Memories. All rights reserved.</p>
+      <p class="footer-free">This site costs $0/month to run — built with AI (Claude), hosted free on GitHub Pages. <a href="contact.html?topic=website">Build what you love. I can help →</a></p>
+    </div>
   </div>
 </footer>
 
