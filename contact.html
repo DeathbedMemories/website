@@ -22,7 +22,7 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="shop.html">Shop</a></li>
-      <li><a href="blog.html">Blog</a></li>
+      <li><a href="blog.html">Diary</a></li>
       <li><a href="contact.html" class="active">Contact</a></li>
     </ul>
   </nav>
@@ -43,12 +43,15 @@
         <!-- ============================================================
              INQUIRY FORM
              Uses Formspree's free plan to send submissions straight to
-             your email. Replace YOUR_FORM_ID with your real Formspree
-             form ID.
+             your email.
 
              THE DROPDOWN — "What are you looking for?" — is the <select>
              block right below. To add, remove, or rename an option, edit
-             the <option>...</option> lines inside it.
+             the <option>...</option> lines inside it. "Website design"
+             was added so the footer's "Build what you love" link (which
+             opens this page as contact.html?topic=website) has something
+             to auto-select — see the <script> at the bottom of this file
+             if you ever want to change that behavior.
              ============================================================ -->
         <form id="contact-form" action="https://formspree.io/f/mgaezpkg" method="POST">
           <div>
@@ -69,12 +72,13 @@
               <option>Travel companion</option>
               <option>Free consultation chat</option>
               <option>The "no gracias" hat</option>
+              <option>Website design</option>
               <option>Something else</option>
             </select>
           </div>
           <div>
             <label for="message">Message</label>
-            <textarea id="message" name="message" required placeholder="Tell me a bit about the trip you want."></textarea>
+            <textarea id="message" name="message" required placeholder="Tell me a bit about the trip you're imagining."></textarea>
           </div>
           <button class="btn btn-primary" type="submit">
             Send inquiry
@@ -115,8 +119,9 @@
         <ul class="footer-links">
           <li><a href="services.html">Services</a></li>
           <li><a href="shop.html">Shop</a></li>
-          <li><a href="blog.html">Blog</a></li>
+          <li><a href="blog.html">Diary</a></li>
           <li><a href="contact.html">Contact</a></li>
+          <li><a href="process.html">Process &amp; Terms</a></li>
         </ul>
       </div>
       <div>
@@ -129,11 +134,31 @@
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 Deathbed Memories. All rights reserved.</div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Deathbed Memories. All rights reserved.</p>
+      <p class="footer-free">This site costs $0/month to run — built with AI (Claude), hosted free on GitHub Pages. <a href="contact.html?topic=website">Build what you love. I can help →</a></p>
+    </div>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
 <script src="js/reveal.js"></script>
+<!-- ============================================================
+     URL PREFILL — if this page is opened as contact.html?topic=website
+     (the footer's "Build what you love" link does this on every page),
+     auto-select "Website design" in the dropdown and pre-fill a
+     starter message. Doesn't affect normal visits to this page.
+     ============================================================ -->
+<script>
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('topic') === 'website') {
+    const select = document.getElementById('trip-type');
+    const message = document.getElementById('message');
+    if (select) select.value = 'Website design';
+    if (message && !message.value) {
+      message.value = "Hi Manz, I saw your site was built with AI and free tools — I'd love one like it. Here's a bit about what I'm working on: ";
+    }
+  }
+</script>
 </body>
 </html>
