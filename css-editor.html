@@ -6,6 +6,12 @@
 <title>Design Editor — Deathbed Memories (internal tool)</title>
 <meta name="robots" content="noindex">
 <style>
+  /* ============================================================
+     Private helper tool, not part of the public site. Everything
+     happens in your browser — nothing is sent anywhere. It reads
+     your choices and turns them into a ready-to-paste block of CSS
+     for the ":root { ... }" section at the top of css/style.css.
+     ============================================================ */
   * { box-sizing: border-box; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F5EDD6; color: #1C1C1A; margin: 0; padding: 1.25rem; line-height: 1.5; }
   h1 { font-size: 1.4rem; margin-bottom: 0.25rem; }
@@ -35,6 +41,7 @@
   .where b { display:block; margin-bottom:0.15rem; }
   .copied { color: #4A7C59; font-size: 0.82rem; font-weight: 600; margin-left: 0.6rem; }
 
+  /* ---- Live preview (sticky, updates as you edit) ---- */
   #preview-panel {
     position: sticky; top: 0.75rem; z-index: 10;
     background: var(--pv-dark); border-radius: 10px; padding: 1.5rem;
@@ -46,7 +53,7 @@
   #preview-panel .pv-card h3 { font-family: var(--pv-header); font-size: var(--pv-h3); margin: 0 0 0.4rem; color: #1C1C1A; }
   #preview-panel .pv-card p { font-family: var(--pv-body); font-size: var(--pv-body); color: #444; margin: 0 0 0.6rem; }
   #preview-panel .pv-price { font-family: var(--pv-header); color: var(--pv-terracotta); font-size: 1.3rem; margin: 0 0 0.6rem; }
-  #preview-panel .pv-btn { display: inline-block; background: var(--pv-terracotta); color: #fff; font-family: var(--pv-body); font-size: 0.85rem; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 999px; }
+  #preview-panel .pv-btn { display: inline-block; background: var(--pv-terracotta); color: #fff; font-family: var(--pv-body); font-size: 0.85rem; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: var(--pv-btn-radius, 999px); }
   #preview-panel .pv-swatches { display: flex; gap: 0.5rem; margin-top: 1rem; }
   #preview-panel .pv-swatch { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5); }
 </style>
@@ -73,6 +80,7 @@
   <div class="pv-swatches" id="pv-swatches"></div>
 </div>
 
+<!-- ============================================================= -->
 <details open>
   <summary>Colors</summary>
   <div class="panel">
@@ -123,6 +131,7 @@
   </div>
 </details>
 
+<!-- ============================================================= -->
 <details>
   <summary>Fonts</summary>
   <div class="panel">
@@ -152,6 +161,7 @@
   </div>
 </details>
 
+<!-- ============================================================= -->
 <details>
   <summary>Sizes &amp; shape</summary>
   <div class="panel">
@@ -199,6 +209,28 @@
         <span class="range-value" id="s-maxwidth-val">1140px</span>
       </div>
     </div>
+    <div class="field">
+      <label>Space above/below each section (more = airier, less = denser)</label>
+      <div class="row">
+        <input type="range" id="s-sectionpad" min="2" max="9" step="0.5" value="6" oninput="updatePreview()">
+        <span class="range-value" id="s-sectionpad-val">6rem</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Space between cards in a grid</label>
+      <div class="row">
+        <input type="range" id="s-gap" min="0.75" max="3" step="0.05" value="1.75" oninput="updatePreview()">
+        <span class="range-value" id="s-gap-val">1.75rem</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Button shape</label>
+      <select id="s-btnshape" onchange="updatePreview()">
+        <option value="pill">Fully rounded (pill) — current</option>
+        <option value="soft">Soft rounded corners (matches card corners)</option>
+        <option value="sharp">Sharp corners</option>
+      </select>
+    </div>
   </div>
 </details>
 
@@ -214,6 +246,66 @@
     <button class="btn secondary" onclick="copyOut('out-fontlink')">Copy</button><span class="copied" id="copied-fontlink"></span>
   </div>
 </div>
+
+<!-- ============================================================= -->
+<details>
+  <summary>Background Photos (hero banners or any section)</summary>
+  <div class="panel">
+    <div class="where">
+      <b>How this works:</b> a static site can't "upload" a photo into
+      the live design for you — the photo still has to actually live in
+      your GitHub repo. What this tool DOES do: let you preview how a
+      photo will look with the site's automatic readability overlay
+      before you commit to it, then hand you the exact snippet to paste.
+    </div>
+       </div>
+
+    <div class="field">
+      <label>1. Pick a photo to preview (this stays on your device — it does not upload anywhere)</label>
+      <input type="file" id="bg-file-input" accept="image/*" onchange="previewBgPhoto(event)">
+    </div>
+
+    <div class="field">
+      <div class="preview-label" style="margin-top:0.5rem;">Live preview — with the automatic dark overlay applied</div>
+      <div id="bg-preview" style="border-radius:8px; overflow:hidden; min-height:180px; background:#1C1C1A; display:flex; align-items:center; justify-content:center; position:relative; background-size:cover; background-position:center;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(28,28,26,0.55), rgba(28,28,26,0.8));"></div>
+        <p style="position:relative; z-index:1; color:#F5EDD6; font-family:Georgia,serif; font-size:1.3rem; text-align:center; padding:1rem;">Sample headline over your photo</p>
+      </div>
+      <p class="note">If your text is still hard to read even with the overlay, pick a simpler/darker photo — busy, bright photos are hardest to put text over.</p>
+    </div>
+
+    <div class="field">
+      <label>2. Which page section is this for? (just for your own reference in the output below)</label>
+      <select id="bg-target">
+        <option value="Homepage hero">Homepage hero (index.html)</option>
+        <option value="Services page header">Services page header (services.html)</option>
+        <option value="Shop page header">Shop page header (shop.html)</option>
+        <option value="Blog page header">Blog page header (blog.html)</option>
+        <option value="Contact page header">Contact page header (contact.html)</option>
+        <option value="Who this is for block (homepage)">"Who this is for" block (homepage)</option>
+        <option value="Approach section (homepage) — 'How every trip is built'">Approach section (homepage) — "How every trip is built"</option>
+        <option value="Follow the trip section (homepage)">"Follow the trip" section (homepage)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>3. What will you name the uploaded file? (must match exactly once you upload it)</label>
+      <input type="text" id="bg-filename" value="hero-photo.jpg">
+    </div>
+
+    <button class="btn" onclick="generateBgSnippet()">Generate code</button>
+    <div class="output-wrap hidden" id="out-bg-wrap">
+      <div class="output-label">Steps to use this:</div>
+      <ol style="font-size:0.85rem; color:#444; padding-left:1.2rem; margin-bottom:0.75rem;">
+        <li>Create an <code>images/backgrounds/</code> folder the same way you created <code>images/blog/</code> (Add file → Create new file → type <code>images/backgrounds/README.txt</code> → commit).</li>
+        <li>Upload your real photo into that folder, named exactly what you typed above.</li>
+        <li>Open the file for "<span id="bg-target-echo">Homepage hero</span>" on GitHub, find its opening tag (shown below), and add the highlighted parts to it.</li>
+      </ol>
+      <textarea class="output" id="out-bg" readonly></textarea>
+      <button class="btn secondary" onclick="copyOut('out-bg')">Copy</button><span class="copied" id="copied-bg"></span>
+    </div>
+  </div>
+</details>
 
 <script>
 const fontStacks = {
@@ -252,9 +344,11 @@ function updatePreview(){
   root.setProperty('--pv-header', fontStacks[val('font-header')].css);
   root.setProperty('--pv-body', fontStacks[val('font-body')].css);
   root.setProperty('--pv-radius', val('s-radius') + 'px');
-  root.setProperty('--pv-h1', (val('s-hero') * 0.42) + 'rem');
+  root.setProperty('--pv-h1', (val('s-hero') * 0.42) + 'rem'); // scaled down to fit the small preview box
   root.setProperty('--pv-h3', val('s-h3') + 'rem');
   root.setProperty('--pv-body-size', val('s-body') + 'rem');
+  const btnRadius = val('s-btnshape') === 'sharp' ? '4px' : val('s-btnshape') === 'soft' ? val('s-radius') + 'px' : '999px';
+  root.setProperty('--pv-btn-radius', btnRadius);
 
   document.getElementById('s-radius-val').textContent = val('s-radius') + 'px';
   document.getElementById('s-hero-val').textContent = val('s-hero') + 'rem';
@@ -262,6 +356,8 @@ function updatePreview(){
   document.getElementById('s-h3-val').textContent = val('s-h3') + 'rem';
   document.getElementById('s-body-val').textContent = val('s-body') + 'rem';
   document.getElementById('s-maxwidth-val').textContent = val('s-maxwidth') + 'px';
+  document.getElementById('s-sectionpad-val').textContent = val('s-sectionpad') + 'rem';
+  document.getElementById('s-gap-val').textContent = val('s-gap') + 'rem';
 
   const swatchWrap = document.getElementById('pv-swatches');
   swatchWrap.innerHTML = '';
@@ -323,9 +419,10 @@ function generate(){
 
   /* Spacing + shape */
   --radius: ${val('s-radius')}px;
-  --radius-pill: 999px;
+  --radius-pill: ${val('s-btnshape') === 'sharp' ? '4px' : val('s-btnshape') === 'soft' ? val('s-radius') + 'px' : '999px'};
   --max-width: ${val('s-maxwidth')}px;
-  --gap: 1.75rem;
+  --gap: ${val('s-gap')}rem;
+  --section-padding: ${val('s-sectionpad')}rem;
   --ease: cubic-bezier(.22,.68,0,1);
 }`;
 
@@ -350,6 +447,40 @@ function generate(){
 }
 
 updatePreview();
+
+function previewBgPhoto(event){
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    document.getElementById('bg-preview').style.backgroundImage = `url('${e.target.result}')`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function generateBgSnippet(){
+  const target = val('bg-target');
+  const filename = val('bg-filename').trim() || 'hero-photo.jpg';
+  document.getElementById('bg-target-echo').textContent = target;
+
+  const out = `Add this class to the section's existing class list:
+  has-bg-photo
+
+Add this as a new style attribute (or add to an existing one) on the same tag:
+  style="background-image:url('images/backgrounds/${filename}')"
+
+Full example of what that opening tag should look like when combined
+with what's already there — this is a TEMPLATE, adapt the existing
+class list on the actual tag rather than replacing it outright:
+
+  <section class="hero hero-simple has-bg-photo" style="background-image:url('images/backgrounds/${filename}')">
+
+Target: ${target}
+File to upload: images/backgrounds/${filename}`;
+
+  document.getElementById('out-bg').value = out;
+  document.getElementById('out-bg-wrap').classList.remove('hidden');
+}
 </script>
 </body>
 </html>
