@@ -721,4 +721,14 @@ textarea { min-height: 140px; resize: vertical; }
   color: var(--color-cream);
 }
 .has-bg-photo .section-head p { color: var(--color-cream); opacity: 0.85; }
+/* But NOT the text inside opaque white cards sitting on top of the
+   photo — those should stay exactly as they normally look, since
+   there's no photo directly behind them, just a white card. */
+.has-bg-photo .card h3,
+.has-bg-photo .card p,
+.has-bg-photo .values-list strong,
+.has-bg-photo .values-list li,
+.has-bg-photo .social-card .link-card p {
+  color: var(--color-dark);
+}
 .hero-simple .wrap { position: relative; z-index: 2; }
