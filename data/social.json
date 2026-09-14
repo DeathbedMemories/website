@@ -4,23 +4,23 @@
     { "platform": "Instagram", "handle": "@deathbed.memories",   "url": "https://www.instagram.com/deathbed.memories/" },
     { "platform": "YouTube",   "handle": "@deathbed.memoriess",  "url": "https://www.youtube.com/@deathbed.memoriess" },
     { "platform": "Lemon8",    "handle": "@deathbed.memories",   "url": "https://www.lemon8-app.com/@deathbed.memories" },
-    { "platform": "OnlyFans",  "handle": "Deathbed Memories",    "url": "https://onlyfans.com/" }
+    { "platform": "OnlyFans",  "handle": "Deathbed Memories",    "url": "https://onlyfans.com/deathbedmemories" }
   ],
   "recent_posts": [
     {
       "platform": "youtube",
       "url": "https://www.youtube.com/@deathbed.memoriess",
-      "caption": "Replace this url with a real YouTube video link, e.g. https://www.youtube.com/watch?v=VIDEOID"
+      "caption": "https://youtube.com/shorts/lMd6mvYUn2w?si=E5l1JUcXk_byet3K"
     },
     {
       "platform": "tiktok",
       "url": "https://www.tiktok.com/@deathbed.memories",
-      "caption": "Replace this url with a real TikTok video link, e.g. https://www.tiktok.com/@deathbed.memories/video/1234567890"
+      "caption": https://www.tiktok.com/@deathbed.memories/video/7591688104013040907?_r=1&_t=ZS-99iCUFRp5gQ"
     },
     {
       "platform": "instagram",
       "url": "https://www.instagram.com/deathbed.memories/",
-      "caption": "Replace this url with a real Instagram post/reel link, e.g. https://www.instagram.com/p/POSTCODE/"
+      "caption": "https://www.instagram.com/reels/DZOXte5zQ2_/"
     },
     {
       "platform": "lemon8",
