@@ -801,3 +801,112 @@ textarea { min-height: 140px; resize: vertical; }
   color: var(--color-dark);
 }
 .hero-simple .wrap { position: relative; z-index: 2; }
+/* ---------- ABOUT PAGE — editorial layout, distinct from the rest of the site ---------- */
+.hero-editorial {
+  background: var(--color-dark);
+  color: var(--color-cream);
+  padding: 6rem 0 5rem;
+  text-align: center;
+}
+.hero-editorial .wrap { max-width: 760px; }
+.hero-editorial .eyebrow {
+  color: var(--color-yellow);
+  font-family: var(--font-header);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+.hero-editorial .statement {
+  font-family: var(--font-header);
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  line-height: 1.35;
+}
+.hero-editorial .statement em {
+  color: var(--color-yellow);
+  font-style: italic;
+}
+.hero-editorial p.sub {
+  margin-top: 1.5rem;
+  opacity: 0.8;
+  font-size: 1.05rem;
+}
+
+/* "How to work with me" manual box */
+.manual-box {
+  background: var(--color-forest);
+  color: var(--color-cream);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+}
+.manual-box > .section-head p,
+.manual-box > .section-head h2,
+.manual-box > .section-head .eyebrow { color: var(--color-cream); }
+.manual-box > .section-head .eyebrow { color: var(--color-yellow); }
+.manual-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.manual-grid h4 {
+  font-family: var(--font-header);
+  font-style: italic;
+  font-weight: normal;
+  color: var(--color-yellow);
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+}
+.manual-grid p { opacity: 0.92; margin: 0; }
+
+/* Vertical timeline for experience — deliberately different from the
+   card-grid pattern used everywhere else on the site */
+.timeline { position: relative; margin: 2rem 0 0; padding-left: 2.25rem; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.4rem; top: 0.3rem; bottom: 0.3rem;
+  width: 2px;
+  background: var(--color-line);
+}
+.timeline-item { position: relative; margin-bottom: 2.5rem; }
+.timeline-item:last-child { margin-bottom: 0; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.25rem; top: 0.35rem;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: var(--color-terracotta);
+  border: 3px solid var(--color-cream);
+}
+.timeline-item .role {
+  font-family: var(--font-header);
+  font-size: 1.2rem;
+  margin-bottom: 0.15rem;
+}
+.timeline-item .dates {
+  font-size: 0.82rem;
+  color: #888;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.timeline-item p { color: #55524a; margin: 0; }
+
+/* Achievements stat strip */
+.stat-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: center;
+  text-align: center;
+  margin-top: 1rem;
+}
+.stat-strip .stat { max-width: 160px; }
+.stat-strip .stat-num {
+  font-family: var(--font-header);
+  font-size: 2.6rem;
+  color: var(--color-terracotta);
+  display: block;
+}
+.stat-strip .stat-label { font-size: 0.85rem; color: #666; }
