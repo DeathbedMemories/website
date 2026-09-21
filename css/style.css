@@ -499,6 +499,75 @@ textarea { min-height: 140px; resize: vertical; }
 .blog-body.open { display: block; }
 .blog-body img { border-radius: var(--radius); margin: 1rem 0; }
 .blog-body p { margin-bottom: 1rem; }
+/* ---------- DIARY SECTIONS (inside a blog post's content) ----------
+   Use <div class="diary-block">...</div> inside a post's "content"
+   field in data/posts.json to make a feelings-based section stand out
+   from the rest of the post, with its own background. */
+.diary-block {
+  background: var(--color-forest);
+  color: var(--color-cream);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin: 2rem 0;
+}
+.diary-block h3 {
+  font-family: var(--font-header);
+  font-style: italic;
+  font-weight: normal;
+  color: var(--color-yellow);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+.diary-block h4 {
+  font-family: var(--font-header);
+  font-style: italic;
+  font-weight: normal;
+  color: var(--color-yellow);
+  font-size: 1.05rem;
+  margin: 1.5rem 0 0.75rem;
+}
+.diary-block p { color: var(--color-cream); opacity: 0.92; margin-bottom: 1rem; }
+
+.mood-prompt {
+  background: rgba(245,237,214,0.1);
+  border: 1px solid rgba(245,237,214,0.3);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.mood-prompt p {
+  font-family: var(--font-header);
+  font-style: italic;
+  margin-bottom: 0.85rem;
+  opacity: 1;
+}
+.mood-options { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+.mood-btn {
+  background: none;
+  border: 1px solid rgba(245,237,214,0.4);
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.15s var(--ease), background 0.15s var(--ease);
+}
+.mood-btn:hover { background: rgba(245,237,214,0.15); }
+.mood-btn.selected { background: rgba(245,237,214,0.25); transform: scale(1.12); border-color: var(--color-yellow); }
+
+.journal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+.journal-table td {
+  border: 1px solid rgba(245,237,214,0.25);
+  padding: 0.85rem;
+  min-height: 2.5rem;
+  font-style: italic;
+  opacity: 0.8;
+}
+
 
 /* ---------- 13. SOCIAL / RECENT CONTENT ---------- */
 .social-card {
