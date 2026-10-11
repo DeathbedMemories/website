@@ -910,3 +910,89 @@ textarea { min-height: 140px; resize: vertical; }
   display: block;
 }
 .stat-strip .stat-label { font-size: 0.85rem; color: #666; }
+/* ---------- JOURNAL PHOTO GALLERY (inside a diary-block) ---------- */
+.journal-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+.journal-gallery figure { margin: 0; }
+.journal-gallery img {
+  width: 100%;
+  display: block;
+  border-radius: 3px;
+  border: 7px solid var(--color-cream);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+.journal-gallery figcaption {
+  font-family: var(--font-header);
+  font-style: italic;
+  font-size: 0.82rem;
+  opacity: 0.8;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+@media (max-width: 560px) {
+  .journal-gallery { grid-template-columns: 1fr; }
+}
+
+/* ---------- JOY/PAIN REFLECTION GRID (inside a diary-block) ---------- */
+.diary-block .joy-pain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.diary-block .joy-pain-grid ul { padding-left: 1.1rem; margin: 0; }
+.diary-block .joy-pain-grid li { margin-bottom: 0.5rem; opacity: 0.92; }
+@media (max-width: 560px) {
+  .diary-block .joy-pain-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- ACCOMMODATION REVIEW GRID ---------- */
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+.review-grid .review-item {
+  background: var(--color-cream-2);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+}
+.review-grid .review-item h5 {
+  font-family: var(--font-header);
+  font-style: italic;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+  color: var(--color-forest);
+}
+.review-grid .review-item p { font-size: 0.88rem; color: #55524a; margin: 0; }
+@media (max-width: 560px) {
+  .review-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- BLOG LIST — thumbnail + text side by side ---------- */
+.blog-item { display: flex; gap: 1.25rem; align-items: flex-start; }
+.blog-item .blog-thumb {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+.blog-item .blog-main { flex: 1; min-width: 0; }
+@media (max-width: 560px) {
+  .blog-item { flex-direction: column; }
+  .blog-item .blog-thumb { width: 100%; height: 160px; }
+}
+
+/* ---------- COMMENTS (Giscus) ---------- */
+.comments-wrap {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-line);
+}
+
