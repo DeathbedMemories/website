@@ -57,37 +57,22 @@ function renderPost(post) {
 }
 
 // ============================================================
-// COMMENTS — powered by Giscus (free, uses GitHub Discussions,
-// no tracking/ads). Each post gets its own comment thread, matched
-// by its slug, even though every post lives on this one page.
-//
-// ONE-TIME SETUP before this works (details in README):
-//   1. Turn on Discussions for your repo (Settings → General →
-//      Features → Discussions).
-//   2. Install the giscus app: github.com/apps/giscus — authorize
-//      it for this repo only.
-//   3. Go to giscus.app, fill in your repo name, pick a Discussion
-//      category (e.g. "Comments"), and copy the data-repo-id and
-//      data-category-id values it gives you.
-//   4. Paste those two values into the REPO_ID and CATEGORY_ID
-//      constants below, replacing the placeholders.
-// Until that's done, a "comments not sent" message will quietly
-// show instead of a comment box — nothing breaks.
+// COMMENTS — powered by Giscus (free, uses GitHub Discussions, no
+// tracking/ads). Already configured below with your real repo/
+// category IDs from giscus.app, with per-post threads (matched by
+// each post's slug). Nothing more to set up — as long as Discussions
+// is turned on for your repo and the giscus app is installed on it
+// (both one-time GitHub settings, not something in this file), new
+// posts automatically get their own comment thread with no extra
+// steps — just make sure each post has a unique "slug" in
+// data/posts.json, same as the existing ones.
 // ============================================================
-const GISCUS_REPO = 'DeathbedMemories/website';
-const GISCUS_REPO_ID = 'PLACEHOLDER_REPO_ID';
-const GISCUS_CATEGORY = 'Comments';
-const GISCUS_CATEGORY_ID = 'PLACEHOLDER_CATEGORY_ID';
+const GISCUS_REPO = 'deathbedmemories/website';
+const GISCUS_REPO_ID = 'R_kgDOUOnDxw';
+const GISCUS_CATEGORY = 'Q&A';
+const GISCUS_CATEGORY_ID = 'DIC_kwDOUOnDx84DHkm6';
 
 function loadComments(body, slug) {
-  if (GISCUS_REPO_ID.startsWith('PLACEHOLDER')) {
-    const note = document.createElement('p');
-    note.className = 'form-note';
-    note.style.marginTop = '2rem';
-    note.textContent = 'Comments aren\'t set up yet — see README for the one-time Giscus setup steps.';
-    body.appendChild(note);
-    return;
-  }
   const wrap = document.createElement('div');
   wrap.className = 'comments-wrap';
   body.appendChild(wrap);
@@ -98,13 +83,15 @@ function loadComments(body, slug) {
   script.setAttribute('data-repo-id', GISCUS_REPO_ID);
   script.setAttribute('data-category', GISCUS_CATEGORY);
   script.setAttribute('data-category-id', GISCUS_CATEGORY_ID);
+  // "specific" + data-term (the post's slug) gives every post its
+  // own comment thread, even though they all live on blog.html.
   script.setAttribute('data-mapping', 'specific');
   script.setAttribute('data-term', slug);
   script.setAttribute('data-strict', '0');
   script.setAttribute('data-reactions-enabled', '1');
   script.setAttribute('data-emit-metadata', '0');
-  script.setAttribute('data-input-position', 'top');
-  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'preferred_color_scheme');
   script.setAttribute('data-lang', 'en');
   script.setAttribute('crossorigin', 'anonymous');
   script.async = true;
