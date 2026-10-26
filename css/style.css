@@ -1020,7 +1020,10 @@ textarea { min-height: 140px; resize: vertical; }
 }
 @media (max-width: 560px) {
   .post-gallery { grid-template-columns: 1fr; }
-  .post-gallery img { height: auto; }
+  .post-gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
 }
 .portrait-overlap {
   width: 240px;
