@@ -322,7 +322,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .section-head h2 { font-size: var(--size-h2); margin-bottom: 0.85rem; }
 .section-head p { color: #55524a; }
 
-.section-alt { background: var(--color-white); }
+.section-alt { background: var(--color-cream-2); }
 .section-tint { background: var(--color-cream-2); }
 
 /* ---------- 9. CARD GRIDS ---------- */
