@@ -1,8 +1,8 @@
 // ============================================================
 // BLOG.JS
 // Loads data/posts.json and renders the diary list on blog.html.
-// Each post shows as a collapsed card (thumbnail + title + date/
-// location + excerpt) that expands in place to show the full post
+// Each post shows as a collapsed card (thumbnail + title + subtitle
+// + date/location) that expands in place to show the full post
 // when tapped. Posts render in the order they appear in the JSON
 // file — newest first, so add new posts to the TOP of the array.
 // ============================================================
@@ -31,8 +31,8 @@ function renderPost(post) {
     ${post.image ? `<img class="blog-thumb" src="${post.image}" alt="${escapeAttr(post.title)}">` : ''}
     <div class="blog-main">
       <h3>${post.title}</h3>
+      ${post.subtitle ? `<p class="blog-subtitle">${post.subtitle}</p>` : ''}
       <div class="blog-meta">${dateStr}${post.location ? ' · ' + post.location : ''}</div>
-      <p class="blog-excerpt">${post.excerpt || ''}</p>
       <div class="blog-body"></div>
     </div>
   `;
@@ -46,7 +46,11 @@ function renderPost(post) {
     // don't toggle when clicking a link inside the open post
     if (e.target.tagName === 'A') return;
     if (!loaded) {
-      body.innerHTML = post.content || '';
+      const reader = buildReaderBar(post);
+      body.appendChild(reader);
+      const contentDiv = document.createElement('div');
+      contentDiv.innerHTML = post.content || '';
+      body.appendChild(contentDiv);
       loadComments(body, post.slug);
       loaded = true;
     }
@@ -57,15 +61,77 @@ function renderPost(post) {
 }
 
 // ============================================================
+// AUDIO READER — uses the browser's built-in text-to-speech
+// (Web Speech API), so there's no cost, no account, and no extra
+// files to host. Voice quality depends on the visitor's device/
+// browser, but it works everywhere speechSynthesis is supported
+// (all modern browsers). Strips HTML tags down to plain text
+// before reading, in roughly the order it appears on the page.
+// ============================================================
+let currentUtterance = null;
+
+function buildReaderBar(post) {
+  const bar = document.createElement('div');
+  bar.className = 'reader-bar';
+
+  if (!('speechSynthesis' in window)) {
+    bar.innerHTML = '<p class="form-note">Audio playback isn\'t supported in this browser.</p>';
+    return bar;
+  }
+
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'reader-btn';
+  btn.innerHTML = '🔊 Listen to this post';
+  bar.appendChild(btn);
+
+  let speaking = false;
+  let paused = false;
+
+  btn.addEventListener('click', () => {
+    if (!speaking) {
+      const text = htmlToSpeechText(post);
+      currentUtterance = new SpeechSynthesisUtterance(text);
+      currentUtterance.rate = 0.98;
+      currentUtterance.onend = () => {
+        speaking = false; paused = false;
+        btn.innerHTML = '🔊 Listen to this post';
+      };
+      // stop any other post's narration first
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(currentUtterance);
+      speaking = true;
+      btn.innerHTML = '⏸ Pause';
+    } else if (!paused) {
+      window.speechSynthesis.pause();
+      paused = true;
+      btn.innerHTML = '▶ Resume';
+    } else {
+      window.speechSynthesis.resume();
+      paused = false;
+      btn.innerHTML = '⏸ Pause';
+    }
+  });
+
+  return bar;
+}
+
+function htmlToSpeechText(post) {
+  const temp = document.createElement('div');
+  const title = post.subtitle ? `${post.title}. ${post.subtitle}.` : `${post.title}.`;
+  temp.innerHTML = post.content || '';
+  // skip the comments area if present and strip images (no alt-reading, keeps it natural)
+  temp.querySelectorAll('img, .comments-wrap').forEach(el => el.remove());
+  const body = temp.textContent.replace(/\s+/g, ' ').trim();
+  return `${title} ${body}`;
+}
+
+// ============================================================
 // COMMENTS — powered by Giscus (free, uses GitHub Discussions, no
-// tracking/ads). Already configured below with your real repo/
-// category IDs from giscus.app, with per-post threads (matched by
-// each post's slug). Nothing more to set up — as long as Discussions
-// is turned on for your repo and the giscus app is installed on it
-// (both one-time GitHub settings, not something in this file), new
-// posts automatically get their own comment thread with no extra
-// steps — just make sure each post has a unique "slug" in
-// data/posts.json, same as the existing ones.
+// tracking/ads). Configured with the real repo/category IDs from
+// giscus.app, with a separate thread per post (matched by each
+// post's slug). Nothing more to set up here — just make sure every
+// new post you add has a unique "slug" in data/posts.json.
 // ============================================================
 const GISCUS_REPO = 'deathbedmemories/website';
 const GISCUS_REPO_ID = 'R_kgDOUOnDxw';
@@ -83,8 +149,6 @@ function loadComments(body, slug) {
   script.setAttribute('data-repo-id', GISCUS_REPO_ID);
   script.setAttribute('data-category', GISCUS_CATEGORY);
   script.setAttribute('data-category-id', GISCUS_CATEGORY_ID);
-  // "specific" + data-term (the post's slug) gives every post its
-  // own comment thread, even though they all live on blog.html.
   script.setAttribute('data-mapping', 'specific');
   script.setAttribute('data-term', slug);
   script.setAttribute('data-strict', '0');
