@@ -1113,3 +1113,16 @@ textarea { min-height: 140px; resize: vertical; }
   line-height: 1;
   cursor: pointer;
 }
+/* ---------- AUDIO READER ---------- */
+.reader-bar { margin-bottom: 1.5rem; }
+.reader-btn {
+  background: var(--color-cream-2);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s var(--ease);
+}
+.reader-btn:hover { background: var(--color-line); }
