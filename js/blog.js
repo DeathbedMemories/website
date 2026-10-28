@@ -85,6 +85,30 @@ function buildReaderBar(post) {
   btn.innerHTML = '🔊 Listen to this post';
   bar.appendChild(btn);
 
+  // Voice picker — the list of available voices depends on the
+  // visitor's browser/OS, so this fills in once the browser reports
+  // them (sometimes that happens async, hence the two load attempts).
+  const voiceSelect = document.createElement('select');
+  voiceSelect.className = 'reader-voice';
+  voiceSelect.setAttribute('aria-label', 'Reading voice');
+  bar.appendChild(voiceSelect);
+
+  function populateVoices() {
+    const voices = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
+    if (!voices.length) return;
+    voiceSelect.innerHTML = '';
+    voices.forEach((v, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `${v.name} (${v.lang})`;
+      voiceSelect.appendChild(opt);
+    });
+  }
+  populateVoices();
+  if (window.speechSynthesis.onvoiceschanged !== undefined) {
+    window.speechSynthesis.onvoiceschanged = populateVoices;
+  }
+
   let speaking = false;
   let paused = false;
 
@@ -92,6 +116,9 @@ function buildReaderBar(post) {
     if (!speaking) {
       const text = htmlToSpeechText(post);
       currentUtterance = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
+      const chosen = voices[voiceSelect.value];
+      if (chosen) currentUtterance.voice = chosen;
       currentUtterance.rate = 0.98;
       currentUtterance.onend = () => {
         speaking = false; paused = false;
