@@ -109,6 +109,35 @@ function buildReaderBar(post) {
     window.speechSynthesis.onvoiceschanged = populateVoices;
   }
 
+  // Playback speed picker
+  const rateSelect = document.createElement('select');
+  rateSelect.className = 'reader-rate';
+  rateSelect.setAttribute('aria-label', 'Playback speed');
+  [
+    ['0.75', '0.75×'], ['1', '1× (normal)'], ['1.25', '1.25×'],
+    ['1.5', '1.5×'], ['1.75', '1.75×'], ['2', '2×']
+  ].forEach(([val, label]) => {
+    const opt = document.createElement('option');
+    opt.value = val;
+    opt.textContent = label;
+    if (val === '1') opt.selected = true;
+    rateSelect.appendChild(opt);
+  });
+  bar.appendChild(rateSelect);
+
+  // Changing speed mid-playback restarts narration from the beginning
+  // at the new speed — the Web Speech API has no way to change the
+  // rate of audio that's already playing or resume from a mid-point.
+  rateSelect.addEventListener('change', () => {
+    if (speaking) {
+      window.speechSynthesis.cancel();
+      speaking = false;
+      paused = false;
+      btn.innerHTML = '🔊 Listen to this post';
+      btn.click();
+    }
+  });
+
   let speaking = false;
   let paused = false;
 
@@ -119,7 +148,7 @@ function buildReaderBar(post) {
       const voices = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
       const chosen = voices[voiceSelect.value];
       if (chosen) currentUtterance.voice = chosen;
-      currentUtterance.rate = 0.98;
+      currentUtterance.rate = parseFloat(rateSelect.value);
       currentUtterance.onend = () => {
         speaking = false; paused = false;
         btn.innerHTML = '🔊 Listen to this post';
