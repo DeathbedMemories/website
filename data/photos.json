@@ -1,14 +1,30 @@
 [
-  {
-    "id": "example-photo-1",
-    "title": "Example: Mountain Ridge at Dawn",
-    "location": "Placeholder location",
-    "image": "images/photography/example-1.jpg"
-  },
-  {
-    "id": "example-photo-2",
-    "title": "Example: Coastal Fog",
-    "location": "Placeholder location",
-    "image": "images/photography/example-2.jpg"
-  }
+  { "id": "glacier-peaks", "title": "Glacier Peaks", "location": "North Cascades, Washington", "image": "images/photography/glacier-peaks.jpg" },
+  { "id": "lone-palm", "title": "Lone Palm", "location": "Southern California", "image": "images/photography/lone-palm.jpg" },
+  { "id": "snowy-ridge-pines", "title": "Snowy Ridge", "location": "North Cascades, Washington", "image": "images/photography/snowy-ridge-pines.jpg" },
+  { "id": "lions-gate-bridge", "title": "Lions Gate", "location": "Vancouver, BC", "image": "images/photography/lions-gate-bridge.jpg" },
+  { "id": "mountain-stream", "title": "Mountain Stream", "location": "Canadian Rockies", "image": "images/photography/mountain-stream.jpg" },
+  { "id": "alpine-valley-trail", "title": "Alpine Valley", "location": "Canadian Rockies", "image": "images/photography/alpine-valley-trail.jpg" },
+  { "id": "turquoise-lake", "title": "Turquoise Lake", "location": "Canadian Rockies", "image": "images/photography/turquoise-lake.jpg" },
+  { "id": "grey-peak-lake", "title": "Grey Peak", "location": "Canadian Rockies", "image": "images/photography/grey-peak-lake.jpg" },
+  { "id": "creek-below-peaks", "title": "Creek Below the Peaks", "location": "Canadian Rockies", "image": "images/photography/creek-below-peaks.jpg" },
+  { "id": "ridge-trail-snow", "title": "Ridge Trail", "location": "Canadian Rockies", "image": "images/photography/ridge-trail-snow.jpg" },
+  { "id": "alpine-lakeshore", "title": "Alpine Lakeshore", "location": "Canadian Rockies", "image": "images/photography/alpine-lakeshore.jpg" },
+  { "id": "forest-lake-path", "title": "Forest Lake Path", "location": "British Columbia", "image": "images/photography/forest-lake-path.jpg" },
+  { "id": "coastal-sunset", "title": "Coastal Sunset", "location": "California", "image": "images/photography/coastal-sunset.jpg" },
+  { "id": "beach-clock-tower", "title": "Hermosa Beach Clock", "location": "Hermosa Beach, California", "image": "images/photography/beach-clock-tower.jpg" },
+  { "id": "lake-geese-reflection", "title": "Geese on Still Water", "location": "British Columbia", "image": "images/photography/lake-geese-reflection.jpg" },
+  { "id": "mossy-forest", "title": "Mossy Forest Floor", "location": "British Columbia", "image": "images/photography/mossy-forest.jpg" },
+  { "id": "old-growth-moss", "title": "Old Growth", "location": "British Columbia", "image": "images/photography/old-growth-moss.jpg" },
+  { "id": "palm-grove-sky", "title": "Palm Grove", "location": "Southern California", "image": "images/photography/palm-grove-sky.jpg" },
+  { "id": "sunflower-bike-mural", "title": "Sunflower Bikes", "location": "Southern California", "image": "images/photography/sunflower-bike-mural.jpg" },
+  { "id": "rocky-summit-snow", "title": "Rocky Summit", "location": "North Cascades, Washington", "image": "images/photography/rocky-summit-snow.jpg" },
+  { "id": "snow-trail-peak", "title": "Snow Trail", "location": "North Cascades, Washington", "image": "images/photography/snow-trail-peak.jpg" },
+  { "id": "dark-peak-tarn", "title": "Peak and Tarn", "location": "North Cascades, Washington", "image": "images/photography/dark-peak-tarn.jpg" },
+  { "id": "stone-bridge-lake", "title": "Stone Bridge", "location": "North Cascades, Washington", "image": "images/photography/stone-bridge-lake.jpg" },
+  { "id": "cirque-lake-clouds", "title": "Cirque Lake", "location": "North Cascades, Washington", "image": "images/photography/cirque-lake-clouds.jpg" },
+  { "id": "snowfield-ridge", "title": "Snowfield Ridge", "location": "North Cascades, Washington", "image": "images/photography/snowfield-ridge.jpg" },
+  { "id": "forest-trail-peaks", "title": "Forest Trail", "location": "North Cascades, Washington", "image": "images/photography/forest-trail-peaks.jpg" },
+  { "id": "boulder-field-view", "title": "Boulder Field", "location": "North Cascades, Washington", "image": "images/photography/boulder-field-view.jpg" },
+  { "id": "grand-peak-valley", "title": "Grand Peak Valley", "location": "North Cascades, Washington", "image": "images/photography/grand-peak-valley.jpg" }
 ]
