@@ -1112,16 +1112,149 @@ textarea { min-height: 140px; resize: vertical; }
   line-height: 1;
   cursor: pointer;
 }
-/* ---------- AUDIO READER ---------- */
-.reader-bar { margin-bottom: 1.5rem; }
-.reader-btn {
-  background: var(--color-cream-2);
-  border: 1px solid var(--color-line);
-  border-radius: 999px;
-  padding: 0.5rem 1rem;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background 0.15s var(--ease);
+/* ---------- AUDIO READER (player) ---------- */
+.reader-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.1rem;
+  background: var(--color-cream-2, #EDE2C4);
+  border: 1px solid var(--color-line, #E0D6B8);
+  border-radius: 16px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.5rem;
 }
-.reader-btn:hover { background: var(--color-line); }
+
+/* Round play / pause button */
+.reader-play {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-terracotta, #C85C38);
+  color: var(--color-cream, #F5EDD6);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(200, 92, 56, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.reader-play:hover { transform: scale(1.07); box-shadow: 0 6px 16px rgba(200, 92, 56, 0.4); }
+.reader-play:active { transform: scale(0.96); }
+.reader-play svg { display: block; }
+.reader-bar:not(.is-playing) .reader-play svg { margin-left: 2px; } /* optically centres the play triangle */
+
+/* Title + status */
+.reader-info {
+  flex: 1 1 150px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.reader-title {
+  font-family: var(--font-header, Georgia, serif);
+  font-size: 1.02rem;
+  line-height: 1.2;
+  color: var(--color-dark, #1C1C1A);
+}
+.reader-status {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a867a;
+}
+.reader-bar.is-playing .reader-status { color: var(--color-forest, #4A7C59); }
+
+/* Little animated equaliser — only shows while playing */
+.reader-eq { display: none; align-items: flex-end; gap: 2px; height: 12px; }
+.reader-bar.is-playing .reader-eq { display: inline-flex; }
+.reader-eq i {
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--color-forest, #4A7C59);
+  transform-origin: bottom;
+  animation: reader-eq 0.9s ease-in-out infinite;
+}
+.reader-eq i:nth-child(2) { animation-delay: 0.2s; }
+.reader-eq i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes reader-eq {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+/* Speed pills + voice picker */
+.reader-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.9rem;
+  margin-left: auto;
+}
+.reader-speeds {
+  display: inline-flex;
+  background: rgba(28, 28, 26, 0.06);
+  border-radius: 999px;
+  padding: 3px;
+}
+.reader-speed {
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 0.8rem;
+  color: #55524a;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.reader-speed:hover { color: var(--color-dark, #1C1C1A); }
+.reader-speed.active {
+  background: var(--color-forest, #4A7C59);
+  color: var(--color-cream, #F5EDD6);
+  box-shadow: 0 2px 6px rgba(74, 124, 89, 0.35);
+}
+
+.reader-voice-wrap { display: inline-flex; align-items: center; gap: 0.45rem; }
+.reader-voice-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a867a;
+}
+.reader-voice {
+  -webkit-appearance: none;
+  appearance: none;
+  max-width: 190px;
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--color-dark, #1C1C1A);
+  background-color: var(--color-cream, #F5EDD6);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2355524a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  border: 1px solid var(--color-line, #E0D6B8);
+  border-radius: 999px;
+  padding: 0.38rem 1.9rem 0.38rem 0.85rem;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.reader-voice:focus-visible,
+.reader-speed:focus-visible,
+.reader-play:focus-visible {
+  outline: 2px solid var(--color-forest, #4A7C59);
+  outline-offset: 2px;
+}
+
+@media (max-width: 560px) {
+  .reader-controls { width: 100%; margin-left: 0; justify-content: space-between; }
+  .reader-voice { max-width: 150px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reader-eq i { animation: none; transform: scaleY(0.7); }
+}
