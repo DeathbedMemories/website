@@ -46,7 +46,11 @@ function renderPost(post) {
   item.style.cursor = 'pointer';
   body.style.cursor = 'auto';
   item.addEventListener('click', (e) => {
-    if (e.target.closest('.blog-body')) return;
+    // composedPath() is a snapshot taken when the click happened, so it still
+    // knows the tap was inside the post even if the tapped element has since
+    // been swapped out of the page (which is what used to collapse the post).
+    const path = typeof e.composedPath === 'function' ? e.composedPath() : [];
+    if (path.includes(body) || (e.target.closest && e.target.closest('.blog-body'))) return;
     if (!loaded) {
       body.appendChild(buildReaderBar(post));
       const contentDiv = document.createElement('div');
@@ -106,7 +110,7 @@ function buildReaderBar(post) {
   let rate = 1;
 
   bar.innerHTML = `
-    <button type="button" class="reader-play" aria-label="Listen to this post">${ICON_PLAY}</button>
+    <button type="button" class="reader-play" aria-label="Listen to this post"><span class="ic ic-play">${ICON_PLAY}</span><span class="ic ic-pause">${ICON_PAUSE}</span></button>
     <div class="reader-info">
       <span class="reader-title">Listen to this post</span>
       <span class="reader-status">
@@ -132,7 +136,6 @@ function buildReaderBar(post) {
   function setUI(state) {
     bar.classList.toggle('is-playing', state === 'playing');
     bar.classList.toggle('is-paused', state === 'paused');
-    playBtn.innerHTML = state === 'playing' ? ICON_PAUSE : ICON_PLAY;
     playBtn.setAttribute('aria-label', state === 'playing' ? 'Pause' : (state === 'paused' ? 'Resume' : 'Listen to this post'));
     statusText.textContent = state === 'playing' ? 'Now playing' : (state === 'paused' ? 'Paused' : 'Read aloud');
   }
