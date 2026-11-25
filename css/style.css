@@ -1229,3 +1229,4 @@ textarea { min-height: 140px; resize: vertical; }
 @media (prefers-reduced-motion: reduce) {
   .reader-eq i { animation: none; transform: scaleY(0.7); }
 }
+.blog-body .post-hero { display:block; width:100%; height:auto; margin:0 0 1.5rem; border-radius:var(--radius); }
